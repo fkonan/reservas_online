@@ -1,0 +1,46 @@
+.home-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.card-container {
+  margin-top: 20px;
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+}
+
+.image-container {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.card-image {
+  width: 100%;
+  max-width: 150px;
+  border-radius: 8px;
+}
+
+.text-container {
+  flex: 2;
+}
+
+.card-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.card-description {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 20px;
+}
+

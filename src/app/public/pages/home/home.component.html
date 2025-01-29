@@ -1,9 +1,35 @@
-<h4>Basic mat-select</h4>
-<mat-form-field>
-  <mat-label>Favorite food</mat-label>
-  <mat-select>
-    @for (ciudad of ciudades; track ciudad.id) {
-      <mat-option [value]="ciudad">{{ciudad.ciudad}}</mat-option>
+<div class="home-container">
+  <h4>Agendamiento de Citas Online</h4>
+  <mat-form-field appareance="fill" class="full-width">
+    <mat-label>Selecciona la ciudad</mat-label>
+    <mat-select (optionSelected)="onCiudadSelected($event)">
+      @for (ciudad of ciudades; track ciudad.id) {
+      <mat-option [value]="ciudad">{{ ciudad.ciudad }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  @if(sedes){
+    @for (sede of sedes; track sede.id) {
+      <mat-card class="card-container">
+        <div class="card-content">
+          <!-- Imagen a la izquierda -->
+          <div class="image-container">
+            <img src="{{sede.foto}}" alt="Sede" class="card-image" />
+          </div>
+
+          <!-- Texto a la derecha -->
+          <div class="text-container">
+            <h2 class="card-title">{{sede.nombre_sede}}</h2>
+            <p class="card-description">
+              Horarios de atención: {{sede.horario_atencion}}
+            </p>
+            <div>
+              <button mat-raised-button color="custom-button">Reservar</button>
+            </div>
+          </div>
+        </div>
+      </mat-card>
     }
-  </mat-select>
-</mat-form-field>
+  }
+</div>
