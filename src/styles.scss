@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+<<<<<<< HEAD
 @use '@angular/material' as mat;
 
 html,
@@ -19,3 +20,8 @@ html{
     )
   );
 }
+=======
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+>>>>>>> 3d1a87088fb1b50ddd9e00b087886b6db9e19f9e

@@ -15,24 +15,18 @@
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "importHelpers": true,
+    "sourceMap": true,
     "target": "ES2022",
     "module": "ES2022",
-
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "exclude": [
+      "src/test.ts",
+      "**/*.spec.ts"
+    ]
   }
-
 }
