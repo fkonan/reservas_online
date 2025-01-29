@@ -1,0 +1,11 @@
+.top-bar {
+  height: 60px;
+  background-color: #0e2146;
+  color: var(--mat-sys-on-primary);
+  display: flex;
+  justify-content: center;
+}
+
+.top-bar img {
+  width: 130px;
+}

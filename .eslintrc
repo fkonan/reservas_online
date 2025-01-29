@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": [
+      "./tsconfig.json"
+    ],
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "@angular-eslint",
+    "rxjs",
+    "eslint-plugin-import"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@angular-eslint/recommended",
+    "plugin:@angular-eslint/template/recommended",
+    "plugin:@angular-eslint/template/accessibility"
+  ],
+  "rules": {
+    // Reglas específicas de TypeScript
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/member-ordering": "error",
+    "@typescript-eslint/no-non-null-assertion": "error",
+    // Reglas específicas de Angular
+    "@angular-eslint/component-class-suffix": [
+      "error",
+      {
+        "suffixes": [
+          "Component"
+        ]
+      }
+    ],
+    "@angular-eslint/directive-class-suffix": [
+      "error",
+      {
+        "suffixes": [
+          "Directive"
+        ]
+      }
+    ],
+    "@angular-eslint/no-empty-lifecycle-method": "warn",
+    "@angular-eslint/no-input-rename": "error",
+    "@angular-eslint/no-output-rename": "error",
+    "@angular-eslint/use-lifecycle-interface": "error",
+    "@angular-eslint/no-host-metadata-property": "error",
+    "@angular-eslint/no-pipe-impure": "error",
+    // Reglas de las plantillas HTML
+    "@angular-eslint/template/cyclomatic-complexity": [
+      "error",
+      {
+        "maxComplexity": 10
+      }
+    ],
+    "@angular-eslint/template/no-negated-async": "error",
+    "@angular-eslint/template/accessibility-alt-text": "error",
+    "@angular-eslint/template/accessibility-elements-content": "warn",
+    "@angular-eslint/template/accessibility-valid-aria": "error",
+    // Reglas generales
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ],
+    "no-debugger": "error",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "eol-last": [
+      "error",
+      "always"
+    ],
+    "max-len": [
+      "warn",
+      {
+        "code": 120
+      }
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "arrow-parens": [
+      "error",
+      "as-needed"
+    ],
+    // Reglas de importación
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          [
+            "builtin",
+            "external",
+            "internal"
+          ]
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    // Reglas de RxJS
+    "rxjs/no-ignored-observable": "warn",
+    "rxjs/no-unsafe-takeuntil": "error",
+    "rxjs/no-exposed-subjects": "warn"
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.html"
+      ],
+      "rules": {
+        "@angular-eslint/template/no-any": "error"
+      }
+    },
+    {
+      "files": [
+        "*.spec.ts"
+      ],
+      "rules": {
+        "max-len": "off",
+        "@typescript-eslint/no-non-null-assertion": "off"
+      }
+    }
+  ]
+}
