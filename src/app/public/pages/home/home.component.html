@@ -1,35 +1,87 @@
-<div class="home-container">
-  <h4>Agendamiento de Citas Online</h4>
-  <mat-form-field appareance="fill" class="full-width">
-    <mat-label>Selecciona la ciudad</mat-label>
-    <mat-select (optionSelected)="onCiudadSelected($event)">
-      @for (ciudad of ciudades; track ciudad.id) {
-      <mat-option [value]="ciudad">{{ ciudad.ciudad }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <h4 class="text-center">Agendamiento de Citas Online</h4>
+    <div class="col-md-6">
+      <mat-form-field appareance="fill" class="w-100">
+        <mat-label>Selecciona la ciudad</mat-label>
+        <mat-select [(value)]="ciudadSeleccionada">
+          @for (ciudad of ciudades; track ciudad.id) {
+          <mat-option [value]="ciudad">{{ ciudad.ciudad }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  @if(ciudadSeleccionada()){
+  @if(sedes() && sedes()?.length??0 > 0) {
 
-  @if(sedes){
-    @for (sede of sedes; track sede.id) {
-      <mat-card class="card-container">
-        <div class="card-content">
-          <!-- Imagen a la izquierda -->
-          <div class="image-container">
-            <img src="{{sede.foto}}" alt="Sede" class="card-image" />
-          </div>
+  @for (sede of sedes(); track sede.id) {
+  <mat-card class="card-container">
 
-          <!-- Texto a la derecha -->
-          <div class="text-container">
-            <h2 class="card-title">{{sede.nombre_sede}}</h2>
-            <p class="card-description">
-              Horarios de atención: {{sede.horario_atencion}}
-            </p>
-            <div>
-              <button mat-raised-button color="custom-button">Reservar</button>
+    <div class="card shadow-sm h-100 hover-effect">
+      <div class="row g-0 h-100">
+        <!-- Sección de Imagen -->
+        <div class="col-md-4 text-center">
+          <a href="">
+            <img [src]="sede.foto || 'assets/imagen-default.jpg'" alt="Imagen sede {{ sede.nombre_sede }}"
+              class="img-fluid rounded-start h-100 object-fit-cover">
+          </a>
+        </div>
+
+        <!-- Sección de Información -->
+        <div class="col-md-8">
+          <div class="card-body h-100 position-relative">
+            <h2 class="card-title mb-3">{{ sede.nombre_sede }}</h2>
+
+            <!-- Dirección -->
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="material-icons">location_on</span>
+              <span>{{ sede.direccion }}</span>
+            </div>
+
+            <!-- Contacto -->
+            <div class="row row-cols-1 row-cols-md-2 g-3">
+              <div class="col">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="material-icons">phone</span>
+                  <a href="tel:{{ sede.telefono }}" class="text-decoration-none">{{ sede.telefono }}</a>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="material-icons">schedule</span>
+                  <span>{{ sede.horario_atencion }}</span>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="material-icons">email</span>
+                  <a href="mailto:{{ sede.correo_sede }}" class="text-decoration-none">{{ sede.correo_sede }}</a>
+                </div>
+              </div>
+              @if(sede.whatsapp){
+              <div class="col">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="material-icons">chat</span>
+                  <a href="https://wa.me/{{ sede.whatsapp }}" target="_blank" class="text-decoration-none">{{
+                    sede.whatsapp }}</a>
+                </div>
+              </div>
+              }
             </div>
           </div>
         </div>
-      </mat-card>
-    }
+      </div>
+    </div>
+  </mat-card>
+  }
+  }
+  @else {
+  <div class="alert alert-info mt-3" role="alert">
+    <strong>¡Lo sentimos!</strong> Aún no contamos con sedes en esta ciudad
+  </div>
+  }
   }
 </div>

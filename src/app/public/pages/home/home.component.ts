@@ -1,14 +1,15 @@
 import { CiudadesService } from './../../../shared/services/ciudades.service';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { Ciudades } from '../../../models/ciudades.model';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { SedesService } from '../../../shared/services/sedes.service';
-import { Sedes } from '../../../shared/models/sedes.model';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   imports: [
@@ -18,16 +19,20 @@ import { Sedes } from '../../../shared/models/sedes.model';
     FormsModule,
     MatCardModule,
     MatButtonModule,
+    MatIconModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
   ciudades: Ciudades[] = [];
-  sedes: Sedes[] = [];
+  ciudadSeleccionada = signal<Ciudades | null>(null);
+
   ciudadesService = inject(CiudadesService);
   sedesService = inject(SedesService);
   readonly loading = signal<boolean>(false);
+
+  sedes = computed(() => this._sedes.value());
 
   ngOnInit() {
     if (this.ciudadesService) {
@@ -38,11 +43,9 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  onCiudadSelected(event: any) {
-    const ciudad: Ciudades = event.option.value;
-    this.sedesService.getSedes(ciudad.id).subscribe({
-      next: (data) => (this.sedes = data),
-      error: (err) => console.error('Error en componente:', err),
-    });
-  }
+  _sedes = rxResource({
+    request: () => ({ ciudad_id: this.ciudadSeleccionada()?.id }),
+    loader: ({ request }) => this.sedesService.getSedes(request.ciudad_id),
+  });
 }
+

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/env.dev';
-import { catchError, map, Observable } from 'rxjs';
+import { catchError, map, Observable, startWith } from 'rxjs';
 import { Sedes } from '../models/sedes.model';
 import { sedesAdapter } from '../../adapters/sedes.adapter';
 
@@ -12,11 +12,10 @@ export class SedesService {
   private apiUrl = `${environment.baseUrl}`;
   private http = inject(HttpClient);
 
-  getSedes(ciudad_id: number): Observable<Sedes[]> {
+  getSedes(ciudad_id: number|undefined): Observable<Sedes[]> {
     return this.http.get<Sedes[]>(`${this.apiUrl}sedes/${ciudad_id}`).pipe(
       map((sedes) => {
-        sedesAdapter(sedes);
-        return sedes;
+        return sedesAdapter(sedes);
       }),
       catchError((error) => {
         console.error('Error al obtener ciudades:', error);
