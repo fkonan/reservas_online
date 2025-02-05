@@ -1,0 +1,27 @@
+@if(sede){
+<div class="row justify-content-center mt-3">
+  <div class="col-md-6">
+    <app-card-sede [sede]="sede!"></app-card-sede>
+  </div>
+</div>
+<div class="row justify-content-center mt-3">
+  @for (servicio of servicios; track servicio.id) {
+  <div class="col-md-4">
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5 class="card-title">{{ servicio.nombre_comercial }}</h5>
+      </div>
+      <div class="card-body">
+        <p class="card-text"><strong>Servicio:</strong> {{ servicio.servicio }}</p>
+        <p class="card-text"><strong>Tipo de Servicio:</strong> {{ servicio.tipo_servicio }}</p>
+        <p class="card-text"><strong>Descripción:</strong> {{ servicio.descripcion }}</p>
+        <p class="card-text"><strong>Duración:</strong> {{ servicio.duracion }} minutos</p>
+      </div>
+      <div class="card-footer text-end">
+        <button class="btn btn-primary">Ver Horarios</button>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+}

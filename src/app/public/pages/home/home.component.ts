@@ -7,9 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { Ciudades } from '../../../models/ciudades.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
-import { SedesService } from '../../../shared/services/sedes.service';
-import { rxResource } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
+import { CardSedesComponent } from '../../../shared/components/card-sedes/card-sedes.component';
 
 @Component({
   imports: [
@@ -20,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    CardSedesComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -29,10 +29,7 @@ export class HomeComponent implements OnInit {
   ciudadSeleccionada = signal<Ciudades | null>(null);
 
   ciudadesService = inject(CiudadesService);
-  sedesService = inject(SedesService);
   readonly loading = signal<boolean>(false);
-
-  sedes = computed(() => this._sedes.value());
 
   ngOnInit() {
     if (this.ciudadesService) {
@@ -42,10 +39,5 @@ export class HomeComponent implements OnInit {
       });
     }
   }
-
-  _sedes = rxResource({
-    request: () => ({ ciudad_id: this.ciudadSeleccionada()?.id }),
-    loader: ({ request }) => this.sedesService.getSedes(request.ciudad_id),
-  });
 }
 

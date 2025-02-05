@@ -1,0 +1,67 @@
+@if(sede) {
+<mat-card class="card-container">
+
+  <div class="card shadow-sm h-100 hover-effect">
+    <div class="row g-0 h-100">
+      <!-- Sección de Imagen -->
+      <div class="col-md-4 text-center">
+        <img [src]="sede.foto || 'assets/imagen-default.jpg'" alt="Imagen sede {{ sede.nombre_sede }}"
+          class="img-fluid rounded-start h-100 object-fit-cover">
+      </div>
+
+      <!-- Sección de Información -->
+      <div class="col-md-8">
+        <div class="card-body h-100 position-relative">
+          <h2 class="card-title mb-3">{{ sede.nombre_sede }}</h2>
+
+          <!-- Dirección -->
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="material-icons">location_on</span>
+            <span>{{ sede.direccion }}</span>
+          </div>
+
+          <!-- Contacto -->
+          <div class="row row-cols-1 row-cols-md-2 g-3">
+            <div class="col">
+              <div class="d-flex align-items-center gap-2">
+                <span class="material-icons">phone</span>
+                <a href="tel:{{ sede.telefono }}" class="text-decoration-none">{{ sede.telefono }}</a>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="d-flex align-items-center gap-2">
+                <span class="material-icons">schedule</span>
+                <span>{{ sede.horario_atencion }}</span>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="d-flex align-items-center gap-2">
+                <span class="material-icons">email</span>
+                <a href="mailto:{{ sede.correo_sede }}" class="text-decoration-none">{{ sede.correo_sede }}</a>
+              </div>
+            </div>
+            @if(sede.whatsapp){
+            <div class="col">
+              <div class="d-flex align-items-center gap-2">
+                <span class="material-icons">chat</span>
+                <a href="https://wa.me/{{ sede.whatsapp }}" target="_blank" class="text-decoration-none">{{
+                  sede.whatsapp }}</a>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="position-absolute bottom-0 end-0 m-3">
+      <a [routerLink]="['/']" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 shadow-lg rounded-pill px-3 py-2">
+        <span class="material-icons">arrow_back</span>
+        Volver
+      </a>
+
+    </div>
+  </div>
+</mat-card>
+}
