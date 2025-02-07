@@ -21,6 +21,5 @@ export const sedesAdapter = (response: any): Sedes[] => {
     whatsapp: c.whatsapp,
     foto: `${url}storage/${c.foto}`,
     estado: c.estado,
-
   }));
 };
