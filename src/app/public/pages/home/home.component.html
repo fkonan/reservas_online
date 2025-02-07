@@ -1,9 +1,10 @@
+
 <div class="container py-4">
   <div class="row justify-content-center">
-    <h4 class="text-center">Copetran</h4>
+    <h1 class="text-center luckiest-guy-regular">Copetran</h1>
     <div class="col-md-6">
       <mat-form-field appareance="fill" class="w-100">
-        <mat-label>Selecciona la ciudad</mat-label>
+        <mat-label>Selecciona la sede donde desea ser atendido</mat-label>
         <mat-select [(value)]="ciudadSeleccionada">
           @for (ciudad of ciudades; track ciudad.id) {
           <mat-option [value]="ciudad">{{ ciudad.ciudad }}</mat-option>

@@ -1,5 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+// Sobrescribe la variable de Bootstrap antes de importar Bootstrap
+$primary: #D9D9D9;
+
+// Ahora importas Bootstrap después de definir las variables
+@use '@angular/material' as mat;
 @use "bootstrap/scss/bootstrap"; // ✅ Correcto
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// @use '@angular/material' as mat;
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.bg-sos-principal {
+  background-color: $primary !important; // Usa la variable SCSS $primary
+}
+
+@include mat.form-field-overrides((filled-container-shape:20px,
+    filled-container-color:$primary,
+    filled-active-indicator-height:0px,
+    filled-focus-active-indicator-color:#3A6A3A,
+    filled-focus-label-text-color:#3A6A3A,
+  ));
+
+.mdc-text-field--filled {
+  border-bottom-right-radius: 15px !important;
+  border-bottom-left-radius: 15px !important;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-select-arrow{
+  color:#3A6A3A!important;
+}

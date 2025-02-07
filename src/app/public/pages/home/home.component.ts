@@ -25,6 +25,7 @@ import { CardSedesComponent } from '../../../shared/components/card-sedes/card-s
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
+
   ciudades: Ciudades[] = [];
   ciudadSeleccionada = signal<Ciudades | null>(null);
 
@@ -38,6 +39,7 @@ export class HomeComponent implements OnInit {
         error: (err) => console.error('Error en componente:', err),
       });
     }
-  }
-}
 
+  }
+
+}
