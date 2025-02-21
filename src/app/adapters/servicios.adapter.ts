@@ -12,6 +12,7 @@ export const ServiciosAdapter = (response: any): Servicios[] => {
     id: c.id,
     servicio: c.servicio,
     tipo_servicio: c.tipo_servicio,
+    tipo_servicio_id: c.tipo_servicio_id,
     nombre_comercial: c.nombre_comercial,
     descripcion: c.descripcion,
     duracion: c.duracion,

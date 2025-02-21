@@ -9,6 +9,13 @@ $primary: #D9D9D9;
 html,
 body {
   height: 100%;
+  background-image: url('/hoja2.png');
+  background-size: cover;
+  /* Opcional, para que la imagen cubra todo el contenedor */
+  background-position: center;
+  /* Opcional, para centrar la imagen */
+  background-repeat: no-repeat;
+  image-rendering: optimizeSpeed;
 }
 
 body {
@@ -32,6 +39,6 @@ body {
   border-bottom-left-radius: 15px !important;
 }
 
-.mat-mdc-form-field.mat-focused .mat-mdc-select-arrow{
-  color:#3A6A3A!important;
+.mat-mdc-form-field.mat-focused .mat-mdc-select-arrow {
+  color: #3A6A3A !important;
 }

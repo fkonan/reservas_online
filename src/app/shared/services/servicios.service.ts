@@ -23,4 +23,20 @@ export class ServiciosService {
       }),
     );
   }
+
+  getHorarios(fecha: string, tipo_servicio_id: number, servicio_id: number): Observable<any[]> {
+    return this.http
+      .get<any[]>(
+        `${this.apiUrl}agenda/getHorarios/${fecha}/${tipo_servicio_id}/${servicio_id}`,
+      )
+      .pipe(
+        map((horarios) => {
+          return horarios;
+        }),
+        catchError((error) => {
+          console.error('Error al obtener las sedes:', error);
+          throw new Error('Error al cargar las sedes');
+        }),
+      );
+  }
 }

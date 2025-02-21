@@ -2,6 +2,7 @@
   position: relative;
   overflow: hidden;
   transition: box-shadow 0.3s ease;
+  border: #c0a145 1px solid;
 }
 
 .card-container:hover {
@@ -17,17 +18,15 @@
   height: 200%;
   background: linear-gradient(45deg,
       transparent 30%,
-      #d6be3d 49%,
-      #f7eabd 51%,
+      #c0a145 49%,
+      /* Dorado más oscuro */
+      #f5f0d3 51%,
+      /* Beige claro */
       transparent 70%);
   transform: rotate(-45deg);
   transition: all 0.6s ease;
   opacity: 0;
   z-index: 0;
-
-  background: url('/Recurso_7.png') center/cover;
-  mix-blend-mode: multiply;
-  /* Opcional: ajusta la mezcla */
 }
 
 .card-container:hover::after {
@@ -58,18 +57,15 @@
   width: 200%;
   height: 200%;
   background-image: linear-gradient(293deg,
-      #d6be3d 19%,
-      #f7eabd 50%,
-      #d6be3d 100%);
+      #c0a145 19%,
+      /* Dorado principal */
+      #f5f0d3 50%,
+      /* Beige claro */
+      #c0a145 100%);
   transform: rotate(45deg);
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
   z-index: 0;
-
-  background-image: url('/Recurso_7.png');
-  background-size: cover;
-  background-position: center;
-  animation: shine 1.5s ease-in-out infinite;
 }
 
 .hover-effect:hover::before {
@@ -82,14 +78,4 @@
 .hover-effect>* {
   position: relative;
   z-index: 1;
-}
-
-@keyframes shine {
-  0% {
-    background-position: -100% 0;
-  }
-
-  100% {
-    background-position: 100% 0;
-  }
 }

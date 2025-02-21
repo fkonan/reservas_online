@@ -2,23 +2,11 @@
   <div class="container-fluid" style="height:115px;">
     <!-- Aquí se coloca el logo centrado -->
     <a class="navbar-brand mx-auto">
-      <img src="/logo_sos.png" alt="Logo de la Empresa" width="550" height="183">
+      <img src="/logo_sos.png" alt="Logo de la Empresa" width="550" height="183" class="img img-fluid">
     </a>
   </div>
 </nav>
 <div class="container-fluid">
-  <div class="row d-flex justify-content-between">
-    <div class="col-3">
-     <img src="/hojas_final_sos.png" alt="" class="img-fluid">
-    </div>
-    <div class="col-6">
-      <div class="container-fluid">
-        <app-loading></app-loading>
-        <router-outlet></router-outlet>
-      </div>
-    </div>
-    <div class="col-3">
-    <img src="/hojas_final_sos.png" alt="" class="img-fluid">
-    </div>
-  </div>
+  <app-loading></app-loading>
+  <router-outlet></router-outlet>
 </div>

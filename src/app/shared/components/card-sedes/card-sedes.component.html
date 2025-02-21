@@ -2,15 +2,14 @@
 @if(sedes() && sedes()?.length??0 > 0) {
 
 @for (sede of sedes(); track sede.id) {
-<mat-card class="card-container">
-
+<mat-card class="card-container mb-3">
   <div class="card shadow-sm h-100 hover-effect">
     <div class="row g-0 h-100">
       <!-- Sección de Imagen -->
       <div class="col-md-4 text-center">
         <a [routerLink]="['/servicios']" [state]="{ sede: sede }">
           <img [src]="sede.foto || 'assets/imagen-default.jpg'" alt="Imagen sede {{ sede.nombre_sede }}"
-            class="img-fluid rounded-start h-100 object-fit-cover pt-2" width="230">
+            class="img-fluid rounded-start h-100 object-fit-cover p-2" width="230">
         </a>
 
       </div>
