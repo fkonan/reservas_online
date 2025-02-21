@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/env.dev';
 import { catchError, map, Observable, startWith } from 'rxjs';
-import { Sedes } from '../models/sedes.model';
+import { Sedes } from '../../models/sedes.model';
 import { sedesAdapter } from '../../adapters/sedes.adapter';
 
 @Injectable({

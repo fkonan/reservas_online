@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { Ciudades } from '../../models/ciudades.model';
+import { Ciudades } from '../../../models/ciudades.model';
 import { Input } from '@angular/core';
 import { SedesService } from '../../services/sedes.service';
 import { rxResource } from '@angular/core/rxjs-interop';

@@ -2,8 +2,8 @@ import { ServiciosService } from './../../../shared/services/servicios.service';
 import { Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { CardSedeComponent } from '../../../shared/components/card-sede/card-sede.component';
 import { Router } from '@angular/router';
-import { Sedes } from '../../../shared/models/sedes.model';
-import { Servicios } from '../../../shared/models/servicios.model';
+import { Sedes } from '../../../models/sedes.model';
+import { Servicios } from '../../../models/servicios.model';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 // @ts-ignore

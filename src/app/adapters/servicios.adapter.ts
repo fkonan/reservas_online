@@ -1,5 +1,5 @@
 import { environment } from '../environments/env.dev';
-import { Servicios } from '../shared/models/servicios.model';
+import { Servicios } from '../models/servicios.model';
 
 export const ServiciosAdapter = (response: any): Servicios[] => {
   const servicios = Array.isArray(response.data) ? response.data : [];
@@ -11,7 +11,13 @@ export const ServiciosAdapter = (response: any): Servicios[] => {
   return servicios.map((c: any) => ({
     id: c.id,
     servicio: c.servicio,
-    tipo_servicio: c.tipo_servicio,
+    tipo_servicio: c.tipo_servicio
+      ? {
+          id: c.tipo_servicio.id,
+          tipo_servicio: c.tipo_servicio.tipo_servicio,
+          valor_abono: c.tipo_servicio.valor_abono,
+        }
+      : null, // Si no tiene relación, queda como null
     tipo_servicio_id: c.tipo_servicio_id,
     nombre_comercial: c.nombre_comercial,
     descripcion: c.descripcion,

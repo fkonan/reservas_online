@@ -1,5 +1,5 @@
 import { environment } from '../environments/env.dev';
-import { Sedes } from '../shared/models/sedes.model';
+import { Sedes } from '../models/sedes.model';
 
 export const sedesAdapter = (response: any): Sedes[] => {
   const sedes = Array.isArray(response.data) ? response.data : [];
