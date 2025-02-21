@@ -39,7 +39,5 @@ export class HomeComponent implements OnInit {
         error: (err) => console.error('Error en componente:', err),
       });
     }
-
   }
-
 }

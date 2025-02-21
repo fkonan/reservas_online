@@ -13,6 +13,7 @@ export class ServiciosService {
   private http = inject(HttpClient);
 
   getTipoServicio(sede_id: number): Observable<Servicios[]> {
+    debugger
     return this.http.get<Servicios[]>(`${this.apiUrl}servicios/getTipoServicio/${sede_id}`).pipe(
       map((servicios) => {
         return ServiciosAdapter(servicios);

@@ -6,11 +6,20 @@ import { Sedes } from '../../../models/sedes.model';
 import { Servicios } from '../../../models/servicios.model';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 // @ts-ignore
-const $:any=window['$'];
+const $: any = window['$'];
 @Component({
   selector: 'app-servicios',
-  imports: [CardSedeComponent, TitleCasePipe, FormsModule, CommonModule],
+  imports: [
+    CardSedeComponent,
+    TitleCasePipe,
+    FormsModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+  ],
   templateUrl: './servicios.component.html',
   styleUrl: './servicios.component.scss',
 })
@@ -24,16 +33,18 @@ export class ServiciosComponent {
     this.sede = navigation?.extras.state?.['sede'] || null;
   }
 
-  servicios: Servicios[] = [];
-  servicioSeleccionado = signal<Servicios | null>(null);
-  selectedDate: string = '';
+  tipoServicio: Servicios[] = [];
   serviciosService = inject(ServiciosService);
   readonly loading = signal<boolean>(false);
 
+  servicios: Servicios[] = [];
+  servicioSeleccionado = signal<Servicios | null>(null);
+  selectedDate: string = '';
+
   ngOnInit() {
     if (this.serviciosService) {
-      this.serviciosService.getServicios(this.sede.id).subscribe({
-        next: (data) => (this.servicios = data),
+      this.serviciosService.getTipoServicio(this.sede.id).subscribe({
+        next: (data) => (this.tipoServicio = data),
         error: (err) => console.error('Error en componente:', err),
       });
     }
