@@ -10,6 +10,7 @@ export const ServiciosAdapter = (response: any): Servicios[] => {
 
   return servicios.map((c: any) => ({
     id: c.id,
+    tipo_servicio_id: c.tipo_servicio_id,
     servicio: c.servicio,
     tipo_servicio: c.tipo_servicio
       ? {
@@ -18,7 +19,6 @@ export const ServiciosAdapter = (response: any): Servicios[] => {
           valor_abono: c.tipo_servicio.valor_abono,
         }
       : null, // Si no tiene relación, queda como null
-    tipo_servicio_id: c.tipo_servicio_id,
     nombre_comercial: c.nombre_comercial,
     descripcion: c.descripcion,
     duracion: c.duracion,

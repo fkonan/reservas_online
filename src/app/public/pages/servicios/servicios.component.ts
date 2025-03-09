@@ -1,9 +1,9 @@
 import { ServiciosService } from './../../../shared/services/servicios.service';
-import { Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, Signal, signal, ViewChild } from '@angular/core';
 import { CardSedeComponent } from '../../../shared/components/card-sede/card-sede.component';
 import { Router } from '@angular/router';
 import { Sedes } from '../../../models/sedes.model';
-import { Servicios } from '../../../models/servicios.model';
+import { Servicios, TipoServicio } from '../../../models/servicios.model';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,8 +23,15 @@ const $: any = window['$'];
   templateUrl: './servicios.component.html',
   styleUrl: './servicios.component.scss',
 })
-export class ServiciosComponent {
+export class ServiciosComponent  {
   @ViewChild('horariosModal') modal?: ElementRef;
+  private servicioService = inject(ServiciosService);
+  // Obtener los datos del servicio como signals
+  tipoServicios: Signal<TipoServicio[]> = this.servicioService.tipoServicios;
+  servicios: Signal<Servicios[]> = this.servicioService.servicios;
+  error: Signal<string | null> = this.servicioService.error;
+
+  tipoServicioSelect = signal<number | null>(null);
 
   sede: Sedes;
 
@@ -33,51 +40,10 @@ export class ServiciosComponent {
     this.sede = navigation?.extras.state?.['sede'] || null;
   }
 
-  tipoServicio: Servicios[] = [];
-  serviciosService = inject(ServiciosService);
-  readonly loading = signal<boolean>(false);
-
-  servicios: Servicios[] = [];
-  servicioSeleccionado = signal<Servicios | null>(null);
-  selectedDate: string = '';
-
-  ngOnInit() {
-    if (this.serviciosService) {
-      this.serviciosService.getTipoServicio(this.sede.id).subscribe({
-        next: (data) => (this.tipoServicio = data),
-        error: (err) => console.error('Error en componente:', err),
-      });
-    }
-  }
-
-  openModal(servicio: Servicios) {
-    this.servicioSeleccionado.set(servicio);
-    $(this.modal?.nativeElement).modal('show');
-  }
-
-  buscarAgenda() {
-    if (this.selectedDate && this.servicioSeleccionado) {
-      this.loading.set(true);
-      const formattedDate = new Date(this.selectedDate).toISOString().split('T')[0];
-      this.serviciosService
-        .getHorarios(
-          formattedDate,
-          this.servicioSeleccionado()?.tipo_servicio_id!,
-          this.servicioSeleccionado()?.id!,
-        )
-        .subscribe({
-          next: (horarios) => {
-            this.loading.set(false);
-            // Aquí puedes manejar los horarios obtenidos, por ejemplo, abrir un modal con los horarios disponibles
-            console.log('Horarios obtenidos:', horarios);
-          },
-          error: (err) => {
-            this.loading.set(false);
-            console.error('Error al obtener horarios:', err);
-          },
-        });
-    } else {
-      alert('Por favor, selecciona una fecha.');
+  onTipoServicioChange(tipoId: number) {
+    this.tipoServicioSelect.set(tipoId);
+    if (tipoId) {
+      this.servicioService.loadServicios(this.sede.id, tipoId);
     }
   }
 }

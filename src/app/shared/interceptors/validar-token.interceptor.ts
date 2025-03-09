@@ -9,7 +9,7 @@ export const ValidarToken: HttpInterceptorFn = (req, next) => {
 
   const isExcluded = rutasExcluidas.some((route) => req.url.includes(route));
   if (isExcluded) {
-    return next(req); // 🔹 No agrega el token si es una ruta excluida
+    return next(req);
   }
   const APP_TOKEN = environment.APP_TOKEN;
   const payload = req.body ? JSON.stringify(req.body) : '';

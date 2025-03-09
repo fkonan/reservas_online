@@ -7,53 +7,33 @@
 <div class="row justify-content-center mt-3">
   <div class="col-md-6">
     <h2 class="text-center">Servicios</h2>
-    <mat-form-field appareance="fill" class="w-100">
+    {{tipoServicios()}}
+    <mat-form-field appearance="fill" class="w-100">
       <mat-label>Selecciona el servicio</mat-label>
-      <mat-select [(value)]="servicioSeleccionado">
-        @for (item of tipoServicio; track item.id) {
-        <mat-option [value]="item">{{ item.tipo_servicio }}</mat-option>
+      <mat-select [ngModel]="tipoServicioSelect()" (ngModelChange)="onTipoServicioChange($event.value)">
+        @for (item of tipoServicios(); track item.id) {
+        <mat-option [value]="item.id">{{ item.tipo_servicio }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
   </div>
-  <!-- @for (servicio of servicios; track servicio.id) {
-  <div class="col-md-4">
-    <div class="card mb-3 border-0">
-      <div class="card-header">
-        <h5 class="card-title"><strong>{{ servicio.nombre_comercial | titlecase }}</strong></h5>
-      </div>
-      <div class="card-body">
-        <p class="card-text"><strong>Tipo de Servicio:</strong> {{ servicio.tipo_servicio }}</p>
-        <p class="card-text"><strong>Descripción:</strong> {{ servicio.descripcion }}</p>
-        <p class="card-text"><strong>Duración:</strong> {{ servicio.duracion }} minutos</p>
-      </div>
-      <div class="card-footer text-end">
-        <button class="btn bg-sos-principal" (click)="openModal(servicio)">Ver Horarios</button>
-      </div>
-    </div>
-  </div>
-  } -->
 </div>
+
+<!-- Mostrar error si ocurre -->
+<div *ngIf="error()">
+  <p class="error">{{ error() }}</p>
+</div>
+
+<div class="row justify-content-center mt-3" *ngIf="servicios().length > 0">
+  <div class="col-md-6">
+    <h3 class="text-center">Lista de Servicios</h3>
+    <ul class="list-group">
+      @for (servicio of servicios(); track servicio.id) {
+      <li class="list-group-item">{{ servicio.servicio }}</li>
+      }
+    </ul>
+  </div>
+</div>
+
+
 }
-<!-- Modal -->
-<div #horariosModal class="modal" id="horariosModal" tabindex="-1" aria-labelledby="horariosModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="horariosModalLabel">Seleccionar Fecha para Agendar</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="fecha" class="form-label">Fecha</label>
-          <input type="date" id="fecha" class="form-control" [(ngModel)]="selectedDate">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="buscarAgenda()">Buscar Agenda</button>
-      </div>
-    </div>
-  </div>
-</div>
