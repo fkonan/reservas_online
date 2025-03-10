@@ -4,34 +4,35 @@
     <app-card-sede [sede]="sede!"></app-card-sede>
   </div>
 </div>
-<div class="row justify-content-center mt-3">
-  <div class="col-md-6">
-    <h2 class="text-center">Servicios</h2>
-    {{tipoServicios()}}
-    <mat-form-field appearance="fill" class="w-100">
-      <mat-label>Selecciona el servicio</mat-label>
-      <mat-select [ngModel]="tipoServicioSelect()" (ngModelChange)="onTipoServicioChange($event.value)">
-        @for (item of tipoServicios(); track item.id) {
-        <mat-option [value]="item.id">{{ item.tipo_servicio }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-6">
+      <h4 class="text-center">Tipo de servicio</h4>
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Selecciona el tipo de servicio</mat-label>
+        <mat-select [ngModel]="tipoServicioSeleccionado()" (ngModelChange)="onTipoServicioChange($event.value)">
+          @for (item of tipoServicios(); track item.id) {
+          <mat-option [value]="item.id">{{ item.tipo_servicio }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <h4 class="text-center">Servicio</h4>
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Selecciona el tipo de servicio</mat-label>
+        <mat-select [ngModel]="tipoServicioSeleccionado()" (ngModelChange)="onTipoServicioChange($event.value)">
+          @for (item of tipoServicios(); track item.id) {
+          <mat-option [value]="item.id">{{ item.tipo_servicio }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
-</div>
-
-<!-- Mostrar error si ocurre -->
-<div *ngIf="error()">
-  <p class="error">{{ error() }}</p>
-</div>
-
-<div class="row justify-content-center mt-3" *ngIf="servicios().length > 0">
-  <div class="col-md-6">
-    <h3 class="text-center">Lista de Servicios</h3>
-    <ul class="list-group">
-      @for (servicio of servicios(); track servicio.id) {
-      <li class="list-group-item">{{ servicio.servicio }}</li>
-      }
-    </ul>
+  <div class="row justify-content-center mt-3">
+    <div class="col-m-8 text-center">
+      <h3>Horario al que desea reservar</h3>
+    </div>
   </div>
 </div>
 

@@ -1,25 +1,24 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { Ciudades } from '../../../models/ciudades.model';
-import { Input } from '@angular/core';
-import { SedesService } from '../../services/sedes.service';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { SedesService } from './../../services/sedes.service';
+import { Component,  inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
+import { JsonPipe } from '@angular/common';
+import { environment } from '../../../environments/env.dev';
 
 @Component({
   selector: 'app-card-sedes',
-  imports: [MatCardModule, RouterModule],
+  imports: [MatCardModule, RouterModule, JsonPipe],
   templateUrl: './card-sedes.component.html',
   styleUrl: './card-sedes.component.scss',
 })
 export class CardSedesComponent {
-  @Input() ciudadSeleccionada = signal<Ciudades | null>(null);
-  sedesService = inject(SedesService);
-  readonly loading = signal<boolean>(false);
-  sedes = computed(() => this._sedes.value());
+  private sedesService = inject(SedesService);
 
-  _sedes = rxResource({
-    request: () => ({ ciudad_id: this.ciudadSeleccionada()?.id }),
-    loader: ({ request }) => this.sedesService.getSedes(request.ciudad_id),
-  });
+  ciudadSeleccionada = this.sedesService.ciudadSeleccionada;
+  sedes = this.sedesService.sedes;
+  error = this.sedesService.error;
+
+  getImagenUrl(foto: string | null | undefined): string {
+    return foto ? `${environment.baseUrl}storage/${foto}` : 'assets/imagen-default.jpg';
+  }
 }

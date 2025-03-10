@@ -1,17 +1,18 @@
-
 <div class="container py-4">
   <div class="row justify-content-center">
     <h1 class="text-center luckiest-guy-regular">Centro de embellecimiento capilar</h1>
     <div class="col-md-6">
+      <!-- @if (error()){
+      <h3 style='color: red'>Ha ocurrido un error al cargar la informacion: {{ error().error.message }}</h3>
+      } -->
       <mat-form-field appareance="fill" class="w-100">
         <mat-label>Selecciona la sede donde desea ser atendido</mat-label>
-        <mat-select [(value)]="ciudadSeleccionada">
-          @for (ciudad of ciudades; track ciudad.id) {
+        <mat-select (selectionChange)="seleccionarCiudad($event.value)">
+          @for (ciudad of ciudades(); track ciudad.id) {
           <mat-option [value]="ciudad">{{ ciudad.ciudad }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
     </div>
+    <app-card-sedes></app-card-sedes>
   </div>
-  <app-card-sedes [ciudadSeleccionada]="ciudadSeleccionada"></app-card-sedes>
-</div>

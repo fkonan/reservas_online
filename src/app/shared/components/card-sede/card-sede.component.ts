@@ -3,6 +3,7 @@ import { Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Sedes } from '../../../models/sedes.model';
 import {RouterModule } from '@angular/router';
+import { environment } from '../../../environments/env.dev';
 
 @Component({
   selector: 'app-card-sede',
@@ -12,4 +13,8 @@ import {RouterModule } from '@angular/router';
 })
 export class CardSedeComponent {
   @Input() sede!: Sedes;
+
+  getImagenUrl(foto: string | null | undefined): string {
+      return foto ? `${environment.baseUrl}storage/${foto}` : 'assets/imagen-default.jpg';
+    }
 }

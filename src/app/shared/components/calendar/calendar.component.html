@@ -1,0 +1,62 @@
+<div class="calendar">
+  <div class="header">
+    <button mat-button color="primary" (click)="prevMonth()"><mat-icon>arrow_left</mat-icon></button>
+    {{ currentMonthYear }}
+    <button mat-button color="primary" (click)="nextMonth()"><mat-icon>arrow_right</mat-icon></button>
+  </div>
+  <div class="scroll-container">
+    <div class="days">
+      <div (click)="selectDay(i)" *ngFor="let day of days; let i = index"
+        class="day {{isCurrentDay(i) ? 'current-day' : ''}} {{isDaySelected(i) ? 'selected-day' : ''}}">
+        <span [attr.id]="'day_' + i">{{ day.number }}</span>
+        <span>{{ day.dayOfWeek }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="table-container">
+    <div class="row">
+      <table>
+        <tr>
+          <th class="first-th"></th>
+          @for(employee of employees; track employee.id){
+          <th class="employee-th">{{employee.name}}</th>
+          }
+        </tr>
+        <tr *ngFor="let hour of hours">
+          <td class="hour-td">{{hour}}</td>
+          <td *ngFor="let employee of employees" (click)="showDialog(hour, employee.id)"
+            class="{{getAppointment(hour, employee.id) ? 'cyan' : ''}}">{{getAppointment(hour, employee.id)}}
+          </td>
+        </tr>
+      </table>
+
+      <mat-form-field>
+        <mat-label>Day</mat-label>
+        <mat-select [(ngModel)]="selectedItem">
+          <mat-option value="0">Monday - Friday</mat-option>
+          <mat-option value="1">Saturday</mat-option>
+          <mat-option value="2">Sunday</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>From</mat-label>
+        <mat-select [(ngModel)]="selectedFrom">
+          <mat-option value="{{hour}}" *ngFor="let hour of initialHours">{{hour}}</mat-option>
+          <mat-option value="Closed">Closed</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>To</mat-label>
+        <mat-select [(ngModel)]="selectedTo">
+          <mat-option value="{{hour}}" *ngFor="let hour of initialHours">{{hour}}</mat-option>
+          <mat-option value="Closed">Closed</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+
+    </div>
+  </div>
+</div>

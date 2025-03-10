@@ -1,5 +1,6 @@
-@if(ciudadSeleccionada()){
-@if(sedes() && sedes()?.length??0 > 0) {
+@if(ciudadSeleccionada()) {
+
+@if(sedes()) {
 
 @for (sede of sedes(); track sede.id) {
 <mat-card class="card-container mb-3">
@@ -8,7 +9,7 @@
       <!-- Sección de Imagen -->
       <div class="col-md-4 text-center">
         <a [routerLink]="['/servicios']" [state]="{ sede: sede }">
-          <img [src]="sede.foto || 'assets/imagen-default.jpg'" alt="Imagen sede {{ sede.nombre_sede }}"
+          <img [src]="getImagenUrl(sede.foto)" alt="Imagen sede {{ sede.nombre_sede }}"
             class="img-fluid rounded-start h-100 object-fit-cover p-2" width="230">
         </a>
 
@@ -69,4 +70,6 @@
   <strong>¡Lo sentimos!</strong> Aún no contamos con sedes en esta ciudad
 </div>
 }
+
 }
+

@@ -1,0 +1,108 @@
+button {
+  cursor: pointer;
+}
+
+button mat-icon {
+  margin: 0;
+}
+
+.calendar {
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.first-th {
+  width: 20px;
+}
+
+.hour-td {
+  padding: 5px;
+}
+
+td {
+  border: 1px solid #ccc;
+}
+
+.employee-th {
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.table-container {
+  padding: 12px;
+}
+
+mat-form-field {
+  padding: 0px;
+}
+
+table {
+  margin-bottom: 10px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.days {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.day {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  width: 60px;
+  height: 60px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.container {
+  margin-top: 0px;
+}
+
+.hour {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.current-day {
+  background-color: green;
+}
+
+.selected-day {
+  background-color: yellow;
+}
+
+table tr {
+  border: 1px solid #ccc;
+}
+
+.cyan {
+  background-color: cyan;
+  cursor: pointer;
+}
+
+.today {
+  background-color: #ccc;
+  text-align: center;
+  color: #000;
+  cursor: pointer;
+  padding: 5px;
+}

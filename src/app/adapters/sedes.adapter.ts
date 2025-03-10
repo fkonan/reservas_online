@@ -3,6 +3,7 @@ import { Sedes } from '../models/sedes.model';
 
 export const sedesAdapter = (response: any): Sedes[] => {
   const sedes = Array.isArray(response.data) ? response.data : [];
+
   const url = environment.baseUrl;
   if (!sedes.length) {
     return [];
@@ -23,3 +24,4 @@ export const sedesAdapter = (response: any): Sedes[] => {
     estado: c.estado,
   }));
 };
+

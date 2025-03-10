@@ -23,15 +23,13 @@ const $: any = window['$'];
   templateUrl: './servicios.component.html',
   styleUrl: './servicios.component.scss',
 })
-export class ServiciosComponent  {
+export class ServiciosComponent {
   @ViewChild('horariosModal') modal?: ElementRef;
   private servicioService = inject(ServiciosService);
-  // Obtener los datos del servicio como signals
-  tipoServicios: Signal<TipoServicio[]> = this.servicioService.tipoServicios;
-  servicios: Signal<Servicios[]> = this.servicioService.servicios;
-  error: Signal<string | null> = this.servicioService.error;
 
-  tipoServicioSelect = signal<number | null>(null);
+  tipoServicios: Signal<TipoServicio[]> = this.servicioService.tipoServicio;
+
+  tipoServicioSeleccionado = signal<number | null>(null);
 
   sede: Sedes;
 
@@ -41,9 +39,8 @@ export class ServiciosComponent  {
   }
 
   onTipoServicioChange(tipoId: number) {
-    this.tipoServicioSelect.set(tipoId);
-    if (tipoId) {
-      this.servicioService.loadServicios(this.sede.id, tipoId);
-    }
+    this.tipoServicioSeleccionado.set(tipoId);
+
+
   }
 }
