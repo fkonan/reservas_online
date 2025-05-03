@@ -1,0 +1,56 @@
+<div class="container my-3">
+  <h4 class="text-center">Registre sus datos</h4>
+  <hr>
+  <form (ngSubmit)="onSubmit()">
+    <div class="row justify-content-center mb-2 px-2">
+      <div class="col-md-12 mb-2">
+        <label for="documento" class="form-label">Documento</label>
+        <input type="text" id="documento" class="form-control" name="documento" [ngModel]="documento()"
+          (ngModelChange)="documento.set($event);validarDocumento();" required>
+      </div>
+
+      <div class="col-md-12 mb-2">
+        <label for="nombres" class="form-label">Nombres</label>
+        <input type="text" id="nombres" class="form-control" name="nombres" [ngModel]="nombres()"
+          (ngModelChange)="nombres.set($event)" required>
+      </div>
+      <div class="col-md-12 mb-2">
+        <label for="apellidos" class="form-label">Apellidos</label>
+        <input type="text" id="apellidos" class="form-control" name="apellidos" [ngModel]="apellidos()"
+          (ngModelChange)="apellidos.set($event)" required>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mb-2 px-2">
+      <div class="col-md-12 mb-2">
+        <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
+        <input type="date" id="fecha_nacimiento" class="form-control" name="fecha_nacimiento" [ngModel]="fecha_nacimiento() | date:'yyyy-MM-dd'"
+          (ngModelChange)="fecha_nacimiento.set($event)" required>
+      </div>
+      <div class="col-md-12 mb-2">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="tel" id="telefono" class="form-control" name="telefono" [ngModel]="telefono()"
+          (ngModelChange)="telefono.set($event)" required>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mb-3 px-2">
+      <div class="col-md-12 mb-2">
+        <label for="correo" class="form-label">Correo</label>
+        <input type="email" id="correo" class="form-control" name="correo" [ngModel]="correo()"
+          (ngModelChange)="correo.set($event)" required>
+      </div>
+      <div class="col-md-12">
+        <label for="valor_abono" class="form-label">Valor abonar
+          <!-- (minimo: {{data?.valorAbono??0 | currency:'$':'symbol':'1.0-0'}}) -->
+        </label>
+        <input type="text" id="valor_abono" class="form-control" name="valor_abono" [value]="data?.valorAbono" readonly
+           required>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button mat-raised-button color="success" class="text-18" type="submit">Ir a pagar</button>
+    </div>
+  </form>
+</div>

@@ -1,14 +1,197 @@
-@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
 
-.luckiest-guy-regular {
-  font-family: "Luckiest Guy", serif;
-  font-weight: 400;
-  font-style: normal;
-  color: #3A6A3A;
+.elegant-animated-title {
+  /* Color base */
+  color: #545454;
+
+  /* Tipografía elegante - puedes elegir una de estas opciones */
+  font-family: 'Poppins,Helvetica Neue,Helvetica,Arial',sans-serif;
+  /* Opción 1: Muy elegante y refinada */
+  /* font-family: 'Cinzel', serif; */
+  /* Opción 2: Clásica y lujosa */
+  /* font-family: 'Bodoni Moda', serif; */
+  /* Opción 3: Moderna y sofisticada */
+  /* font-family: 'Cormorant', serif; */
+  /* Opción 4: Delicada y distinguida */
+
+  font-size: 40px;
+  font-weight: 600;
+
+  /* Espaciado refinado */
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+
+  /* Efectos base */
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+
+  /* Posicionamiento */
+  position: relative;
+  display: inline-block;
+  margin: 0.5em 0;
+  padding: 0.2em 0.5em;
+
+  /* Fondo con gradiente animado */
+  background: linear-gradient(45deg,
+      rgba(58, 106, 58, 0.05),
+      rgba(95, 153, 95, 0.1),
+      rgba(58, 106, 58, 0.05));
+  background-size: 200% 200%;
+  animation: gradientBG 8s ease infinite;
+  border-radius: 8px;
 }
 
-// .mat-mdc-form-field {
-//   --mat-sys-surface-variant: #D9D9D9;
-// }
+/* Animación de entrada con elegancia */
+@keyframes elegantEntry {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(5px);
+  }
 
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
 
+/* Aplicar animación de entrada */
+.elegant-animated-title {
+  animation: elegantEntry 1.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+}
+
+/* Animación de gradiente de fondo */
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Efecto de brillo mejorado */
+@keyframes elegantShine {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Aplicar brillo después de la animación de entrada */
+.elegant-animated-title.with-shine {
+  background: linear-gradient(90deg,
+      #545454,
+      #000000 40%,
+      #545454 50%,
+      #000000 60%,
+      #545454);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation:
+    elegantEntry 1.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards,
+    elegantShine 4s linear infinite 1.8s;
+}
+
+/* Línea decorativa con efecto elegante */
+.elegant-animated-title::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 10%;
+  width: 0;
+  /* Comienza con ancho 0 */
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #3A6A3A, transparent);
+  animation: expandLine 1.5s forwards 1s;
+  /* Se expande después de la animación principal */
+}
+
+@keyframes expandLine {
+  0% {
+    width: 0;
+    left: 50%;
+  }
+
+  100% {
+    width: 80%;
+    left: 10%;
+  }
+}
+
+/* Adornos elegantes (opcional) */
+.elegant-animated-title::before {
+  content: '✦';
+  /* Símbolo decorativo */
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  opacity: 0;
+  animation: fadeInDecor 2s forwards 1.5s;
+}
+
+@keyframes fadeInDecor {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.7);
+  }
+
+  100% {
+    opacity: 0.7;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+/* Animación letra por letra */
+.letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: revealElegantLetter 0.7s forwards;
+}
+
+@keyframes revealElegantLetter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efecto hover refinado */
+.elegant-animated-title:hover {
+  transform: translateY(-3px);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Efecto hover adicional para el ornamento */
+.elegant-animated-title:hover::before {
+  animation: rotateDecor 1s infinite alternate;
+}
+
+@keyframes rotateDecor {
+  0% {
+    transform: translateX(-50%) scale(1);
+  }
+
+  100% {
+    transform: translateX(-50%) scale(1.1);
+  }
+}

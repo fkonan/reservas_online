@@ -4,63 +4,61 @@
 
 @for (sede of sedes(); track sede.id) {
 <mat-card class="card-container mb-3">
-  <div class="card shadow-sm h-100 hover-effect">
-    <div class="row g-0 h-100">
-      <!-- Sección de Imagen -->
-      <div class="col-md-4 text-center">
-        <a [routerLink]="['/servicios']" [state]="{ sede: sede }">
+  <div class="card shadow-sm hover-effect h-100">
+    <a [routerLink]="['/servicios']" [state]="{ sede: sede }" class="text-decoration-none text-dark h-100">
+      <div class="row g-0 h-100 align-content-md-center">
+        <!-- Sección de Imagen -->
+        <div class="col-md-4 col-12 text-center">
           <img [src]="getImagenUrl(sede.foto)" alt="Imagen sede {{ sede.nombre_sede }}"
-            class="img-fluid rounded-start h-100 object-fit-cover p-2" width="230">
-        </a>
+            class="img-fluid rounded-start object-fit-cover p-2" width="400"  loading="lazy" />
+        </div>
 
-      </div>
-
-      <!-- Sección de Información -->
-      <div class="col-md-8">
-        <div class="card-body h-100 position-relative">
-          <h2 class="card-title mb-3">{{ sede.nombre_sede }}</h2>
-
-          <!-- Dirección -->
-          <div class="d-flex align-items-center gap-2 mb-3">
-            <span class="material-icons">location_on</span>
-            <span>{{ sede.direccion }}</span>
-          </div>
-
-          <!-- Contacto -->
-          <div class="row row-cols-1 row-cols-md-2 g-3">
-            <div class="col">
-              <div class="d-flex align-items-center gap-2">
-                <span class="material-icons">phone</span>
-                <a href="tel:{{ sede.telefono }}" class="text-decoration-none">{{ sede.telefono }}</a>
-              </div>
+        <!-- Sección de Información -->
+        <div class="col-md-8 col-12">
+          <div class="card-body position-relative text-center text-md-start align-items-center">
+            <h2 class="card-title mb-3">{{ sede.nombre_sede }}</h2>
+            <!-- Dirección -->
+            <div class="d-flex align-items-center gap-2 mb-3 mb-md-3 justify-content-center justify-content-md-start">
+              <span class="material-icons">location_on</span>
+              <span>{{ sede.direccion }}</span>
             </div>
 
-            <div class="col">
-              <div class="d-flex align-items-center gap-2">
-                <span class="material-icons">schedule</span>
-                <span>{{ sede.horario_atencion }}</span>
+            <!-- Contacto -->
+            <!-- <div class="row row-cols-1 row-cols-md-2 g-3">
+              <div class="col">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="material-icons">phone</span>
+                  <a href="tel:{{ sede.telefono }}" class="text-decoration-none">{{ sede.telefono }}</a>
+                </div>
               </div>
-            </div>
 
-            <div class="col">
-              <div class="d-flex align-items-center gap-2">
-                <span class="material-icons">email</span>
-                <a href="mailto:{{ sede.correo_sede }}" class="text-decoration-none">{{ sede.correo_sede }}</a>
+              <div class="col">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="material-icons">schedule</span>
+                  <span>{{ sede.horario_atencion }}</span>
+                </div>
               </div>
-            </div>
-            @if(sede.whatsapp){
-            <div class="col">
-              <div class="d-flex align-items-center gap-2">
-                <span class="material-icons">chat</span>
-                <a href="https://wa.me/{{ sede.whatsapp }}" target="_blank" class="text-decoration-none">{{
-                  sede.whatsapp }}</a>
+
+              <div class="col">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="material-icons">email</span>
+                  <a href="mailto:{{ sede.correo_sede }}" class="text-decoration-none">{{ sede.correo_sede }}</a>
+                </div>
               </div>
-            </div>
-            }
+              @if(sede.whatsapp){
+              <div class="col">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="material-icons">chat</span>
+                  <a href="https://wa.me/{{ sede.whatsapp }}" target="_blank" class="text-decoration-none">{{
+                    sede.whatsapp }}</a>
+                </div>
+              </div>
+              }
+            </div> -->
           </div>
         </div>
       </div>
-    </div>
+    </a>
   </div>
 </mat-card>
 }
@@ -72,4 +70,3 @@
 }
 
 }
-

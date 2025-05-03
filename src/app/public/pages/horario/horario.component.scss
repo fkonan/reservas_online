@@ -1,5 +1,5 @@
 .mdc-button.mat-success,
-.mdc-button--raised.mat-success  {
+.mdc-button--raised.mat-success {
   color: #545454;
 }
 
@@ -29,24 +29,24 @@
 }
 
 .radio-input:checked+.radio-tile {
-  border-color: #545454;
+  border-color: #c0a145;
   box-shadow: 0 5px 10px rgba(61, 54, 54, 0.1);
-  color: #487c38;
+  color: #545454;
 }
 
 .radio-input:checked+.radio-tile:before {
   transform: scale(1);
   opacity: 1;
-  background-color: #487c38;
-  border-color: #545454;
+  background-color: #545454;
+  border-color: #c0a145;
 }
 
 .radio-input:checked+.radio-tile .radio-label {
-  color: #487c38;
+  color: #545454;
 }
 
 .radio-input:focus+.radio-tile {
-  border-color: #545454;
+  border-color: #c0a145;
   box-shadow:
     0 5px 10px rgba(0, 0, 0, 0.1),
     0 0 0 4px #b5c9fc;
@@ -97,7 +97,7 @@
 }
 
 .radio-tile:hover {
-  border-color: #545454;
+  border-color: #c0a145;
 }
 
 .radio-tile:hover:before {
@@ -139,7 +139,7 @@
 
 /* Estilo para snackbar de éxito */
 .success-snackbar {
-  background-color: #4caf50;
+  background-color: #545454;
   color: white;
 }
 
@@ -153,5 +153,3 @@
 .mat-simple-snackbar-action {
   color: white;
 }
-
-

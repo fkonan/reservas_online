@@ -26,6 +26,11 @@ import { CardSedesComponent } from '../../../shared/components/card-sedes/card-s
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+
+  constructor(){
+    this.seleccionarCiudad({ id: 1, ciudad: 'BUCARAMANGA' });
+  }
+
   private ciudadesService = inject(CiudadesService);
   private sedesService = inject(SedesService);
 

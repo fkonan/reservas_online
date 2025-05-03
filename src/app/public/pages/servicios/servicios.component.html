@@ -10,9 +10,9 @@
       <h4 class="text-center">Tipo de servicio</h4>
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>Selecciona el tipo de servicio</mat-label>
-        <mat-select [ngModel]="tipoServicioSeleccionado()" (ngModelChange)="onTipoServicioChange($event.value)">
+        <mat-select [(ngModel)]="tipoServicioSeleccionado" (ngModelChange)="onTipoServicioChange()">
           @for (item of tipoServicios(); track item.id) {
-          <mat-option [value]="item.id">{{ item.tipo_servicio }}</mat-option>
+          <mat-option [value]="item">{{ item.tipo_servicio }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -20,21 +20,78 @@
     <div class="col-md-6">
       <h4 class="text-center">Servicio</h4>
       <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Selecciona el tipo de servicio</mat-label>
-        <mat-select [ngModel]="tipoServicioSeleccionado()" (ngModelChange)="onTipoServicioChange($event.value)">
-          @for (item of tipoServicios(); track item.id) {
-          <mat-option [value]="item.id">{{ item.tipo_servicio }}</mat-option>
+        <mat-label>Selecciona el servicio</mat-label>
+        <mat-select [(ngModel)]="servicioSeleccionado" (ngModelChange)="onServicioChange()">
+          @for (item of servicios(); track item.id) {
+          <mat-option [value]="item">{{ item.servicio }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
     </div>
   </div>
-  <div class="row justify-content-center mt-3">
-    <div class="col-m-8 text-center">
-      <h3>Horario al que desea reservar</h3>
+
+  @if(servicioSeleccionado()&&descripcion()){
+
+  <div class="row mb-3 justify-content-center pb-3">
+    <div class="col-md-11 border rounded py-3" style="border:#545454 1px solid!important;">
+    <a [routerLink]="['/horario']" [state]="{ servicioSeleccionado: servicioSeleccionado(),abono:valor_abono() }" class="text-decoration-none text-dark h-100">
+        <p class="fs-4 mb-2 fw-bold">
+          {{servicioSeleccionado()?.nombre_comercial}}
+        </p>
+        <div class="d-flex justify-content-between align-items-center mb-0">
+          <span class="fs-4 d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
+              <path fill="#545454"
+                d="m13 12.175l2.25 2.25q.275.275.275.688t-.275.712q-.3.3-.712.3t-.713-.3L11.3 13.3q-.15-.15-.225-.337T11 12.575V9q0-.425.288-.712T12 8t.713.288T13 9zM12 6q-.425 0-.712-.288T11 5V4h2v1q0 .425-.288.713T12 6m6 6q0-.425.288-.712T19 11h1v2h-1q-.425 0-.712-.288T18 12m-6 6q.425 0 .713.288T13 19v1h-2v-1q0-.425.288-.712T12 18m-6-6q0 .425-.288.713T5 13H4v-2h1q.425 0 .713.288T6 12m6 10q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m8-10q0-3.35-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20t5.675-2.325T20 12m-8 0" />
+            </svg>
+            {{ servicioSeleccionado()?.duracion }}
+          </span>
+          <span class="fs-5">
+            Abono: {{ valor_abono() | currency:'$':'symbol':'1.0-0' }}
+          </span>
+        </div>
+        <p class="fs-4 mt-2 mb-0">{{servicioSeleccionado()?.descripcion}}</p>
+      </a>
     </div>
   </div>
+  }
+
+  <!-- <div class="row justify-content-center mt-3">
+    <div class="col-m-8 text-center">
+      <h3>Dia que desea reservar</h3>
+      <app-calendar (daySelected)="onDaySelected($event)"></app-calendar>
+    </div>
+  </div>
+  @if(agenda().length > 0 &&servicioSeleccionado()){
+  <hr>
+  <div class="row justify-content-around mt-3">
+    <div class="col-md-4 text-center">
+      <h4 class="text-center">Horarios disponibles</h4>
+      <div class="d-flex flex-row flex-wrap gap-2 justify-content-center radio-inputs">
+        @for (item of agenda(); track item.id) {
+        <label>
+          <input name="hora" type="radio" class="radio-input" [value]="item.hora" [(ngModel)]="horaSeleccionada" />
+          <span class="radio-tile">
+            <span class="radio-icon">
+            </span>
+            <span class="radio-label">{{item.hora}}</span>
+          </span>
+        </label>
+        }
+      </div>
+      <button mat-raised-button color="success" class="text-18 mt-3" (click)="onModalCliente()">Continuar</button>
+    </div>
+  </div>
+  }
+  @else {
+  @if(servicioSeleccionado()){
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-4 text-center">
+      <h4 class="text-center">Horarios disponibles</h4>
+      <p>No hay horarios disponibles para la fecha seleccionada</p>
+    </div>
+  </div>
+  }
+  } -->
 </div>
-
-
 }

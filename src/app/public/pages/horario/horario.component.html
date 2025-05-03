@@ -1,0 +1,37 @@
+<div class="row justify-content-center mt-3">
+  <div class="col-m-8 text-center">
+    <h3>Dia que desea reservar</h3>
+    <app-calendar (daySelected)="onDaySelected($event)"></app-calendar>
+  </div>
+</div>
+@if(agenda().length > 0 &&servicioSeleccionado()){
+<hr>
+<div class="row justify-content-around mt-3">
+  <div class="col-md-4 text-center">
+    <h4 class="text-center">Horarios disponibles</h4>
+    <div class="d-flex flex-column  flex-wrap gap-2 justify-content-center radio-inputs">
+      @for (item of agenda(); track item.id) {
+      <label>
+        <input name="hora" type="radio" class="radio-input" [value]="item.hora" [(ngModel)]="horaSeleccionada" />
+        <span class="radio-tile">
+          <span class="radio-icon">
+          </span>
+          <span class="radio-label">{{item.hora}}</span>
+        </span>
+      </label>
+      }
+    </div>
+    <button mat-raised-button color="success" class="text-18 mt-3" (click)="onModalCliente()">Continuar</button>
+  </div>
+</div>
+}
+@else {
+@if(servicioSeleccionado()){
+<div class="row justify-content-center mt-3">
+  <div class="col-md-4 text-center">
+    <h4 class="text-center">Horarios disponibles</h4>
+    <p>No hay horarios disponibles para la fecha seleccionada</p>
+  </div>
+</div>
+}
+}

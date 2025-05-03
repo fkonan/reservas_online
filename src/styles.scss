@@ -6,21 +6,27 @@ $primary: #D9D9D9;
 @use "bootstrap/scss/bootstrap"; // ✅ Correcto
 
 // @use '@angular/material' as mat;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
 html,
 body {
   height: 100%;
-  background-image: url('/hoja2.png');
+  // background-image: url('/hoja2.png');
   background-size: cover;
   /* Opcional, para que la imagen cubra todo el contenedor */
   background-position: center;
   /* Opcional, para centrar la imagen */
   background-repeat: no-repeat;
+
   image-rendering: optimizeSpeed;
+  margin: 0;
+  font-family: 'Poppins,Helvetica Neue,Helvetica,Arial', sans-serif;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+/* O solo a los formularios */
+form,
+.form-container {
+  font-family: 'Poppins,Helvetica Neue,Helvetica,Arial', sans-serif;
 }
 
 .bg-sos-principal {
@@ -30,9 +36,10 @@ body {
 @include mat.form-field-overrides((filled-container-shape:20px,
     filled-container-color:$primary,
     filled-active-indicator-height:0px,
-    filled-focus-active-indicator-color:#3A6A3A,
-    filled-focus-label-text-color:#3A6A3A,
+    filled-focus-active-indicator-color:#545454,
+    filled-focus-label-text-color:#545454,
   ));
+
 
 .mdc-text-field--filled {
   border-bottom-right-radius: 15px !important;
@@ -40,5 +47,7 @@ body {
 }
 
 .mat-mdc-form-field.mat-focused .mat-mdc-select-arrow {
-  color: #3A6A3A !important;
+  color: #545454 !important;
 }
+
+

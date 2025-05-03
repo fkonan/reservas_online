@@ -12,5 +12,6 @@ export interface Servicios {
   descripcion: string;
   duracion: string;
   tipo_servicio?: TipoServicio;
-  sede_id:string;
+  sede_id:number;
+  recomendaciones:string;
 }
