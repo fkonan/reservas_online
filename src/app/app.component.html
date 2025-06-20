@@ -1,12 +1,14 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-sos-principal">
-  <div class="container-fluid" style="height:115px;">
-    <!-- Aquí se coloca el logo centrado -->
-    <a class="navbar-brand mx-auto">
-      <img src="/logo_sos.png" alt="Logo de la Empresa" width="550" height="183" class="img img-fluid">
-    </a>
+<nav class="navbar navbar-expand-lg mt-3 py-0">
+  <div class="container-fluid d-flex justify-content-center align-items-center" style="height: 230px; overflow: hidden;">
+    <div class="navbar-brand mx-auto text-center">
+      <img src="/logo_sos.png" alt="Logo de la Empresa" class="img img-fluid"  style="height: 150px; object-fit: contain;">
+      <h5 class="mt-5" style="letter-spacing: 2px;">
+        Especialistas en alisados y salud capilar
+      </h5>
+    </div>
   </div>
 </nav>
-<div class="container-fluid">
+<div class="container-fluid mt-5">
   <app-loading></app-loading>
   <router-outlet></router-outlet>
 </div>

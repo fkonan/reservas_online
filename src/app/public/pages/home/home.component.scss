@@ -1,44 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 
-.elegant-animated-title {
-  /* Color base */
-  color: #545454;
-
-  /* Tipografía elegante - puedes elegir una de estas opciones */
-  font-family: 'Poppins,Helvetica Neue,Helvetica,Arial',sans-serif;
-  /* Opción 1: Muy elegante y refinada */
-  /* font-family: 'Cinzel', serif; */
-  /* Opción 2: Clásica y lujosa */
-  /* font-family: 'Bodoni Moda', serif; */
-  /* Opción 3: Moderna y sofisticada */
-  /* font-family: 'Cormorant', serif; */
-  /* Opción 4: Delicada y distinguida */
-
-  font-size: 40px;
-  font-weight: 600;
-
-  /* Espaciado refinado */
-  letter-spacing: 0.05em;
-  line-height: 1.2;
-
-  /* Efectos base */
-  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
-
-  /* Posicionamiento */
-  position: relative;
-  display: inline-block;
-  margin: 0.5em 0;
-  padding: 0.2em 0.5em;
-
-  /* Fondo con gradiente animado */
-  background: linear-gradient(45deg,
-      rgba(58, 106, 58, 0.05),
-      rgba(95, 153, 95, 0.1),
-      rgba(58, 106, 58, 0.05));
-  background-size: 200% 200%;
-  animation: gradientBG 8s ease infinite;
-  border-radius: 8px;
+.text-codec {
+  font-family: "Source Code Pro", monospace;
+  font-optical-sizing: auto;
 }
+
+.text-rale{
+  font-family: "Raleway", monospace;
+}
+
 
 /* Animación de entrada con elegancia */
 @keyframes elegantEntry {

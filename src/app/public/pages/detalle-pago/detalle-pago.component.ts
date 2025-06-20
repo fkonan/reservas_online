@@ -33,9 +33,9 @@ export class DetallePagoComponent {
       documento: ['', Validators.required],
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
-      fecha_nacimiento: ['', Validators.required],
-      telefono: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
+      fecha_nacimiento: [''],
+      telefono: [''],
+      correo: ['', [Validators.email]],
     });
   }
 
