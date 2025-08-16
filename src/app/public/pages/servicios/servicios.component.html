@@ -1,107 +1,69 @@
-@if(sede){
+<app-header></app-header>
 
 <div class="container">
+  @if (categoria(); as cat) {
   <div class="row justify-content-center mt-3">
-    <div class="col-md-6 text-center">
-      <!-- <app-card-sede [sede]="sede!"></app-card-sede> -->
-      <img class="img img-responsive w-100" style="object-fit:cover;max-height:200px ;" src="/team.jpg">
+    <div class="col-md-6 my-2 text-center">
+      <h5 class="text-muted">{{ cat.categoria | uppercase}}</h5>
     </div>
   </div>
-
   <div class="row justify-content-center mt-3">
-    <div class="col-md-12 my-3 text-center">
-      <h3>ELIGE TU SERVICIO</h3>
-    </div>
-    <div class="col-md-12">
+  <div class="col-md-6">
+    <mat-accordion class="accordion-wrapper">
+      @for (servicio of cat.servicios; track servicio.id) {
+      <mat-expansion-panel class="servicio-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-description>
+            <span>{{ servicio.nombre_comercial |uppercase}}</span>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <!-- Contenido detallado del servicio -->
+        <!-- Descripción -->
+        <div class="descripcion mt-4 mx-3">
+          <p class="" style="font-size:12px;">{{ servicio.nombre_comercial |uppercase}}</p>
+          <div class="hora-iconos">
+            @if (servicio.duracion) {
+            <p class="">
+              <mat-icon style="vertical-align:middle;">schedule</mat-icon>
+              {{ servicio.duracion }}
+            </p>
+            }
+            @if (servicio.iconos) {
+            <p [innerHTML]="servicio.iconos"></p>
+            }
+          </div>
+          <p style="text-align: justify;font-size:12px;">{{ servicio.descripcion }}</p>
 
-    </div>
-    <!-- <div class="col-md-6">
-      <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Selecciona el tipo de servicio</mat-label>
-        <mat-select [(ngModel)]="tipoServicioSeleccionado" (ngModelChange)="onTipoServicioChange()">
-          @for (item of tipoServicios(); track item.id) {
-          <mat-option [value]="item">{{ item.tipo_servicio }}</mat-option>
+          @if (servicio.imagen){
+          <div class="seccion imagen-servicio text-center my-5">
+            <img [src]="getImagenUrl(servicio.imagen)" [alt]="servicio.nombre_comercial" class="img-fluid rounded"
+              style="max-height: 350px; object-fit: cover;">
+          </div>
           }
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-md-6">
-      <h4 class="text-center">Servicio</h4>
-      <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Selecciona el servicio</mat-label>
-        <mat-select [(ngModel)]="servicioSeleccionado" (ngModelChange)="onServicioChange()">
-          @for (item of servicios(); track item.id) {
-          <mat-option [value]="item">{{ item.servicio }}</mat-option>
+          @if (servicio.obsequio && servicio.obsequio !== '6 horas') {
+          <p class="mb-3" style="text-align: justify;font-size:12px;">Obsequios: {{ servicio.obsequio }}</p>
           }
-        </mat-select>
-      </mat-form-field>
-    </div>-->
-  </div>
-
-  @if(servicioSeleccionado()&&descripcion()){
-
-  <div class="row mb-3 justify-content-center pb-3">
-    <div class="col-md-11 border rounded py-3 card my-3 shadow-sm rounded-4 bg-white border"
-      style="border:#545454 1px solid!important;">
-      <a [routerLink]="['/horario']" [state]="{ servicioSeleccionado: servicioSeleccionado(),abono:valor_abono() }"
-        class="text-decoration-none text-dark h-100">
-        <p class="fs-4 mb-2 fw-bold">
-          {{servicioSeleccionado()?.nombre_comercial}}
-        </p>
-        <div class="d-flex justify-content-between align-items-center mb-0">
-          <span class="fs-4 d-flex align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
-              <path fill="#545454"
-                d="m13 12.175l2.25 2.25q.275.275.275.688t-.275.712q-.3.3-.712.3t-.713-.3L11.3 13.3q-.15-.15-.225-.337T11 12.575V9q0-.425.288-.712T12 8t.713.288T13 9zM12 6q-.425 0-.712-.288T11 5V4h2v1q0 .425-.288.713T12 6m6 6q0-.425.288-.712T19 11h1v2h-1q-.425 0-.712-.288T18 12m-6 6q.425 0 .713.288T13 19v1h-2v-1q0-.425.288-.712T12 18m-6-6q0 .425-.288.713T5 13H4v-2h1q.425 0 .713.288T6 12m6 10q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m8-10q0-3.35-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20t5.675-2.325T20 12m-8 0" />
-            </svg>
-            {{ servicioSeleccionado()?.duracion }}
-          </span>
-          <span class="fs-5">
-            Abono: {{ valor_abono() | currency:'$':'symbol':'1.0-0' }}
-          </span>
+          @if (servicio.recomendaciones && servicio.recomendaciones !== '6 horas') {
+          <strong class="text-muted">Nota importante:</strong>
+          <p style="text-align: justify;font-size:12px;" [innerHTML]="servicio.recomendaciones"></p>
+          }
+          <!-- Botón de acción -->
+          <div class="text-end">
+            <button class="btn btn-sos" [routerLink]="['/horario']" [state]="{ servicio: servicio,sede:sede }">
+              <!-- <mat-icon>event</mat-icon> -->
+              Agendar Cita
+            </button>
+          </div>
         </div>
-        <p class="fs-4 mt-2 mb-0">{{servicioSeleccionado()?.descripcion}}</p>
-      </a>
-    </div>
-  </div>
-  }
-
-  <!-- <div class="row justify-content-center mt-3">
-    <div class="col-m-8 text-center">
-      <h3>Dia que desea reservar</h3>
-      <app-calendar (daySelected)="onDaySelected($event)"></app-calendar>
-    </div>
-  </div>
-  @if(agenda().length > 0 &&servicioSeleccionado()){
-  <hr>
-  <div class="row justify-content-around mt-3">
-    <div class="col-md-4 text-center">
-      <h4 class="text-center">Horarios disponibles</h4>
-      <div class="d-flex flex-row flex-wrap gap-2 justify-content-center radio-inputs">
-        @for (item of agenda(); track item.id) {
-        <label>
-          <input name="hora" type="radio" class="radio-input" [value]="item.hora" [(ngModel)]="horaSeleccionada" />
-          <span class="radio-tile">
-            <span class="radio-icon">
-            </span>
-            <span class="radio-label">{{item.hora}}</span>
-          </span>
-        </label>
-        }
+      </mat-expansion-panel>
+      } @empty {
+      <div class="no-servicios">
+        <mat-icon>info</mat-icon>
+        <p>No hay servicios disponibles en esta categoría.</p>
       </div>
-      <button mat-raised-button color="success" class="text-18 mt-3" (click)="onModalCliente()">Continuar</button>
-    </div>
+      }
+    </mat-accordion>
   </div>
-  }
-  @else {
-  @if(servicioSeleccionado()){
-  <div class="row justify-content-center mt-3">
-    <div class="col-md-4 text-center">
-      <h4 class="text-center">Horarios disponibles</h4>
-      <p>No hay horarios disponibles para la fecha seleccionada</p>
-    </div>
-  </div>
-  }
-  } -->
 </div>
 }
+</div>

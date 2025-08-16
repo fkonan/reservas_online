@@ -2,12 +2,11 @@ import { SedesService } from './../../services/sedes.service';
 import { Component,  inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
-import { JsonPipe } from '@angular/common';
 import { environment } from '../../../environments/env.dev';
 
 @Component({
   selector: 'app-card-sedes',
-  imports: [MatCardModule, RouterModule, JsonPipe],
+  imports: [MatCardModule, RouterModule],
   templateUrl: './card-sedes.component.html',
   styleUrl: './card-sedes.component.scss',
 })

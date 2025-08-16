@@ -1,168 +1,80 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+// En tu archivo styles.scss global
 
-.text-codec {
-  font-family: "Source Code Pro", monospace;
-  font-optical-sizing: auto;
-}
-
-.text-rale{
-  font-family: "Raleway", monospace;
-}
+.custom-select-field {
 
 
-/* Animación de entrada con elegancia */
-@keyframes elegantEntry {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-    filter: blur(5px);
-  }
+  .mat-mdc-form-field {
+    // Contenedor principal del form field
+    width: 100% !important;
 
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
+    // Wrapper del campo de texto
+    .mdc-notched-outline {
+      border-radius: 0 !important;
+      border-width: 2px !important;
+      border-color: #e1e8ff !important;
+      transition: all 0.3s ease !important;
+    }
 
-/* Aplicar animación de entrada */
-.elegant-animated-title {
-  animation: elegantEntry 1.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
-}
+    // Estado hover
+    &:hover .mdc-notched-outline {
+      border-color: #afafaf !important;
+      box-shadow: 0 5px 15px rgba(211, 212, 219, 0.1) !important;
+    }
 
-/* Animación de gradiente de fondo */
-@keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
+    // Estado focused
+    &.mat-focused .mdc-notched-outline {
+      border-color: #afafaf !important;
+      border-width: 2px !important;
+      box-shadow: 0 5px 15px rgba(211, 212, 219, 0.1) !important;
+    }
 
-  50% {
-    background-position: 100% 50%;
-  }
+    // Fondo del select
+    .mat-mdc-select {
+      background: #fff !important;
+      border-radius: 0 !important;
+      padding: 10px 15px !important;
+      font-size: 14px !important;
+      color: #333 !important;
+      min-height: 20px !important;
+    }
 
-  100% {
-    background-position: 0% 50%;
-  }
-}
+    // Label
+    .mat-mdc-form-field-label {
+      color: #afafaf !important;
+      font-weight: 600 !important;
+      letter-spacing: 1px !important;
+      font-size: 12px !important;
+    }
 
-/* Efecto de brillo mejorado */
-@keyframes elegantShine {
-  0% {
-    background-position: -200% center;
-  }
+    // Flecha del select
+    .mat-mdc-select-arrow {
+      color: #afafaf !important;
+    }
 
-  100% {
-    background-position: 200% center;
-  }
-}
+    // Infix (contenedor interno)
+    .mat-mdc-form-field-infix {
+      padding: 10px 0 !important;
+      min-height: auto !important;
+      border: none !important;
+    }
 
-/* Aplicar brillo después de la animación de entrada */
-.elegant-animated-title.with-shine {
-  background: linear-gradient(90deg,
-      #545454,
-      #000000 40%,
-      #545454 50%,
-      #000000 60%,
-      #545454);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation:
-    elegantEntry 1.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards,
-    elegantShine 4s linear infinite 1.8s;
-}
+    // Línea de relleno
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__trailing {
+      border-radius: 0 !important;
+    }
 
-/* Línea decorativa con efecto elegante */
-.elegant-animated-title::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 10%;
-  width: 0;
-  /* Comienza con ancho 0 */
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #3A6A3A, transparent);
-  animation: expandLine 1.5s forwards 1s;
-  /* Se expande después de la animación principal */
-}
+    // Notch (donde va el label)
+    .mdc-notched-outline__notch {
+      border-radius: 0 !important;
+    }
 
-@keyframes expandLine {
-  0% {
-    width: 0;
-    left: 50%;
-  }
 
-  100% {
-    width: 80%;
-    left: 10%;
+
   }
 }
 
-/* Adornos elegantes (opcional) */
-.elegant-animated-title::before {
-  content: '✦';
-  /* Símbolo decorativo */
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 24px;
-  opacity: 0;
-  animation: fadeInDecor 2s forwards 1.5s;
+h5 {
+  color: #404040bd !important;
 }
 
-@keyframes fadeInDecor {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) scale(0.7);
-  }
-
-  100% {
-    opacity: 0.7;
-    transform: translateX(-50%) scale(1);
-  }
-}
-
-/* Animación letra por letra */
-.letter {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: revealElegantLetter 0.7s forwards;
-}
-
-@keyframes revealElegantLetter {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Efecto hover refinado */
-.elegant-animated-title:hover {
-  transform: translateY(-3px);
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Efecto hover adicional para el ornamento */
-.elegant-animated-title:hover::before {
-  animation: rotateDecor 1s infinite alternate;
-}
-
-@keyframes rotateDecor {
-  0% {
-    transform: translateX(-50%) scale(1);
-  }
-
-  100% {
-    transform: translateX(-50%) scale(1.1);
-  }
-}

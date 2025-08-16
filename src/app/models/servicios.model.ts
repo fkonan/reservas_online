@@ -1,17 +1,30 @@
 export interface TipoServicio {
   id: number;
   tipo_servicio: string;
-  valor_abono: number;
+}
+
+export interface CategoriaServicio {
+  id: number;
+  categoria: string;
+  servicios: Servicios[]; // Agregamos los servicios anidados
 }
 
 export interface Servicios {
   id: number;
-  servicio: string;
-  tipo_servicio_id: number;
   nombre_comercial: string;
   descripcion: string;
   duracion: string;
-  tipo_servicio?: TipoServicio;
-  sede_id:number;
-  recomendaciones:string;
+  recomendaciones: string;
+  iconos: string;
+  obsequio: string;
+  imagen: string;
+  categoria_id?:CategoriaServicio;
+  sede_id: number;
+  tipo_servicio_id?:TipoServicio;
+}
+
+export interface ServiciosResponse {
+  success?: boolean;
+  data: CategoriaServicio[];
+  total_categorias?: number;
 }

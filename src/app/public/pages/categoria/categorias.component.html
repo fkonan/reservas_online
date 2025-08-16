@@ -1,0 +1,41 @@
+<app-header></app-header>
+@if(sede){
+
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-6 text-center">
+      <img class="img img-responsive w-100" style="object-fit:cover;max-height:200px ;" src="/team.jpg">
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-12 my-md-4 my-2 text-center">
+      <h5>ELIGE TU SERVICIO</h5>
+    </div>
+    <div class="col-md-6">
+      @for (categoria of categorias(); track categoria.id) {
+      <a [routerLink]="['/servicios']" [state]="{ sede: sede ,categoria:categoria }"
+        class="text-decoration-none text-dark">
+        <div class="btn w-100 rounded-0 border border-3 border-sos my-2">
+          {{ categoria.categoria | uppercase}}
+        </div>
+      </a>
+      }
+    </div>
+  </div>
+  <div class="row justify-content-center py-5">
+    <div class="col-md-6">
+      <p style="text-align: justify; color: #404040bd !important;font-size: 14px;">
+        <b>Nota importante:</b>
+
+        Todos nuestros sistemas requieren diagnóstico de un profesional capacitado.
+        Si ya cuentas con uno, selecciona el sistema recomendado.
+        Aun así, el día de la cita se realizará una nueva evaluación para confirmar y adaptar el procedimiento según tu
+        necesidad y deseo.
+
+      </p>
+    </div>
+  </div>
+</div>
+
+}

@@ -3,10 +3,17 @@ $primary: #D9D9D9;
 
 // Ahora importas Bootstrap después de definir las variables
 @use '@angular/material' as mat;
-@use "bootstrap/scss/bootstrap"; // ✅ Correcto
+
+
+@use "bootstrap/scss/bootstrap";
 
 // @use '@angular/material' as mat;
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bs-font-sans-serif: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --bs-body-font-family: var(--bs-font-sans-serif);
+}
 
 html,
 body {
@@ -20,7 +27,28 @@ body {
 
   image-rendering: optimizeSpeed;
   margin: 0;
-  font-family: 'Poppins,Helvetica Neue,Helvetica,Arial', sans-serif;
+  font-family: var(--bs-body-font-family)!important;
+}
+
+.mat-typography {
+  font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  color: #404040bd !important;
+}
+
+.mat-typography h1,
+.mat-typography h2,
+.mat-typography h3,
+.mat-typography h4,
+.mat-typography h5,
+.mat-typography h6 {
+  font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  color:#404040bd!important;
+}
+
+nav h5 {
+  font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    color: #404040bd;
+    font-size: 17.5px;
 }
 
 /* O solo a los formularios */

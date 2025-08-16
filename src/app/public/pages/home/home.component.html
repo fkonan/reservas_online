@@ -1,17 +1,23 @@
-<div class="container py-4">
+<div class="container py-5">
   <div class="row justify-content-center">
-    <p class="text-center fs-4 mb-0">Bienvenida a nuestra</p>
-    <p class="fs-3 text-center">AGENDA ON-LINE</p>
+    <p class="text-center fs-5" style="letter-spacing: 3px;">Bienvenida a nuestra</p>
+    <p class="fs-5 text-center" style="letter-spacing: 3px;">AGENDA ON-LINE</p>
     <div class="col-md-6 mt-5">
-      <h4 class="text-center mb-5 fw-bold">ELIGE TU CIUDAD</h4>
-      <mat-form-field appareance="fill" class="w-100">
+      <h5 class="text-center my-md-5">ELIGE TU CIUDAD</h5>
+      <mat-form-field appearance="outline" class="w-100 mt-5 custom-select-field">
         <mat-label>Ciudad</mat-label>
-        <mat-select (selectionChange)="seleccionarCiudad($event.value)">
+        <mat-select (selectionChange)="seleccionarCiudad($event.value)" >
           @for (ciudad of ciudades(); track ciudad.id) {
-          <mat-option [value]="ciudad">{{ ciudad.ciudad }}</mat-option>
+          <mat-option [value]="ciudad" >{{ ciudad.ciudad }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
     </div>
-    <app-card-sedes></app-card-sedes>
+    <!-- <app-card-sedes></app-card-sedes> -->
   </div>
+</div>
+<footer class="fixed-bottom mb-5 pb-5">
+  <app-header></app-header>
+</footer>
+
+

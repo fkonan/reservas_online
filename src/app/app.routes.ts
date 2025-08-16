@@ -4,12 +4,24 @@ import { ServiciosComponent } from './public/pages/servicios/servicios.component
 import { ValidarPagoComponent } from './public/pages/validar-pago/validar-pago.component';
 import { HorarioComponent } from './public/pages/horario/horario.component';
 import { DetallePagoComponent } from './public/pages/detalle-pago/detalle-pago.component';
+import { categoriasComponent } from './public/pages/categoria/categorias.component';
+import { InicioComponent } from './public/pages/inicio/inicio.component';
 
 export const routes: Routes = [
   {
     path: '',
     title: 'Inicio',
     component: HomeComponent,
+  },
+  {
+    path: 'home',
+    title: 'Home',
+    component: InicioComponent,
+  },
+  {
+    path: 'categorias',
+    title: 'Categorias',
+    component: categoriasComponent,
   },
   {
     path: 'servicios',

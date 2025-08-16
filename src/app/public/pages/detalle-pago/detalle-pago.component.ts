@@ -19,13 +19,13 @@ export class DetallePagoComponent {
   private clienteService = inject(ClientesService);
   display: boolean = true; // Control de visibilidad de campos
   datosCita: any = null; // Datos de la cita
+  nombreMostrar:string='';
   recomendacionesHTML: SafeHtml;
   private agendaService = inject(AgendaService);
 
   constructor(private router: Router, private fb: FormBuilder, private sanitizer: DomSanitizer) {
     const navigation = this.router.getCurrentNavigation();
     this.datosCita = navigation?.extras.state?.['datosCita'];
-
     const html = this.datosCita.servicio.recomendaciones;
     this.recomendacionesHTML = this.sanitizer.bypassSecurityTrustHtml(html);
 
@@ -77,6 +77,7 @@ export class DetallePagoComponent {
   }
 
   validarDocumento() {
+    this.nombreMostrar ='';
     const documento = this.form.get('documento')?.value;
 
     // Verifica si el documento tiene al menos 8 caracteres
@@ -92,6 +93,7 @@ export class DetallePagoComponent {
     const data = this.clienteService.cliente();
     if (data && data.length > 0) {
       const cliente = Array.isArray(data) ? data[0] : data;
+      this.nombreMostrar = `Hola ${cliente.nombres} ${cliente.apellidos}`;
       this.form.patchValue({
         nombres: cliente.nombres || '',
         apellidos: cliente.apellidos || '',

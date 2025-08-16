@@ -1,0 +1,40 @@
+.categoria-panel {
+  margin-bottom: 10px !important;
+  box-shadow: 0 2px 8px rgba(121, 120, 120, 0.1) !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: solid 1px rgb(227 222 222 / 80%);
+  font-size: 12px !important;
+  color: #404040bd;
+}
+
+.categoria-panel:hover {
+  background-color: #eeeeee9e;
+
+}
+
+h3 {
+  color: #404040bd !important;
+}
+
+h5 {
+  color: #404040bd !important;
+}
+
+
+@media (max-width: 480px) {
+  h5 {
+    font-size: 12px;
+  }
+
+  .categoria-panel {
+    font-size: 12px !important;
+  }
+}
+
+
+.border-sos {
+  border-color: #82828273 !important;
+  font-size: 12px;
+  color: #404040bd;
+}

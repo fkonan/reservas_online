@@ -11,7 +11,7 @@
             class="icon-3x">arrow_right</mat-icon></button>
       </div>
       <div class="scroll-container my-2">
-        <button mat-button color="primary" (click)="prevDays()" style="align-self:center;" class="p-0"><mat-icon class="icon-3x">arrow_left</mat-icon></button>
+        <button mat-button color="primary" (click)="prevDays()" style="align-self:center;min-width:25px;" class="p-0"><mat-icon class="icon-3x">arrow_left</mat-icon></button>
         <div class="days">
           <div (click)="selectDay(i)" *ngFor="let day of visibleDays; let i = index"
             class="day {{isCurrentDay(i) ? 'current-day' : ''}} {{isDaySelected(i) ? 'selected-day' : ''}} ">
@@ -19,7 +19,7 @@
             <span>{{ day.dayOfWeek }}</span>
           </div>
         </div>
-        <button mat-button color="primary" (click)="nextDays()" style="align-self:center;" class="p-0"><mat-icon class="icon-3x">arrow_right</mat-icon></button>
+        <button mat-button color="primary" (click)="nextDays()" style="align-self:center;min-width:25px;" class="p-0"><mat-icon class="icon-3x">arrow_right</mat-icon></button>
       </div>
       <!-- <div class="footer w-50 justify-self-center">
         <button mat-button color="primary" (click)="prevDays()"><mat-icon class="icon-3x">arrow_left</mat-icon></button>

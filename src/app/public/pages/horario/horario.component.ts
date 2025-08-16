@@ -11,10 +11,11 @@ import { ClienteDialogComponent } from '../../../shared/components/cliente-dialo
 import { ClientesService } from '../../../shared/services/clientes.service';
 import Swal from 'sweetalert2';
 import { MatButtonModule } from '@angular/material/button';
+import { Sedes } from '../../../models/sedes.model';
 
 @Component({
   selector: 'app-horario',
-  imports: [CalendarComponent, RouterModule, FormsModule, MatButtonModule],
+  imports: [RouterModule, FormsModule, MatButtonModule, CalendarComponent],
   templateUrl: './horario.component.html',
   styleUrl: './horario.component.scss',
 })
@@ -24,13 +25,14 @@ export class HorarioComponent {
   private agendaService = inject(AgendaService);
   agenda: Signal<Agenda[]> = this.servicioService.agenda;
   servicioSeleccionado = signal<Servicios | null>(null);
+  sede: Sedes;
 
   constructor(private router: Router, private dialog: MatDialog) {
     const navigation = this.router.getCurrentNavigation();
+    this.sede = navigation?.extras.state?.['sede'] || null;
     const servicioSeleccionado =
-      navigation?.extras.state?.['servicioSeleccionado'] ||
-      localStorage.getItem('servicioSeleccionado');
-    const valorAbono = navigation?.extras.state?.['abono'] || localStorage.getItem('valorAbono');
+      navigation?.extras.state?.['servicio'] || localStorage.getItem('servicio');
+    const valorAbono = 50000;
 
     if (servicioSeleccionado) {
       this.servicioSeleccionado.set(
@@ -38,12 +40,8 @@ export class HorarioComponent {
           ? JSON.parse(servicioSeleccionado)
           : servicioSeleccionado,
       );
-      localStorage.setItem('servicioSeleccionado', JSON.stringify(servicioSeleccionado));
-      this.servicioService.servicioSeleccionado.set(this.servicioSeleccionado());
-      this.servicioService.tipoServicioSeleccionado.set(
-        this.servicioSeleccionado()?.tipo_servicio_id,
-      );
-      this.servicioService.sedeSeleccionada.set(this.servicioSeleccionado()?.sede_id);
+      localStorage.setItem('servicio', JSON.stringify(servicioSeleccionado));
+      this.servicioService.sedeSeleccionada.set(this.sede.id);
     }
 
     if (valorAbono) {
@@ -56,7 +54,8 @@ export class HorarioComponent {
   horaSeleccionada = signal<string>('');
 
   onDaySelected(date: Date) {
-    this.selectedDate = date;
+    this.selectedDate = date ?? new Date();
+    this.servicioService.servicioSeleccionado.set(this.servicioSeleccionado());
     this.servicioService.selectedDate.set(this.selectedDate);
   }
 
@@ -76,12 +75,11 @@ export class HorarioComponent {
 
     const datosCita = {
       servicio: this.servicioSeleccionado(),
-      sede: 3,
+      sede: this.sede.id,
       fecha: this.selectedDate,
       hora: this.horaSeleccionada(),
       valor_abono: this.valor_abono(),
     };
-
     this.router.navigate(['/detalle-pago'], {
       state: { datosCita },
     });

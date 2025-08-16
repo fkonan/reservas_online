@@ -5,6 +5,24 @@
 
 :host {
   button.text-18 {
-    font-size: 18px !important;
+    font-size: 15px !important;
   }
+}
+h4,h5,h3{
+  color: #404040bd !important;
+}
+
+.btn-sos {
+  border: 1px solid hsl(265, 10%, calc(93% - 11.3% * 1));
+  border-radius: 0px;
+  background-color: #667239;
+  color: #ffffff;
+}
+
+.material-symbols-outlined{
+  color: #404040bd !important;
+}
+.color-sos{
+  color: #404040bd !important;
+
 }

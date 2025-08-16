@@ -1,28 +1,28 @@
-import { environment } from '../environments/env.dev';
-import { Servicios } from '../models/servicios.model';
+// adapters/servicios.adapter.ts
+import { CategoriaServicio, Servicios } from '../models/servicios.model';
 
-export const ServiciosAdapter = (response: any): Servicios[] => {
-  const servicios = Array.isArray(response.data) ? response.data : [];
-  const url = environment.baseUrl;
-  if (!servicios.length) {
+export const ServiciosAdapter = (response: any): CategoriaServicio[] => {
+  // Maneja tanto si la respuesta tiene wrapper de data como si no
+  const categorias = response.data ? response.data : Array.isArray(response) ? response : [];
+
+  if (!categorias.length) {
     return [];
   }
-
-  return servicios.map((c: any) => ({
-    id: c.id,
-    tipo_servicio_id: c.tipo_servicio_id,
-    servicio: c.servicio,
-    tipo_servicio: c.tipo_servicio
-      ? {
-          id: c.tipo_servicio.id,
-          tipo_servicio: c.tipo_servicio.tipo_servicio,
-          valor_abono: c.tipo_servicio.valor_abono,
-        }
-      : null, // Si no tiene relación, queda como null
-    nombre_comercial: c.nombre_comercial,
-    descripcion: c.descripcion,
-    duracion: c.duracion,
-    sede_id: c.sede_id,
-    estado: c.estado,
+  return categorias.map((categoria: any) => ({
+    id: categoria.id,
+    categoria: categoria.categoria,
+    servicios: categoria.servicios
+      ? categoria.servicios.map((servicio: any) => ({
+          id: servicio.id,
+          nombre_comercial: servicio.nombre_comercial,
+          descripcion: servicio.descripcion,
+          duracion: servicio.duracion,
+          recomendaciones: servicio.recomendaciones,
+          iconos: servicio.iconos,
+          obsequio: servicio.obsequio,
+          imagen: servicio.imagen,
+          tipo_servicio_id:servicio.tipo_servicio_id
+        }))
+      : [],
   }));
 };

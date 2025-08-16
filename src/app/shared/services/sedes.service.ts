@@ -14,11 +14,15 @@ export class SedesService {
   private apiUrl = `${environment.baseUrl}`;
   private http = inject(HttpClient);
 
-  ciudadSeleccionada = signal<Ciudades | undefined>(undefined);
+  ciudadSeleccionada = signal<Ciudades | undefined>(this.getCiudadFromStorage());
 
   private sedeResource = rxResource({
     request: this.ciudadSeleccionada,
     loader: (param) => {
+      if (param.request) {
+        // Guardar en localStorage cuando se hace la petición
+        localStorage.setItem('ciudadSeleccionada', JSON.stringify(param.request));
+      }
       return this.http.get<Sedes[]>(`${this.apiUrl}sedes/${param.request?.id}`).pipe(
         map((sedes) => {
           sedesAdapter(sedes);
@@ -27,6 +31,14 @@ export class SedesService {
       );
     },
   });
+
+  private getCiudadFromStorage(): Ciudades | undefined {
+    if (typeof localStorage !== 'undefined') {
+      const stored = localStorage.getItem('ciudadSeleccionada');
+      return stored ? JSON.parse(stored) : undefined;
+    }
+    return undefined;
+  }
 
   sedes = computed(() => this.sedeResource.value() ?? ([] as Sedes[]));
   error = computed(() => this.sedeResource.error() as HttpErrorResponse);
