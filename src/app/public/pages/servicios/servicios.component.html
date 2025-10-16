@@ -3,8 +3,8 @@
 <div class="container">
   @if (categoria(); as cat) {
   <div class="row justify-content-center mt-3">
-    <div class="col-md-6 my-2 text-center">
-      <h5 class="text-muted">{{ cat.categoria | uppercase}}</h5>
+    <div class="col-md-6 my-3 text-center">
+      <h5 class="text-start mb-0" style="letter-spacing: 1px;">{{ cat.categoria | uppercase}}</h5>
     </div>
   </div>
   <div class="row justify-content-center mt-3">
@@ -14,17 +14,17 @@
       <mat-expansion-panel class="servicio-panel">
         <mat-expansion-panel-header>
           <mat-panel-description>
-            <span>{{ servicio.nombre_comercial |uppercase}}</span>
+            <span style="letter-spacing: 1px;font-family: Raleway!important;">{{ servicio.nombre_comercial |uppercase}}</span>
           </mat-panel-description>
         </mat-expansion-panel-header>
         <!-- Contenido detallado del servicio -->
         <!-- Descripción -->
         <div class="descripcion mt-4 mx-3">
-          <p class="" style="font-size:12px;">{{ servicio.nombre_comercial |uppercase}}</p>
+          <p class="" style="letter-spacing: 1px;font-size:12px;font-family: Raleway!important;">{{ servicio.nombre_comercial |uppercase}}</p>
           <div class="hora-iconos">
             @if (servicio.duracion) {
             <p class="">
-              <mat-icon style="vertical-align:middle;">schedule</mat-icon>
+              <mat-icon style="vertical-align:middle;letter-spacing: 1px;">schedule</mat-icon>
               {{ servicio.duracion }}
             </p>
             }
@@ -32,23 +32,22 @@
             <p [innerHTML]="servicio.iconos"></p>
             }
           </div>
-          <p style="text-align: justify;font-size:12px;">{{ servicio.descripcion }}</p>
+          <p style="letter-spacing: 1px;text-align: justify;font-size:12px;margin-bottom: 0px;font-family: Raleway!important;">{{ servicio.descripcion }}</p>
 
           @if (servicio.imagen){
-          <div class="seccion imagen-servicio text-center my-5">
+          <div class="seccion imagen-servicio text-center my-4">
             <img [src]="getImagenUrl(servicio.imagen)" [alt]="servicio.nombre_comercial" class="img-fluid rounded"
               style="max-height: 350px; object-fit: cover;">
           </div>
           }
           @if (servicio.obsequio && servicio.obsequio !== '6 horas') {
-          <p class="mb-3" style="text-align: justify;font-size:12px;">Obsequios: {{ servicio.obsequio }}</p>
+          <p class="mb-3" style="letter-spacing: 1px;text-align: justify;font-size:12px;font-family: Raleway!important;"><b>OBSEQUIOS:</b> {{ servicio.obsequio }}</p>
           }
           @if (servicio.recomendaciones && servicio.recomendaciones !== '6 horas') {
-          <strong class="text-muted">Nota importante:</strong>
-          <p style="text-align: justify;font-size:12px;" [innerHTML]="servicio.recomendaciones"></p>
+          <strong class="text-muted" style="text-align: justify;font-size:12px;font-family: Raleway!important;">Nota importante:</strong> <span style="text-align: justify;font-size:12px;font-family: Raleway!important;" [innerHTML]="servicio.recomendaciones"></span>
           }
           <!-- Botón de acción -->
-          <div class="text-end">
+          <div class="text-end mt-2">
             <button class="btn btn-sos" [routerLink]="['/horario']" [state]="{ servicio: servicio,sede:sede }">
               <!-- <mat-icon>event</mat-icon> -->
               Agendar Cita

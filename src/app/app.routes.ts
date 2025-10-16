@@ -10,12 +10,12 @@ import { InicioComponent } from './public/pages/inicio/inicio.component';
 export const routes: Routes = [
   {
     path: '',
-    title: 'Inicio',
+    title: 'Home',
     component: HomeComponent,
   },
   {
-    path: 'home',
-    title: 'Home',
+    path: 'inicio',
+    title: 'Inicio',
     component: InicioComponent,
   },
   {

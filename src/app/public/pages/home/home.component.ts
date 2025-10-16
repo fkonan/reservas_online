@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
 
       if (this.isInitialLoad && ciudadSeleccionada && sedes.length > 0) {
         this.isInitialLoad = false;
-        this.router.navigate(['/home'], { state: { sede: sedes[0] } });
+        this.router.navigate(['/inicio'], { state: { sede: sedes[0] } });
       }
     });
   }

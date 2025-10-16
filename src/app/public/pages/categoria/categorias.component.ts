@@ -26,6 +26,7 @@ export class categoriasComponent {
   sede: Sedes;
 
   constructor(private router: Router) {
+
     const navigation = this.router.getCurrentNavigation();
     this.sede = navigation?.extras.state?.['sede'] || null;
     this.servicioService.sedeSeleccionada.set(this.sede.id);
