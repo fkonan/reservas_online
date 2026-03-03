@@ -4,6 +4,7 @@ import {
   inject,
   Signal,
   ChangeDetectionStrategy,
+  signal,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Sedes } from '../../../models/sedes.model';
@@ -18,17 +19,20 @@ import { HeaderComponent } from '../../../shared/components/header/header.compon
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.scss',
 })
-export class categoriasComponent {
-  private servicioService = inject(ServiciosService);
+export class CategoriasComponent {
+  private readonly servicioService = inject(ServiciosService);
+  private readonly router = inject(Router);
 
-  categorias: Signal<CategoriaServicio[]> = this.servicioService.categorias;
+  protected readonly categorias = this.servicioService.categorias;
+  protected readonly sede = signal<Sedes | null>(null);
 
-  sede: Sedes;
-
-  constructor(private router: Router) {
-
+  constructor() {
     const navigation = this.router.getCurrentNavigation();
-    this.sede = navigation?.extras.state?.['sede'] || null;
-    this.servicioService.sedeSeleccionada.set(this.sede.id);
+    const sedeData = navigation?.extras.state?.['sede'] as Sedes | undefined;
+
+    if (sedeData) {
+      this.sede.set(sedeData);
+      this.servicioService.sedeSeleccionada.set(sedeData.id);
+    }
   }
 }

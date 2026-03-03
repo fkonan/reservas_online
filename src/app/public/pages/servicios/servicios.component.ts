@@ -29,10 +29,19 @@ import { MatExpansionModule, MatExpansionPanelContent } from '@angular/material/
 import { MatIconModule } from '@angular/material/icon';
 import { environment } from '../../../environments/env.dev';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { IconRendererPipe } from '../../../shared/pipes/icon-renderer.pipe';
 
 @Component({
   selector: 'app-servicios',
-  imports: [CommonModule, RouterModule, MatExpansionModule, MatIconModule, HeaderComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatExpansionModule,
+    MatIconModule,
+    HeaderComponent,
+    IconRendererPipe,
+    MatIconModule,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './servicios.component.html',
   styleUrl: './servicios.component.scss',

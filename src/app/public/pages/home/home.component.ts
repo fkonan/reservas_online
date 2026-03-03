@@ -28,29 +28,11 @@ import { Router } from '@angular/router';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  private isInitialLoad = true;
-  constructor(private router: Router) {
-    // this.seleccionarCiudad({ id: 1, ciudad: 'BUCARAMANGA' });
-    effect(() => {
-      const sedes = this.sedesService.sedes();
-      const ciudadSeleccionada = this.sedesService.ciudadSeleccionada();
-
-      if (this.isInitialLoad && ciudadSeleccionada && sedes.length > 0) {
-        this.isInitialLoad = false;
-        this.router.navigate(['/inicio'], { state: { sede: sedes[0] } });
-      }
-    });
-  }
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    const ciudadSeleccionada = this.sedesService.ciudadSeleccionada();
-    if (ciudadSeleccionada) {
-      this.isInitialLoad = false;
-      this.sedesService.ciudadSeleccionada.set(undefined);
-    }
-    setTimeout(() => {
-      this.isInitialLoad = false;
-    }, 0);
+    // Establecer ciudad por defecto al iniciar
+    this.seleccionarCiudad({ id: 1, ciudad: 'BUCARAMANGA' });
   }
 
   private ciudadesService = inject(CiudadesService);
@@ -61,6 +43,5 @@ export class HomeComponent implements OnInit {
 
   seleccionarCiudad(ciudad: Ciudades) {
     this.sedesService.ciudadSeleccionada.set(ciudad);
-    this.isInitialLoad = true;
   }
 }

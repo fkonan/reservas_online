@@ -14,7 +14,7 @@ export class CiudadesService {
   private http = inject(HttpClient);
 
   private ciudadesRecourse = rxResource({
-    loader: () =>
+    stream: () =>
       this.http.get<Ciudades[]>(`${this.apiUrl}ciudades`).pipe(
         map((ciudades) => {
           ciudadesAdapter(ciudades);

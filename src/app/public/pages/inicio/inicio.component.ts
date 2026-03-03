@@ -1,23 +1,30 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { Router, RouterModule } from '@angular/router';
 import { Sedes } from '../../../models/sedes.model';
 import { ServiciosService } from '../../../shared/services/servicios.service';
 import { SedesService } from '../../../shared/services/sedes.service';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-inicio',
-  imports: [HeaderComponent, RouterModule, JsonPipe],
+  imports: [HeaderComponent, RouterModule],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss',
 })
 export class InicioComponent {
   private sedesService = inject(SedesService);
-
-  sede = this.sedesService.sedes;
+  protected readonly sede = signal<Sedes | null>(null);
 
   constructor(private router: Router) {
-    const navigation = this.router.getCurrentNavigation();
+    // Establecer ciudad por defecto
+    this.sedesService.ciudadSeleccionada.set({ id: 1, ciudad: 'BUCARAMANGA' });
+
+    // Observar cuando se carguen las sedes y tomar la primera
+    effect(() => {
+      const sedes = this.sedesService.sedes();
+      if (sedes.length > 0 && !this.sede()) {
+        this.sede.set(sedes[0]);
+      }
+    });
   }
 }

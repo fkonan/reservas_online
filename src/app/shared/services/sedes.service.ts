@@ -17,13 +17,13 @@ export class SedesService {
   ciudadSeleccionada = signal<Ciudades | undefined>(this.getCiudadFromStorage());
 
   private sedeResource = rxResource({
-    request: this.ciudadSeleccionada,
-    loader: (param) => {
-      if (param.request) {
+    params: () => this.ciudadSeleccionada(),
+    stream: ({ params }) => {
+      if (params) {
         // Guardar en localStorage cuando se hace la petición
-        localStorage.setItem('ciudadSeleccionada', JSON.stringify(param.request));
+        localStorage.setItem('ciudadSeleccionada', JSON.stringify(params));
       }
-      return this.http.get<Sedes[]>(`${this.apiUrl}sedes/${param.request?.id}`).pipe(
+      return this.http.get<Sedes[]>(`${this.apiUrl}sedes/${params?.id}`).pipe(
         map((sedes) => {
           sedesAdapter(sedes);
           return sedes;

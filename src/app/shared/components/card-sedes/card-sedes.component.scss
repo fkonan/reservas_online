@@ -4,12 +4,11 @@
   transition: box-shadow 0.3s ease;
   border: #545454 1px solid;
   height: 200px;
+  z-index: 1;
 
   @media (max-width: 768px) {
     height: auto;
   }
-
-  z-index: 1;
 }
 
 .card-container:hover {
