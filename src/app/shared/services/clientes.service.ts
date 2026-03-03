@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/env.dev';
-import { map } from 'rxjs';
+import { catchError, map, of } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Clientes } from '../../models/clientes.model';
 import { clientesAdapter } from '../../adapters/clientes.adapter';
@@ -16,11 +16,18 @@ export class ClientesService {
   documento = signal<string | null>(null);
 
   private clienteResource = rxResource({
-    request: this.documento,
-    loader: (param) => {
+    params: () => this.documento(),
+    stream: ({ params }) => {
       return this.http
-        .get<Clientes[]>(`${this.apiUrl}api/cliente/${param.request}`)
-        .pipe(map((cliente) => clientesAdapter(cliente)));
+        .get<Clientes[]>(`${this.apiUrl}api/cliente/${params}`)
+        .pipe(
+          map((cliente) => clientesAdapter(cliente)),
+          catchError((error) => {
+            console.log('Error al buscar cliente:', error);
+            // Retornar array vacío en caso de error (cliente no existe)
+            return of([]);
+          })
+        );
     },
   });
 

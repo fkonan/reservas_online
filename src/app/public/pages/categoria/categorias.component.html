@@ -1,5 +1,5 @@
 <app-header></app-header>
-@if(sede){
+@if(sede()){
 
 <div class="container">
   <div class="row justify-content-center mt-4">
@@ -14,7 +14,7 @@
     </div>
     <div class="col-md-6 px-3">
       @for (categoria of categorias(); track categoria.id) {
-      <a [routerLink]="['/servicios']" [state]="{ sede: sede ,categoria:categoria }"
+      <a [routerLink]="['/servicios']" [state]="{ sede: sede() ,categoria:categoria }"
         class="text-decoration-none text-dark">
         <div class="btn w-100 rounded-0 border border-3 border-sos my-2" style="letter-spacing:1px;background: #f9f9f9;">
           {{ categoria.categoria | uppercase}}

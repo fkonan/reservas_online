@@ -1,6 +1,6 @@
 <div class="row justify-content-center mt-3">
   <div class="col-m-8 text-center">
-    <h3>Dia que desea reservar</h3>
+    <h3 style="letter-spacing: 1px;"><b>DÍA QUE DESEA RESERVAR</b></h3>
     <app-calendar (daySelected)="onDaySelected($event)"></app-calendar>
   </div>
 </div>
@@ -8,7 +8,7 @@
 <hr>
 <div class="row justify-content-around mt-3">
   <div class="col-md-4 text-center">
-    <h4 class="text-center">Horarios disponibles</h4>
+    <h4 class="text-center" style="letter-spacing: 1px;"><b>HORARIOS DISPONIBLES</b></h4>
     <div class="d-flex flex-column  flex-wrap gap-2 justify-content-center radio-inputs">
       @for (item of agenda(); track item.id) {
       <label>
@@ -29,8 +29,8 @@
 @if(servicioSeleccionado()){
 <div class="row justify-content-center mt-3">
   <div class="col-md-4 text-center">
-    <h4 class="text-center">Horarios disponibles</h4>
-    <p>No hay horarios disponibles para la fecha seleccionada</p>
+    <h4 class="text-center" style="letter-spacing: 1px;"><b>HORARIOS DISPONIBLES</b></h4>
+    <p style="letter-spacing: 1px;">No hay horarios disponibles para la fecha seleccionada</p>
   </div>
 </div>
 }

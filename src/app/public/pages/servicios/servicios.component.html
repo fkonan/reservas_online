@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class="container">
+<div class="container mt-4">
   @if (categoria(); as cat) {
   <div class="row justify-content-center mt-3">
     <div class="col-md-6 my-3 text-center">
@@ -20,7 +20,7 @@
         <!-- Contenido detallado del servicio -->
         <!-- Descripción -->
         <div class="descripcion mt-4 mx-3">
-          <p class="" style="letter-spacing: 1px;font-size:12px;font-family: Raleway!important;">{{ servicio.nombre_comercial |uppercase}}</p>
+          <p class="" style="letter-spacing: 1px;font-size:13px;font-family: Raleway!important;font-weight: 600;">{{ servicio.nombre_comercial |uppercase}}</p>
           <div class="hora-iconos">
             @if (servicio.duracion) {
             <p class="">
@@ -29,7 +29,7 @@
             </p>
             }
             @if (servicio.iconos) {
-            <p [innerHTML]="servicio.iconos"></p>
+            <p [innerHTML]="servicio.iconos | iconRenderer"></p>
             }
           </div>
           <p style="letter-spacing: 1px;text-align: justify;font-size:12px;margin-bottom: 0px;font-family: Raleway!important;">{{ servicio.descripcion }}</p>
@@ -41,13 +41,22 @@
           </div>
           }
           @if (servicio.obsequio && servicio.obsequio !== '6 horas') {
-          <p class="mb-3" style="letter-spacing: 1px;text-align: justify;font-size:12px;font-family: Raleway!important;"><b>OBSEQUIOS:</b> {{ servicio.obsequio }}</p>
+          <p class="mb-3" style="letter-spacing: 1px;text-align: justify;font-size:12px;font-family: Raleway!important;">
+          <!-- <mat-icon style="vertical-align:middle;margin-right:4px;">card_giftcard</mat-icon> -->
+          <b>OBSEQUIO:</b> {{ servicio.obsequio }}</p>
           }
+          <p class="mb-3" style="letter-spacing: 1px;text-align: justify;font-size:12px;font-family: Raleway!important;">
+            <!-- <mat-icon style="vertical-align:middle;margin-right:4px;">workspace_premium</mat-icon> -->
+            No olvides presentar tu insignia <b style="color:#667239;">"SOY TRIBU SOS"!</b>
+            Así podrás acumular más descuentos y seguir disfrutando de todos tus beneficios exclusivos
+          </p>
           @if (servicio.recomendaciones && servicio.recomendaciones !== '6 horas') {
-          <strong class="text-muted" style="text-align: justify;font-size:12px;font-family: Raleway!important;">Nota importante:</strong> <span style="text-align: justify;font-size:12px;font-family: Raleway!important;" [innerHTML]="servicio.recomendaciones"></span>
+            <p style="text-align: justify;">
+              <strong class="text-muted" style="text-align: justify;font-size:12px;font-family: Raleway!important;">Nota importante:</strong> <span style="font-size:12px;font-family: Raleway!important;" [innerHTML]="servicio.recomendaciones"></span>
+            </p>
           }
           <!-- Botón de acción -->
-          <div class="text-end mt-2">
+          <div class="text-end my-4">
             <button class="btn btn-sos" [routerLink]="['/horario']" [state]="{ servicio: servicio,sede:sede }">
               <!-- <mat-icon>event</mat-icon> -->
               Agendar Cita

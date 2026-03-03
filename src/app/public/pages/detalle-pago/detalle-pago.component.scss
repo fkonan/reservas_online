@@ -8,21 +8,91 @@
     font-size: 15px !important;
   }
 }
-h4,h5,h3{
-  color: #404040bd !important;
+
+h3, h4, h5 {
+  font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  color: rgba(64, 64, 64, 0.7411764706) !important;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+p, label {
+  font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  color: rgba(64, 64, 64, 0.7411764706) !important;
 }
 
 .btn-sos {
   border: 1px solid hsl(265, 10%, calc(93% - 11.3% * 1));
-  border-radius: 0px;
+  border-radius: 5px;
   background-color: #667239;
+  font-family: Raleway !important;
   color: #ffffff;
+  transition: all 0.3s ease;
+
+  &:disabled {
+    background-color: #d3d3d3 !important;
+    color: #888888 !important;
+    border-color: #cccccc !important;
+    cursor: not-allowed !important;
+    opacity: 0.6;
+
+    &:hover {
+      background-color: #d3d3d3 !important;
+      transform: none;
+    }
+  }
+
+  &:hover:not(:disabled) {
+    background-color: #7a8545;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
 }
 
-.material-symbols-outlined{
-  color: #404040bd !important;
+.material-symbols-outlined {
+  color: rgba(64, 64, 64, 0.7411764706) !important;
 }
-.color-sos{
-  color: #404040bd !important;
 
+.color-sos {
+  color: rgba(64, 64, 64, 0.7411764706) !important;
+}
+
+@media (max-width: 480px) {
+  h3, h4, h5 {
+    font-size: 14px;
+  }
+}
+
+// Estilos para el accordion de recomendaciones
+.recomendaciones-item {
+  border: 3px solid rgb(227 227 227 / 45%) !important;
+  border-radius: 5px !important;
+  overflow: hidden;
+  box-shadow: none !important;
+}
+
+.accordion-button-custom {
+  background-color: #f5f5f5 !important;
+  font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  color: rgba(64, 64, 64, 0.7411764706) !important;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.accordion-button-custom:not(.collapsed) {
+  background-color: #ffffff !important;
+  color: rgba(64, 64, 64, 0.7411764706) !important;
+  box-shadow: none;
+}
+
+.accordion-button-custom:focus {
+  box-shadow: none;
+  border-color: rgb(227 227 227 / 45%);
+}
+
+.accordion-body-custom {
+  font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  color: rgba(64, 64, 64, 0.7411764706) !important;
+  font-size: 14px;
+  line-height: 1.6;
 }

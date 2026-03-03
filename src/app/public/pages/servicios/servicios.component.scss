@@ -21,9 +21,6 @@
   color: white;
 }
 
-
-
-
 .accordion-wrapper {
   margin: 20px 0;
 
@@ -35,9 +32,44 @@
 
 .servicio-panel {
   margin-bottom: 10px !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: none !important;
   overflow: hidden;
+  border: 3px solid rgb(227 227 227 / 45%) !important;
+  border-radius: 0 !important;
+  // background: #f9f9f9 !important;
+}
 
+// Estilos para iconos personalizados
+::ng-deep .custom-icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: baseline;
+  display: inline-block;
+  margin: 0 4px;
+}
+
+// Quitar borde cuando el panel está expandido
+.servicio-panel.mat-expanded {
+  border: none !important;
+
+}
+
+.mat-expansion-panel-header.mat-focus-indicator.mat-expansion-toggle-indicator-after.mat-expanded {
+  border: 3px solid rgba(227, 227, 227, 0.45) !important;
+}
+
+::ng-deep .servicio-panel .mat-expansion-panel-header {
+  padding: 20px 24px !important;
+  background: #f9f9f9 !important;
+  font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  letter-spacing: 1px !important;
+  color: rgba(64, 64, 64, 0.7411764706) !important;
+}
+
+::ng-deep .servicio-panel .mat-expansion-panel-header-title,
+::ng-deep .servicio-panel .mat-panel-description {
+  font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  color: rgba(64, 64, 64, 0.7411764706) !important;
 }
 
 .hora-iconos {
@@ -58,23 +90,11 @@
 /* Sobrescribir estilos de Angular Material */
 ::ng-deep .mat-expansion-panel-header {
   padding: 20px 24px !important;
+  height: 40px !important;
 }
 
 ::ng-deep .mat-expansion-panel-body {
   padding: 0 !important;
-}
-
-
-.mat-expansion-panel-header.mat-expanded {
-  height: var(--mat-expansion-header-expanded-state-height, 40px);
-}
-
-.mat-expansion-panel-header {
-  height: 40px;
-}
-
-::ng-deep .mat-expansion-panel-body {
-  padding: 100px;
 }
 
 .mat-expansion-panel {
@@ -86,31 +106,34 @@
 }
 
 .mat-expansion-panel-header.mat-expanded {
-  border: 3px solid hsl(265, 10%, calc(93% - 11.3% * 1));
+  height: var(--mat-expansion-header-expanded-state-height, 40px) !important;
 }
 
 h5 {
-  color: #404040bd !important;
+  font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  color: rgba(64, 64, 64, 0.7411764706) !important;
+  font-weight: 700;
 }
 
 @media (max-width: 480px) {
   h5 {
     font-size: 14px;
-    color: #404040bd !important;
+    font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    color: rgba(64, 64, 64, 0.7411764706) !important;
   }
 
   .mat-expansion-panel-header {
-    height: 40px;
+    height: 40px !important;
   }
 
   .mat-expansion-panel-header-description>span {
     font-size: 12px !important;
-    color: #646464bd !important;
+    color: rgba(64, 64, 64, 0.7411764706) !important;
   }
 }
 
 .mat-expansion-panel-header-description {
-  font-size: 11px !important;
+  font-size: 13px !important;
   color: #404040bd !important;
 }
 
@@ -122,6 +145,15 @@ h5 {
   border: 1px solid hsl(265, 10%, calc(93% - 11.3% * 1));
   border-radius: 0px;
   background-color: #667239;
+  font-family: Raleway !important;
   color: #ffffff;
 }
 
+
+.mat-icon {
+  color: rgb(64 64 64 / 43%) !important;
+}
+
+.material-symbols-outlined {
+  font-size: 30px !important;
+}

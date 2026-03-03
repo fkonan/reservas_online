@@ -1,0 +1,9 @@
+{
+   "chat.mcp.serverSampling": {
+      "reservas_online/.vscode/mcp.json: angular-cli": {
+         "allowedModels": [
+            "copilot/auto"
+         ]
+      }
+   }
+}

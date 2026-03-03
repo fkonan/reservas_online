@@ -3,8 +3,6 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/env.dev';
 import { map } from 'rxjs';
 import { CategoriaServicio, Servicios, TipoServicio } from '../../models/servicios.model';
-import { ServiciosAdapter } from '../../adapters/servicios.adapter';
-import { TipoServiciosAdapter } from '../../adapters/tipoServicios.adapter';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Agenda } from '../../models/agenda.model';
 import { AgendaAdapter } from '../../adapters/agenda.adapter';
@@ -22,30 +20,35 @@ export class ServiciosService {
   categorias = computed(() => this.categoriaSedeRecourse.value() ?? ([] as CategoriaServicio[]));
 
   private categoriaSedeRecourse = rxResource({
-    loader: () =>
-      this.http.get<any>(`${this.apiUrl}/categorias-por-sede/${this.sedeSeleccionada()}`).pipe(
+    params: () => {
+      const sedeId = this.sedeSeleccionada();
+      // Retornar undefined para evitar que se haga la petición si no hay sede seleccionada
+      return sedeId ? { sedeId } : undefined;
+    },
+    stream: ({ params }) =>
+      this.http.get<any>(`${this.apiUrl}/categorias-por-sede/${params?.sedeId}`).pipe(
         map((categorias) => {
-          return ServiciosAdapter(categorias);
+          return CategoriasAdapter(categorias);
         }),
       ),
   });
 
   servicioSeleccionado = signal<Servicios | null>(null);
-  selectedDate = signal<Date | undefined>(undefined);
+  selectedDate = signal<Date | undefined>(new Date());
 
   private agendaResource = rxResource({
-    request: () => ({
+    params: () => ({
       sede_id: this.sedeSeleccionada(),
       servicio: this.servicioSeleccionado()?.tipo_servicio_id,
       fecha: this.selectedDate(),
     }),
 
-    loader: (param) => {
+    stream: ({ params }) => {
       return this.http
         .post<Agenda[]>(`${this.apiUrl}/agenda-web`, {
-          sede_id: param.request.sede_id ?? '',
-          tipo_servicio_id: param.request.servicio ?? '1234',
-          fecha: param.request.fecha ?? '',
+          sede_id: params.sede_id ?? '',
+          tipo_servicio_id: params.servicio ?? '1234',
+          fecha: params.fecha ?? '',
         })
         .pipe(
           map((agenda) => {
