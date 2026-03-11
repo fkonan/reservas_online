@@ -1,0 +1,14 @@
+.separator {
+  display: block;
+  width: 1px;
+  height: 40px;
+  background-color: #ccc;
+}
+
+.zoled-logo {
+  height: 32px;
+
+  @media (min-width: 576px) {
+    height: 40px;
+  }
+}

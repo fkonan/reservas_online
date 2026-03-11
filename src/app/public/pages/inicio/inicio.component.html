@@ -5,7 +5,7 @@
 <div class="container mb-4 mt-md-5 mt-5">
   <div class="row justify-content-center mt-md-4">
     <div class="col-md-4" style="padding-left: 4rem;padding-right: 4rem;">
-      <a href="#" class="btn w-100 rounded-0 border border-3 border-sos mb-2">PROMOCIONES VIGENTES </a>
+      <a [routerLink]="['/promociones']" class="btn w-100 rounded-0 border border-3 border-sos mb-2">PROMOCIONES VIGENTES</a>
       <a [routerLink]="['/categorias']" [state]="{ sede: sede() }"  class="btn w-100 rounded-0 border border-3 border-sos my-2">AGENDA ON-LINE</a>
       <a href="#" class="btn w-100 rounded-0 border border-3 border-sos my-2">AGENDA CON UNA ASESORA</a>
       <a href="#" class="btn w-100 rounded-0 border border-3 border-sos my-2">TIENDA ON-LINE</a>
@@ -36,8 +36,8 @@
 <img src="/arbol_sos.png" alt="arbol" class="" style="width: 15rem;"> -->
 
 
-  <div class="row mt-3 mt-md-5 mt-lg-5 justify-content-center justify-md-content-left">
-    <div class="col-12 col-md-4 col-lg-4 text-md-center text-start d-md-block d-flex px-0 justify-content-end">
+  <div class="row mt-3 mt-md-5 mt-lg-5 justify-content-center">
+    <div class="col-12 col-md-4 col-lg-4 text-md-center text-start d-md-block d-flex px-0">
       <p class="padding text-footer ps-4" style="letter-spacing: 1px;font-size: 12px;">
         &nbsp;<b>SEDE PRINCIPAL</b>
         <br>
@@ -53,10 +53,12 @@
         <br>
         <a href="https://www.instagram.com/sos_centrocapilar_hd/?hl=es" target="_blank">&nbsp;&#64;sos_centrocapilar_hd</a>
       </p>
-      <img src="/arbol_sos.png" alt="arbol" class="d-md-none d-block" style="width: 10rem;">
     </div>
   </div>
 </div>
+
+<app-seasonal-tree />
+
 <!-- <div class="decorative-tree" style="overflow-x: hidden;">
   <img src="/arbol_sos.png" alt="Tree" class="tree-image" style="overflow-x: hidden;">
 </div> -->

@@ -1,0 +1,120 @@
+<app-header-promo />
+
+<div class="container pb-3 mt-4">
+
+  <!-- Título -->
+  <div class="row justify-content-center mt-5">
+    <div class="col-12 col-md-8 col-lg-6 text-center">
+       <h5 style="letter-spacing: 1px;"><b> PROMOCIONES VIGENTES</b></h5>
+    </div>
+  </div>
+
+  <!-- Filtro por tipo -->
+  <!-- <div class="row justify-content-center mt-2 mb-3">
+    <div class="col-12 col-md-8 col-lg-6">
+      <select
+        class="form-select rounded-0 border-sos-select"
+        [value]="tipoSeleccionado()"
+        (change)="tipoSeleccionado.set($any($event.target).value)">
+        <option value="todos">PROMOCIONES VIGENTES</option>
+        @for (tipo of tiposDisponibles(); track tipo) {
+          <option [value]="tipo">{{ labelTipo(tipo) | uppercase }}</option>
+        }
+      </select>
+    </div>
+  </div> -->
+
+  <!-- Estado de carga -->
+  @if (isLoading()) {
+    <div class="row justify-content-center mt-4">
+      <div class="col-12 col-md-8 col-lg-6 text-center">
+        <div class="spinner-border spinner-border-sm text-secondary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Lista de promociones -->
+  @if (!isLoading()) {
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+
+        @for (promo of promocionesFiltradas(); track promo.id) {
+          <div class="promo-card">
+
+            <!-- Categoría -->
+            <p class="" style="letter-spacing: 1px;font-size:13px;font-family: Raleway!important;font-weight: 600;">{{ promo.categoria | uppercase }}</p>
+
+            <!-- / servicio -->
+              <p class="" style="letter-spacing: 1px;font-size:12px;font-family: Raleway!important;">{{ promo.servicio | uppercase }}</p>
+            <!-- Título / servicio -->
+              <p class="" style="letter-spacing: 1px;font-size:10px;font-family: Raleway!important;">{{ promo.titulo | uppercase }}</p>
+
+            <div class="d-flex justify-content-between align-items-start gap-2">
+              <div class="flex-grow-1">
+
+                <!-- Precio / descuento -->
+                @if (promo.tipo_promocion === 'descuento') {
+                  <p class="mb-1" style="letter-spacing: 1px;text-align: justify;font-size:12px;margin-bottom: 0px;font-family: Raleway!important;">{{ promo.porcentaje_descuento }}% de descuento</p>
+                } @else if (promo.tipo_promocion === 'precio_especial') {
+                  <p class="mb-1"  style="letter-spacing: 1px;text-align: justify;font-size:12px;margin-bottom: 0px;font-family: Raleway!important;">PRECIO ESPECIAL {{ promo.precio_promocion | currency:'COP':'symbol-narrow':'1.0-0' }}</p>
+                } @else if (promo.tipo_promocion === 'combo') {
+                  @if (promo.porcentaje_descuento) {
+                    <p class="mb-1"> style="letter-spacing: 1px;text-align: justify;font-size:12px;margin-bottom: 0px;font-family: Raleway!important;"{{ promo.porcentaje_descuento }}% de descuento</p>
+                  }
+                  @if (promo.precio_promocion) {
+                    <p class="mb-1"  style="letter-spacing: 1px;text-align: justify;font-size:12px;margin-bottom: 0px;font-family: Raleway!important;"> style="letter-spacing: 1px;text-align: justify;font-size:12px;margin-bottom: 0px;font-family: Raleway!important;"COMBO {{ promo.precio_promocion | currency:'COP':'symbol-narrow':'1.0-0' }}</p>
+                  }
+                }
+
+                <!-- Items -->
+                @if (promo.items.length > 0) {
+                  <p style="letter-spacing: 1px;text-align: justify;font-size:12px;margin-bottom:0;font-family: Raleway!important;">
+                    {{ promo.items.length }} {{ promo.items.length === 1 ? 'Obsequio' : 'Obsequios' }}:
+                  </p>
+                  <ul class="promo-items">
+                    @for (item of promo.items; track item.orden) {
+                      <li> <p style="letter-spacing: 1px;text-align: justify;font-size:10px;margin-bottom: 0px;font-family: Raleway!important;">{{ item.contenido }}</p></li>
+                    }
+                  </ul>
+                }
+
+                <!-- Descripción expandible -->
+                @if (promo.descripcion) {
+                  <p style="letter-spacing: 1px;text-align: justify;font-size:12px;margin-bottom: 0px;font-family: Raleway!important;">{{ promo.descripcion }}</p>
+                }
+
+                <!-- Botón -->
+                <button
+                  class="btn btn-promo mt-2">
+                  {{  'Mas información' }}
+                </button>
+
+                <!-- Vigencia -->
+                <p class="promo-vigencia mt-1">Válido hasta: {{ promo.fecha_fin }}</p>
+
+              </div>
+
+              <!-- Imagen -->
+              @if (promo.imagen_url) {
+                <img [src]="promo.imagen_url" [alt]="promo.titulo" class="promo-img">
+              }
+
+            </div>
+          </div>
+        }
+
+        @if (promocionesFiltradas().length === 0) {
+          <p class="text-center text-muted mt-4" style="font-size: 13px;">
+            No hay promociones disponibles en este momento.
+          </p>
+        }
+
+      </div>
+    </div>
+  }
+
+</div>
+
+<app-seasonal-tree />

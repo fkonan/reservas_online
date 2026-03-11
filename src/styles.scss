@@ -18,6 +18,7 @@ $primary: #D9D9D9;
 html,
 body {
   height: 100%;
+  overflow-x: hidden;
   // background-image: url('/hoja2.png');
   background-size: cover;
   /* Opcional, para que la imagen cubra todo el contenedor */

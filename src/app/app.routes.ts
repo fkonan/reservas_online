@@ -50,4 +50,12 @@ export const routes: Routes = [
     title: 'Detalle del pago',
     component: DetallePagoComponent,
   },
+  {
+    path: 'promociones',
+    title: 'Promociones Vigentes',
+    loadComponent: () =>
+      import('./public/pages/promociones/promociones.component').then(
+        (m) => m.PromocionesComponent
+      ),
+  },
 ];

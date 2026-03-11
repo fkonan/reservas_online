@@ -1,0 +1,43 @@
+:host {
+  display: block;
+  position: fixed;
+  bottom: -220px;
+  right: 0;
+  height: 97vh;
+  pointer-events: none;
+  z-index: 0;
+  // Desplaza el componente a la derecha la mitad de su ancho → solo el 50% es visible
+  transform: translateX(50%);
+
+  @media (min-width: 768px) {
+    height: 90vh;
+  }
+}
+
+img {
+  display: block;
+  height: 100%;
+  width: auto;
+  transition: filter 0.6s ease;
+  opacity: 0.7;
+
+  &.primavera {
+    // Verde fresco, luminoso
+    filter: brightness(1.05) saturate(1.5) hue-rotate(15deg);
+  }
+
+  &.verano {
+    // Cálido y vibrante
+    filter: brightness(1.15) saturate(1.5) contrast(1.05);
+  }
+
+  &.otono {
+    // Tonos anaranjados/dorados
+    filter: sepia(0.55) saturate(2.2) hue-rotate(-20deg) brightness(0.95);
+  }
+
+  &.invierno {
+    // Frío y desaturado
+    filter: grayscale(0.65) brightness(1.1) contrast(1.1);
+  }
+}

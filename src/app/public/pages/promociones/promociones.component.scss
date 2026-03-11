@@ -1,0 +1,102 @@
+.promo-title {
+  letter-spacing: 1.5px;
+  font-size: 13px;
+  color: #404040;
+}
+
+.border-sos-select {
+  border: 2px solid #c8c8c8 !important;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #404040;
+  background-color: #fff;
+
+  &:focus {
+    box-shadow: none;
+    border-color: #a0a0a0 !important;
+  }
+}
+
+.promo-card {
+  padding: 1rem 0;
+  border-bottom: 1px solid #e8e8e8;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.promo-category {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #404040;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.promo-subtitle {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: #555;
+}
+
+.promo-price {
+  font-size: 12px;
+  color: #404040;
+  font-weight: 600;
+}
+
+.promo-items-label {
+  font-size: 12px;
+  color: #404040;
+}
+
+.promo-items {
+  padding-left: 1.2rem;
+  margin: 0;
+  font-size: 12px;
+  color: #555;
+
+  li {
+    margin-bottom: 1px;
+  }
+}
+
+.promo-desc {
+  font-size: 12px;
+  color: #666;
+  text-align: justify;
+}
+
+.promo-vigencia {
+  font-size: 10px;
+  color: #999;
+  margin-bottom: 0;
+}
+
+.btn-promo {
+  font-size: 11px;
+  letter-spacing: 1px;
+  border: 1.5px solid #c8c8c8;
+  border-radius: 0;
+  padding: 4px 14px;
+  color: #fff;
+  background: #a4a1a1;
+
+  &:hover {
+    background: #000000;
+  }
+}
+
+.promo-img {
+  width: 90px;
+  height: 110px;
+  object-fit: cover;
+  flex-shrink: 0;
+
+  @media (min-width: 576px) {
+    width: 110px;
+    height: 130px;
+  }
+}
