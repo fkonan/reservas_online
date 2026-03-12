@@ -1,0 +1,81 @@
+// :host {
+//   display: block;
+//   width: clamp(18rem, 55vw, 28rem);
+//   margin: 0 auto;
+//   pointer-events: none;
+//   // Hunde el elemento la mitad de su propia altura → solo la mitad superior queda visible
+//   // El div padre con overflow:hidden recorta lo que desborda
+//   transform: translateY(50%);
+
+//   @media (min-width: 768px) {
+//     width: clamp(20rem, 38vw, 32rem);
+//   }
+// }
+
+// .tree-img {
+//   display: block;
+//   width: 100%;
+//   height: auto;
+//   opacity: 0.55;
+//   transition: filter 0.6s ease;
+
+//   &.primavera {
+//     filter: brightness(1.05) saturate(1.5) hue-rotate(15deg);
+//   }
+
+//   &.verano {
+//     filter: brightness(1.15) saturate(1.5) contrast(1.05);
+//   }
+
+//   &.otono {
+//     filter: sepia(0.55) saturate(2.2) hue-rotate(-20deg) brightness(0.95);
+//   }
+
+//   &.invierno {
+//     filter: grayscale(0.65) brightness(1.1) contrast(1.1);
+//   }
+// }
+.image-wrapper {
+  // Full bleed: escapa del contenedor padre y toma el ancho del viewport
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    width: 500px;
+    height: 400px;
+    object-fit: cover;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+  }
+
+  // 📱 Móvil pequeño
+  @media (max-width: 440px) {
+    height: 160px;
+
+    img {
+      width: 360px;
+      height: 320px;
+    }
+  }
+
+  // 📱 Tablet
+  @media (min-width: 768px) and (max-width: 1023px) {
+    img {
+      width: 600px;
+      height: 480px;
+    }
+  }
+
+  // 💻 Laptop / desktop
+  @media (min-width: 1024px) {
+    img {
+      width: 700px;
+      height: 560px;
+    }
+  }
+}
