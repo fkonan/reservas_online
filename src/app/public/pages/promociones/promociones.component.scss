@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@400;600&display=swap');
+
 .promo-title {
   letter-spacing: 1.5px;
   font-size: 13px;
@@ -85,20 +87,23 @@
   background: #a4a1a1;
 
   &:hover {
-    background: #000000;
+    background: #1b3e20;
   }
 }
 
 .promo-img {
-  width: 130px;
-  height: 140px;
+  width: 155px;
   object-fit: cover;
   object-position: center;
   flex-shrink: 0;
+  align-self: stretch;
 
   @media (min-width: 576px) {
-    width: 130px;
-    height: 155px;
+    width: 180px;
+  }
+
+  @media (min-width: 768px) {
+    width: 200px;
   }
 }
 
@@ -181,4 +186,8 @@
 
 .container {
   flex: 1;
+}
+
+.subtitle {
+  font-family: 'Exo', sans-serif;
 }

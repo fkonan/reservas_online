@@ -4,7 +4,7 @@
 <div class="container pb-3 mt-4">
 
   <!-- Título -->
-  <div class="row justify-content-center mt-5">
+  <div class="row justify-content-center mt-5 mb-3">
     <div class="col-12 col-md-8 col-lg-6 text-center">
        <h5 style="letter-spacing: 1px;"><b> PROMOCIONES VIGENTES</b></h5>
     </div>
@@ -54,16 +54,16 @@
           <div class="promo-card">
 
             <!-- Categoría -->
-            <p class="" style="letter-spacing: 1px;font-size:13px;font-family: Raleway!important;font-weight: 600;">{{ promo.categoria | uppercase }}</p>
+            <p class="" style="letter-spacing: 1px;font-size:13px;font-family: Raleway!important;font-weight: 900;margin-bottom: 0.2rem;">&bull; {{ promo.categoria | uppercase }}</p>
 
             <!-- / servicio -->
 
 
-            <div class="d-flex justify-content-between align-items-start gap-2">
+            <div class="d-flex justify-content-between gap-2">
               <div class="flex-grow-1">
-                    <p class="" style="letter-spacing: 1px;font-size:12px;font-family: Raleway!important;">{{ promo.servicio | uppercase }}</p>
+                    <p class="" style="letter-spacing: 1px;font-size:12px;font-family: Raleway!important; font-weight: 700; margin-bottom: 0.25rem; color: #1b3e20;">{{ promo.servicio | uppercase }}</p>
             <!-- Título / servicio -->
-              <p class="" style="letter-spacing: 1px;font-size:10px;font-family: Raleway!important;">{{ promo.titulo | uppercase }}</p>
+              <p class="subtitle" style="letter-spacing: 1px;font-size:11px; margin-bottom: 0.5rem; color: #5a5755; font-weight: bolder;">{{ promo.titulo | uppercase }}</p>
 
                 <!-- Precio / descuento -->
                 @if (promo.tipo_promocion === 'descuento') {
