@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-promociones',
-  imports: [RouterModule, HeaderPromoComponent, CurrencyPipe, SeasonalTreeComponent, SeasonalTreeBottomComponent, CommonModule],
+  imports: [RouterModule, HeaderPromoComponent, CurrencyPipe,SeasonalTreeBottomComponent, CommonModule],
   templateUrl: './promociones.component.html',
   styleUrl: './promociones.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
