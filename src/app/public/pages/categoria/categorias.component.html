@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header-promo />
 @if(sede()){
 
 <div class="container">
@@ -20,6 +20,10 @@
           {{ categoria.categoria | uppercase}}
         </div>
       </a>
+      } @empty {
+      <div class="btn w-100 rounded-0 border border-3 border-sos my-2" style="letter-spacing:1px;background: #f9f9f9; cursor: default;">
+        NO HAY SERVICIOS DISPONIBLES
+      </div>
       }
 
     </div>
@@ -37,6 +41,18 @@
       </p>
     </div>
   </div>
+   <!-- Botón volver -->
+  <div class="row justify-content-center mt-4 pb-4">
+    <div class="col-12 col-md-8 col-lg-6 text-center">
+      <a [routerLink]="['/']" class="btn-back">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M19 12H5M5 12l7-7M5 12l7 7"/>
+        </svg>
+        VOLVER
+      </a>
+    </div>
+  </div>
+
 </div>
 
 }

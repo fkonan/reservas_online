@@ -11,10 +11,11 @@ import { Sedes } from '../../../models/sedes.model';
 import { CategoriaServicio } from '../../../models/servicios.model';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { HeaderPromoComponent } from '../../../shared/components/header-promo/header-promo.component';
 
 @Component({
   selector: 'app-categorias',
-  imports: [CommonModule, RouterModule, HeaderComponent],
+  imports: [CommonModule, RouterModule, HeaderPromoComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.scss',

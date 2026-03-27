@@ -9,6 +9,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { Location } from '@angular/common';
 import { Sedes } from '../../../models/sedes.model';
 import { CategoriaServicio } from '../../../models/servicios.model';
 import { CommonModule } from '@angular/common';
@@ -25,38 +26,49 @@ import { AgendaService } from '../../../shared/services/agenda.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClientesService } from '../../../shared/services/clientes.service';
 import Swal from 'sweetalert2';
-import { MatExpansionModule, MatExpansionPanelContent } from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { environment } from '../../../environments/env.dev';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { IconRendererPipe } from '../../../shared/pipes/icon-renderer.pipe';
+import { HeaderPromoComponent } from '../../../shared/components/header-promo/header-promo.component';
 
 @Component({
   selector: 'app-servicios',
   imports: [
     CommonModule,
     RouterModule,
-    MatExpansionModule,
     MatIconModule,
-    HeaderComponent,
-    IconRendererPipe,
-    MatIconModule,
+    HeaderPromoComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './servicios.component.html',
   styleUrl: './servicios.component.scss',
 })
 export class ServiciosComponent {
+  private readonly location = inject(Location);
   categoria = signal<CategoriaServicio | null>(null);
   sede: Sedes;
 
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
-    this.sede = navigation?.extras.state?.['sede'] || null;
-    this.categoria.set(navigation?.extras.state?.['categoria'] || null);
+    const state: Record<string, unknown> =
+      navigation?.extras.state ??
+      (this.location.getState() as Record<string, unknown>);
+    this.sede = (state?.['sede'] as Sedes) || null;
+    this.categoria.set((state?.['categoria'] as CategoriaServicio) || null);
   }
 
   getImagenUrl(foto: string | null | undefined): string {
     return foto ? `${foto}` : 'assets/imagen-default.jpg';
+  }
+
+  onServicioClick(servicio: any): void {
+    this.router.navigate(['/servicios', servicio.id], {
+      state: {
+        categoria: this.categoria(),
+        sede: this.sede,
+      },
+    });
   }
 }

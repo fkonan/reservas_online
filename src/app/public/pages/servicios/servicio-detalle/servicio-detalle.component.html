@@ -1,0 +1,140 @@
+<div class="promo-page">
+<app-header-promo></app-header-promo>
+
+<div class="container detalle-container mt-5">
+
+  <!-- Loading -->
+  @if (loading()) {
+    <div class="loading-wrapper">
+      <div class="loading-spinner"></div>
+    </div>
+  }
+
+  <!-- Error -->
+  @if (error() && !loading()) {
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6 text-center error-state">
+        <mat-icon class="error-icon">error_outline</mat-icon>
+        <p class="error-msg">No se pudo cargar la información del servicio.</p>
+        <a (click)="goBack()" class="btn-back" role="button">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M19 12H5M5 12l7-7M5 12l7 7"/>
+          </svg>
+          VOLVER
+        </a>
+      </div>
+    </div>
+  }
+
+  <!-- Contenido principal -->
+  @if (servicio(); as s) {
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-7 col-lg-6">
+
+        <!-- Título de categoría -->
+        @if (categoria(); as cat) {
+          <div class="categoria-titulo mt-4 text-center">
+            <h5>{{ cat.categoria | uppercase }}</h5>
+          </div>
+        }
+
+        <!-- Selector de servicios en la misma categoría -->
+        @if (serviciosEnCategoria().length > 1) {
+          <div class="selector-wrapper mt-3">
+            <mat-form-field appearance="outline" class="selector-field w-100">
+              <mat-select
+                [value]="s.id"
+                (valueChange)="onServicioChange($event)"
+                panelClass="selector-panel">
+                @for (svc of serviciosEnCategoria(); track svc.id) {
+                  <mat-option [value]="svc.id">
+                    {{ svc.nombre_comercial | uppercase }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+        }
+
+        <!-- Portada (imagen principal)
+        @if (s.web.imagen_portada) {
+          <div class="portada-wrapper mt-3">
+            <img
+              [src]="getImageUrl(s.web.imagen_portada)"
+              [alt]="s.web.titulo_publico"
+              class="img-portada img-fluid">
+          </div>
+        } -->
+
+        <!-- Cabecera del servicio -->
+        <div class="servicio-header mt-4">
+          <h2 class="servicio-titulo">{{ s.web.titulo_publico }}</h2>
+
+          <!-- Duración + Atributos en la misma fila -->
+          <div class="header-meta-row">
+            @if (s.web.duracion || s.duracion) {
+              <div class="servicio-duracion">
+                <mat-icon class="icon-clock">schedule</mat-icon>
+                <span>{{ s.web.duracion || s.duracion }}</span>
+              </div>
+            }
+
+            <!-- Atributos (íconos PNG) -->
+            @if (s.atributos.length) {
+              <div class="atributos-grid">
+                @for (attr of s.atributos; track attr.id) {
+                  @if (attr.icono) {
+                    <div class="atributo-chip" [title]="attr.nombre">
+                      <img [src]="getImageUrl(attr.icono)" [alt]="attr.nombre" class="atributo-icono">
+                    </div>
+                  }
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Descripción corta -->
+        @if (s.web.descripcion_corta) {
+          <p class="descripcion-corta">{{ s.web.descripcion_corta }}</p>
+        }
+
+        <!-- Secciones dinámicas -->
+        <div class="secciones-wrapper mt-3">
+          @for (seccion of s.web.secciones; track seccion.id) {
+            <app-seccion-renderer
+              [seccion]="seccion"
+              [servicio]="s"
+              [sede]="sede()">
+            </app-seccion-renderer>
+          }
+        </div>
+
+        <!-- Botón Agendar Cita (condicional) -->
+        @if (s.web.mostrar_agenda) {
+          <div class="cta-agenda text-center my-5">
+            <button class="btn-agenda" (click)="navegarHorario()">
+              <mat-icon>event</mat-icon>
+              {{ s.web.texto_boton_agenda || 'AGENDAR CITA' }}
+            </button>
+          </div>
+        }
+
+        <!-- Botón Volver -->
+        <div class="text-center pb-5">
+          <a (click)="goBack()" class="btn-back" role="button">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M19 12H5M5 12l7-7M5 12l7 7"/>
+            </svg>
+            VOLVER
+          </a>
+        </div>
+
+      </div>
+    </div>
+  }
+
+</div>
+<app-seasonal-tree-bottom></app-seasonal-tree-bottom>
+</div>
+

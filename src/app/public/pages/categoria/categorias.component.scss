@@ -38,3 +38,32 @@ h5 {
   font-size: 12px;
   color: #404040bd;
 }
+
+// Botón volver
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #888;
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  transition: color 0.2s ease;
+
+  svg {
+    opacity: 0.6;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    color: #404040;
+
+    svg {
+      transform: translateX(-3px);
+      opacity: 1;
+    }
+  }
+}

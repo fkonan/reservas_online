@@ -58,4 +58,12 @@ export const routes: Routes = [
         (m) => m.PromocionesComponent
       ),
   },
+  {
+    path: 'servicios/:id',
+    title: 'Detalle del servicio',
+    loadComponent: () =>
+      import(
+        './public/pages/servicios/servicio-detalle/servicio-detalle.component'
+      ).then((m) => m.ServicioDetalleComponent),
+  },
 ];
