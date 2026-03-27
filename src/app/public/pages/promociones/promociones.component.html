@@ -97,10 +97,13 @@
                 }
 
                 <!-- Botón -->
-                <button
-                  class="btn btn-promo mt-2">
-                  {{  'Mas información' }}
-                </button>
+                @if (promo.servicio_id) {
+                  <button
+                    class="btn btn-promo mt-2"
+                    (click)="navegarServicio(promo.servicio_id)">
+                    {{ promo.boton_texto || 'Más información' }}
+                  </button>
+                }
 
                 <!-- Vigencia -->
                 <p class="promo-vigencia mt-1">Válido hasta: {{ promo.fecha_fin }}</p>

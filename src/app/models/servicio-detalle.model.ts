@@ -63,4 +63,5 @@ export interface ServicioDetalle {
 export interface ApiResponseServicio {
   success: boolean;
   data: ServicioDetalle;
+  message?: string;
 }

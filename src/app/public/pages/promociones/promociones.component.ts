@@ -5,7 +5,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { PromocionesService } from '../../../shared/services/promociones.service';
 import { HeaderPromoComponent } from '../../../shared/components/header-promo/header-promo.component';
 import { Promocion } from '../../../models/promociones.model';
@@ -24,6 +24,7 @@ import { CommonModule } from '@angular/common';
 })
 export class PromocionesComponent {
   private readonly promoService = inject(PromocionesService);
+  private readonly router = inject(Router);
 
   protected readonly promociones = this.promoService.promociones;
   protected readonly isLoading = this.promoService.isLoading;
@@ -58,6 +59,10 @@ export class PromocionesComponent {
 
   isExpandido(id: number): boolean {
     return this.expandidos().has(id);
+  }
+
+  navegarServicio(servicioId: number): void {
+    this.router.navigate(['/servicios', servicioId]);
   }
 
   labelTipo(tipo: string): string {

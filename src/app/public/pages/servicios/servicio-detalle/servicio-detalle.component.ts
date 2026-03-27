@@ -57,9 +57,19 @@ export class ServicioDetalleComponent {
     stream: ({ params }) => this.servicioWebService.getServicio(params.id),
   });
 
-  readonly servicio = computed(() => this.servicioResource.value());
-  readonly loading = computed(() => this.servicioResource.isLoading());
   readonly error = computed(() => this.servicioResource.error());
+  readonly loading = computed(() => this.servicioResource.isLoading() && !this.servicioResource.error());
+  readonly servicio = computed(() => {
+    if (this.servicioResource.error()) return undefined;
+    return this.servicioResource.value();
+  });
+  readonly errorMessage = computed(() => {
+    const err = this.error();
+    if (!err) return 'No se pudo cargar la información del servicio.';
+    if (err instanceof Error) return err.message;
+    const e = err as any;
+    return e?.error?.message ?? e?.message ?? 'No se pudo cargar la información del servicio.';
+  });
 
   constructor() {
     // Una vez que carga el servicio, actualiza la URL con el slug y el título de la página
@@ -110,11 +120,15 @@ export class ServicioDetalleComponent {
   }
 
   goBack(): void {
-    this.router.navigate(['/servicios'], {
-      state: {
-        categoria: this.categoria(),
-        sede: this.sede(),
-      },
-    });
+    if (this.categoria()) {
+      this.router.navigate(['/servicios'], {
+        state: {
+          categoria: this.categoria(),
+          sede: this.sede(),
+        },
+      });
+    } else {
+      this.location.back();
+    }
   }
 }
