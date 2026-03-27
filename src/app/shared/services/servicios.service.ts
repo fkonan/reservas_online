@@ -2,11 +2,12 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/env.dev';
 import { map } from 'rxjs';
-import { CategoriaServicio, Servicios, TipoServicio } from '../../models/servicios.model';
+import { CategoriaServicio, TipoServicio } from '../../models/servicios.model';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Agenda } from '../../models/agenda.model';
 import { AgendaAdapter } from '../../adapters/agenda.adapter';
 import { CategoriasAdapter } from '../../adapters/categorias.adapter';
+import { ServicioDetalle } from '../../models/servicio-detalle.model';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +34,7 @@ export class ServiciosService {
       ),
   });
 
-  servicioSeleccionado = signal<Servicios | null>(null);
+  servicioSeleccionado = signal<ServicioDetalle | null>(null);
   selectedDate = signal<Date | undefined>(new Date());
 
   private agendaResource = rxResource({

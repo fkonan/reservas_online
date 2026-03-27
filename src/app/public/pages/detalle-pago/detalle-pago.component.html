@@ -19,11 +19,11 @@
         <div class="col-12 col-md-6 mb-0 mb-md-2">
           <p class="d-flex color-sos">
             <span class="material-symbols-outlined px-1">face_3</span>
-            {{cita.servicio.nombre_comercial}}
+            {{cita.servicio.web?.titulo_publico || cita.servicio.nombre_comercial}}
           </p>
           <p class="d-flex color-sos">
         <span class="material-symbols-outlined px-1">nest_clock_farsight_analog</span>
-            {{cita.servicio.duracion}}
+            {{cita.servicio.web?.duracion || cita.servicio.duracion}}
           </p>
         </div>
       </div>

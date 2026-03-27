@@ -2,7 +2,7 @@ import { Component, ElementRef, inject, signal, Signal, ViewChild, computed } fr
 import { ServiciosService } from '../../../shared/services/servicios.service';
 import { AgendaService } from '../../../shared/services/agenda.service';
 import { Agenda } from '../../../models/agenda.model';
-import { Servicios } from '../../../models/servicios.model';
+import { ServicioDetalle } from '../../../models/servicio-detalle.model';
 import { Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarComponent } from '../../../shared/components/calendar/calendar.component';
@@ -30,8 +30,8 @@ export class HorarioComponent {
     return this.sortByTime(agendaData);
   });
 
-  servicioSeleccionado = signal<Servicios | null>(null);
-  sede: Sedes;
+  servicioSeleccionado = signal<ServicioDetalle | null>(null);
+  sede: Sedes | null = null;
 
   /**
    * Ordena las horas en formato "7:30am, 9:30am, 6:00pm" de manera ascendente
@@ -80,7 +80,7 @@ export class HorarioComponent {
           : servicioSeleccionado,
       );
       localStorage.setItem('servicio', JSON.stringify(servicioSeleccionado));
-      this.servicioService.sedeSeleccionada.set(this.sede.id);
+      this.servicioService.sedeSeleccionada.set(this.sede?.id);
     }
 
     if (valorAbono) {
@@ -114,7 +114,7 @@ export class HorarioComponent {
 
     const datosCita = {
       servicio: this.servicioSeleccionado(),
-      sede: this.sede.id,
+      sede: this.sede?.id,
       fecha: this.selectedDate,
       hora: this.horaSeleccionada(),
       valor_abono: this.valor_abono(),

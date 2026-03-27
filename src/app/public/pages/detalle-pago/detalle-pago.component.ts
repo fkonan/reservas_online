@@ -33,7 +33,14 @@ export class DetallePagoComponent {
 
     if (datos) {
       this.datosCita.set(datos);
-      const html = datos.servicio?.recomendaciones || '';
+      // Extraer recomendaciones desde el nuevo modelo (secciones[]) con fallback al campo legado
+      const seccionRec = datos.servicio?.web?.secciones?.find(
+        (s: any) => s.tipo_seccion === 'recomendaciones'
+      );
+      const items: string[] = seccionRec?.contenido_json?.items ?? [];
+      const html = items.length
+        ? `<ul>${items.map((i: string) => `<li>${i}</li>`).join('')}</ul>`
+        : (datos.servicio?.recomendaciones || '');
       this.recomendacionesHTML = this.sanitizer.bypassSecurityTrustHtml(html);
     }
 
