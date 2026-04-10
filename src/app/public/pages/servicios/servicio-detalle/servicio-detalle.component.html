@@ -84,7 +84,10 @@
               <div class="atributos-grid">
                 @for (attr of s.atributos; track attr.id) {
                   @if (attr.icono) {
-                    <div class="atributo-chip" [title]="attr.nombre">
+                    <div class="atributo-chip"
+                         [matTooltip]="attr.descripcion"
+                         matTooltipPosition="above"
+                         [matTooltipShowDelay]="200" [title]="attr.descripcion">
                       <img [src]="getImageUrl(attr.icono)" [alt]="attr.nombre" class="atributo-icono">
                     </div>
                   }

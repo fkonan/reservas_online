@@ -11,6 +11,7 @@ import { toSignal, rxResource } from '@angular/core/rxjs-interop';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { UpperCasePipe, Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { ServicioWebService } from '../../../../shared/services/servicio-web.service';
@@ -31,6 +32,7 @@ import { SeasonalTreeBottomComponent } from '../../../../shared/components/seaso
     MatSelectModule,
     MatFormFieldModule,
     MatIconModule,
+    MatTooltipModule,
     SeccionRendererComponent,
     HeaderPromoComponent,
     UpperCasePipe,
