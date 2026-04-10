@@ -71,14 +71,38 @@ $color-border: rgba(227, 227, 227, 0.6);
 
     ::ng-deep .mat-mdc-text-field-wrapper {
       border-radius: 0 !important;
+      padding: 0 12px !important;
+      border: 3px solid rgba(227, 227, 227, 0.45) !important;
+      background: #fff !important;
     }
 
-    ::ng-deep .mat-mdc-select-value-text,
-    ::ng-deep .mat-mdc-option {
+    ::ng-deep .mdc-notched-outline__leading,
+    ::ng-deep .mdc-notched-outline__notch,
+    ::ng-deep .mdc-notched-outline__trailing {
+      border: none !important;
+      background: transparent !important;
+    }
+
+    ::ng-deep .mat-mdc-form-field-infix {
+      min-height: 28px !important;
+      padding-top: 5px !important;
+      padding-bottom: 5px !important;
+    }
+
+    ::ng-deep .mat-mdc-select-value-text {
       font-family: $font-raleway !important;
-      font-size: 12px !important;
+      font-size: 11px !important;
       letter-spacing: 1px !important;
       color: $color-text !important;
+      text-transform: uppercase;
+    }
+
+    ::ng-deep .mat-mdc-select-trigger {
+      height: 28px !important;
+    }
+
+    ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+      display: none !important;
     }
 
     ::ng-deep .mat-mdc-select-arrow {

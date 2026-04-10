@@ -79,4 +79,22 @@ form,
   color: #545454 !important;
 }
 
+// ── Panel selector de servicio-detalle ────────────────────────────────────
+.selector-panel {
+  .mat-mdc-option {
+    font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-size: 11px !important;
+    letter-spacing: 1px !important;
+    color: rgba(64, 64, 64, 0.85) !important;
+    text-transform: uppercase;
+    min-height: 36px !important;
+
+    .mdc-list-item__primary-text {
+      font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+      font-size: 11px !important;
+      letter-spacing: 1px !important;
+    }
+  }
+}
+
 
