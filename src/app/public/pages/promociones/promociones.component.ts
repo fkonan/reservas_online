@@ -6,6 +6,7 @@ import {
   signal,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
 import { PromocionesService } from '../../../shared/services/promociones.service';
 import { HeaderPromoComponent } from '../../../shared/components/header-promo/header-promo.component';
 import { Promocion } from '../../../models/promociones.model';
@@ -25,6 +26,7 @@ import { CommonModule } from '@angular/common';
 export class PromocionesComponent {
   private readonly promoService = inject(PromocionesService);
   private readonly router = inject(Router);
+  private readonly viewportScroller = inject(ViewportScroller);
 
   protected readonly promociones = this.promoService.promociones;
   protected readonly isLoading = this.promoService.isLoading;
@@ -62,6 +64,7 @@ export class PromocionesComponent {
   }
 
   navegarServicio(servicioId: number): void {
+    this.viewportScroller.scrollToPosition([0, 0]);
     this.router.navigate(['/servicios', servicioId]);
   }
 
