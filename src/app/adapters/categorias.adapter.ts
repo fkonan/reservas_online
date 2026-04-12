@@ -1,28 +1,34 @@
-import { CategoriaServicio } from '../models/servicios.model';
+import { CategoriaServicio, Servicios } from '../models/servicios.model';
 
 export const CategoriasAdapter = (response: any): CategoriaServicio[] => {
-  // Debug: ver la estructura real de la respuesta
-  console.log('Response completo:', response);
-  console.log('Response.data:', response.data);
-
   const categorias = Array.isArray(response.data) ? response.data : [];
   if (!categorias.length) {
-    // console.log('No hay categorías en la respuesta');
     return [];
   }
 
-  // console.log('Primera categoría:', categorias[0]);
-
-  return categorias.map((c: any) => {
-    // Verificar si la estructura es c.categorias.id o directamente c.id
-    const categoria = c.categorias || c;
-
-    // console.log('Categoría procesada:', categoria);
-
-    return {
-      id: categoria.id,
-      categoria: categoria.categoria,
-      servicios: categoria.servicios || [],
-    };
-  }).filter((cat: CategoriaServicio) => cat.id !== undefined && cat.categoria !== undefined);
+  return categorias
+    .map((c: any): CategoriaServicio => {
+      const categoria = c.categorias || c;
+      return {
+        id: categoria.id,
+        categoria: categoria.categoria,
+        orden: categoria.orden ?? 0,
+        // El servidor garantiza el orden (orden ASC) — NO reordenar en cliente
+        servicios: (categoria.servicios ?? []).map((s: any): Servicios => ({
+          id: s.id,
+          nombre_comercial: s.nombre_comercial,
+          slug: s.slug ?? '',
+          orden: s.orden ?? 0,
+          descripcion: s.descripcion,
+          duracion: s.duracion,
+          recomendaciones: s.recomendaciones,
+          iconos: s.iconos,
+          obsequio: s.obsequio,
+          imagen: s.imagen,
+          sede_id: s.sede_id,
+          tipo_servicio_id: s.tipo_servicio_id,
+        })),
+      };
+    })
+    .filter((cat: CategoriaServicio) => cat.id !== undefined && cat.categoria !== undefined);
 };

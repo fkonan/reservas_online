@@ -8,21 +8,24 @@ export const ServiciosAdapter = (response: any): CategoriaServicio[] => {
   if (!categorias.length) {
     return [];
   }
-  return categorias.map((categoria: any) => ({
+  return categorias.map((categoria: any): CategoriaServicio => ({
     id: categoria.id,
     categoria: categoria.categoria,
-    servicios: categoria.servicios
-      ? categoria.servicios.map((servicio: any) => ({
-          id: servicio.id,
-          nombre_comercial: servicio.nombre_comercial,
-          descripcion: servicio.descripcion,
-          duracion: servicio.duracion,
-          recomendaciones: servicio.recomendaciones,
-          iconos: servicio.iconos,
-          obsequio: servicio.obsequio,
-          imagen: servicio.imagen,
-          tipo_servicio_id:servicio.tipo_servicio_id
-        }))
-      : [],
+    orden: categoria.orden ?? 0,
+    // El servidor garantiza el orden (orden ASC) — NO reordenar en cliente
+    servicios: (categoria.servicios ?? []).map((servicio: any): Servicios => ({
+      id: servicio.id,
+      nombre_comercial: servicio.nombre_comercial,
+      slug: servicio.slug ?? '',
+      orden: servicio.orden ?? 0,
+      descripcion: servicio.descripcion,
+      duracion: servicio.duracion,
+      recomendaciones: servicio.recomendaciones,
+      iconos: servicio.iconos,
+      obsequio: servicio.obsequio,
+      imagen: servicio.imagen,
+      sede_id: servicio.sede_id,
+      tipo_servicio_id: servicio.tipo_servicio_id,
+    })),
   }));
 };
