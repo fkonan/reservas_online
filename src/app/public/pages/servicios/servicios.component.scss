@@ -1,3 +1,13 @@
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 98vh;
+
+  .container {
+    flex: 1;
+  }
+}
+
 .mdc-button.mat-success,
 .mdc-button--raised.mat-success {
   color: #545454;
@@ -224,3 +234,10 @@ h5 {
     }
   }
 }
+
+
+.promo-page {
+  display: flex;
+  flex-direction: column;
+}
+

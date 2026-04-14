@@ -32,6 +32,7 @@ import { environment } from '../../../environments/env.dev';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { IconRendererPipe } from '../../../shared/pipes/icon-renderer.pipe';
 import { HeaderPromoComponent } from '../../../shared/components/header-promo/header-promo.component';
+import { SeasonalTreeBottomComponent } from '../../../shared/components/seasonal-tree-bottom/seasonal-tree-bottom.component';
 
 @Component({
   selector: 'app-servicios',
@@ -39,7 +40,8 @@ import { HeaderPromoComponent } from '../../../shared/components/header-promo/he
     CommonModule,
     RouterModule,
     MatIconModule,
-    HeaderPromoComponent
+    HeaderPromoComponent,
+    SeasonalTreeBottomComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './servicios.component.html',
