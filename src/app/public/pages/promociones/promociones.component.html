@@ -86,7 +86,10 @@
                   </p>
                   <ul class="promo-items">
                     @for (item of promo.items; track item.orden) {
-                      <li> <p style="letter-spacing: 1px;text-align: justify;font-size:10px;margin-bottom: 0px;font-family: Raleway!important;">{{ item.contenido }}</p></li>
+                      <li>
+                        <mat-icon class="icon-regalo">card_giftcard</mat-icon>
+                        <p style="letter-spacing: 1px;text-align: justify;font-size:10px;margin-bottom: 0px;font-family: Raleway!important;">{{ item.contenido }}</p>
+                      </li>
                     }
                   </ul>
                 }

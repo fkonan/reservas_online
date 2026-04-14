@@ -14,11 +14,12 @@ import { CurrencyPipe } from '@angular/common';
 import { SeasonalTreeComponent } from '../../../shared/components/seasonal-tree/seasonal-tree.component';
 import { SeasonalTreeBottomComponent } from '../../../shared/components/seasonal-tree-bottom/seasonal-tree-bottom.component';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
   selector: 'app-promociones',
-  imports: [RouterModule, HeaderPromoComponent, CurrencyPipe,SeasonalTreeBottomComponent, CommonModule],
+  imports: [RouterModule, HeaderPromoComponent, CurrencyPipe, SeasonalTreeBottomComponent, CommonModule, MatIconModule],
   templateUrl: './promociones.component.html',
   styleUrl: './promociones.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
