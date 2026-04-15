@@ -81,7 +81,7 @@ export class ServicioDetalleComponent {
         const slugUrl = `/servicios/${s.id}-${s.web.slug}`;
         this.location.replaceState(slugUrl, '', { categoria: this.categoria(), sede: this.sede() });
         this.titleService.setTitle(s.web.titulo_publico);
-        console.log(s);
+        // console.log(s);
       }
     });
   }

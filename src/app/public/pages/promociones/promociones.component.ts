@@ -41,12 +41,12 @@ export class PromocionesComponent {
 
   protected readonly promocionesFiltradas = computed<Promocion[]>(() => {
     const tipo = this.tipoSeleccionado();
-    console.log(this.promociones());
+    // console.log(this.promociones());
     if (tipo === 'todos') return this.promociones();
      const filtradas = this.promociones().filter(
     (p) => p.tipo_promocion === tipo
   );
-  console.log(filtradas);
+  // console.log(filtradas);
   return filtradas;
   });
 
