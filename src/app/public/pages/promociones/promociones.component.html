@@ -59,11 +59,11 @@
             <!-- / servicio -->
 
 
-            <div class="d-flex justify-content-between gap-2">
+            <div class="d-flex justify-content-between gap-2 mt-2">
               <div class="flex-grow-1">
-                    <p class="" style="letter-spacing: 1px;font-size:12px;font-family: Raleway!important; font-weight: 700; margin-bottom: 0.25rem; color: #1b3e20;">{{ promo.servicio | uppercase }}</p>
+                    <p class="" style="letter-spacing: 1px;font-size:18px;font-family: Raleway!important; font-weight: 700; margin-bottom: 0.25rem; color: #1b3e20;">{{ promo.servicio | uppercase }}</p>
             <!-- Título / servicio -->
-              <p class="subtitle" style="letter-spacing: 1px;font-size:11px; margin-bottom: 0.5rem; color: #5a5755; font-weight: bolder;">{{ promo.titulo | uppercase }}</p>
+              <p class="subtitle mt-2" style="letter-spacing: 1px;font-size:11px; margin-bottom: 0.5rem; color: #5a5755; font-weight: bolder;">{{ promo.titulo | uppercase }}</p>
 
                 <!-- Precio / descuento -->
                 @if (promo.tipo_promocion === 'descuento') {
