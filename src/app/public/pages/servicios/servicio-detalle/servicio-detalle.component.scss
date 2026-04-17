@@ -193,7 +193,7 @@ $color-border: rgba(227, 227, 227, 0.6);
 
   &.active .atributo-label {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
     pointer-events: none;
   }
 }
@@ -224,7 +224,10 @@ $color-border: rgba(227, 227, 227, 0.6);
   bottom: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%) translateY(4px);
-  white-space: nowrap;
+  white-space: normal;
+  width: max-content;
+  max-width: 80px;
+  text-align: center;
   background: rgba(50, 50, 50, 0.92);
   color: #fff;
   font-family: $font-raleway;

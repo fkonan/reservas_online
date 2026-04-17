@@ -86,10 +86,7 @@
                   @if (attr.icono) {
                     <div class="atributo-wrapper"
                          [class.active]="activeAtributoId() === attr.id"
-                         (click)="toggleAtributo(attr.id)"
-                         [matTooltip]="attr.descripcion"
-                         matTooltipPosition="above"
-                        >
+                         (click)="toggleAtributo(attr.id)">
                       <div class="atributo-chip">
                         <img [src]="getImageUrl(attr.icono)" [alt]="attr.nombre" class="atributo-icono">
                       </div>
