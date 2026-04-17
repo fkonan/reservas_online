@@ -93,6 +93,7 @@ export class ServicioDetalleComponent {
     (this.location.getState() as Record<string, unknown>);
   readonly categoria = signal<CategoriaServicio | null>(this.navState?.['categoria'] ?? null);
   readonly sede = signal<Sedes | null>(this.navState?.['sede'] ?? null);
+  readonly activeAtributoId = signal<number | null>(null);
 
   readonly serviciosEnCategoria = computed(
     () => this.categoria()?.servicios ?? []
@@ -102,6 +103,10 @@ export class ServicioDetalleComponent {
     if (!path) return '';
     if (path.startsWith('http')) return path;
     return `${environment.baseUrl}${path.startsWith('/') ? path.slice(1) : path}`;
+  }
+
+  toggleAtributo(id: number): void {
+    this.activeAtributoId.update(current => current === id ? null : id);
   }
 
   onServicioChange(servicioId: number): void {
