@@ -261,6 +261,30 @@
       </div>
     }
 
+
+    @case ('galeria_con_texto') {
+      <div class="galeria-con-texto">
+        @for (item of seccion().contenido_json['items']; track $index) {
+          <div class="galeria-ct-fila">
+            <div class="galeria-ct-imagenes"
+                 [style.grid-template-columns]="'repeat(' + (seccion().contenido_json['columnas_imagen'] ?? 2) + ', 1fr)'">
+              @for (img of item['imagenes']; track $index) {
+                <div class="galeria-item" (click)="openLightbox(img)">
+                  <img [src]="img" [alt]="seccion().titulo ?? 'Imagen del servicio'" class="galeria-img">
+                  <div class="galeria-overlay">
+                    <mat-icon>zoom_in</mat-icon>
+                  </div>
+                </div>
+              }
+            </div>
+            <div class="galeria-ct-texto">
+              <p>{{ item['texto'] }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
     @case ('imagen') {
       <!-- renderizado en el wrapper superior, este case no se alcanza -->
     }

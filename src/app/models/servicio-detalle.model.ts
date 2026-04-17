@@ -13,9 +13,15 @@ export type TipoSeccion =
   | 'cta_secundario'
   | 'video'
   | 'galeria'
+  | 'galeria_con_texto'
   | 'advertencias'
   | 'precios_referencia'
   | 'imagen';
+
+export interface GaleriaConTextoItem {
+  imagenes: string[];
+  texto: string;
+}
 
 export interface AtributoServicio {
   id: number;

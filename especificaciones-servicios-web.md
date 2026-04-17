@@ -765,6 +765,66 @@ Cuando el módulo de precios se normalice, esta sección debe deprecarse.
 
 ---
 
+## 5.17 `galeria_con_texto`
+
+Galería de imágenes organizadas por filas, donde cada fila agrupa N imágenes junto a un texto descriptivo. Ideal para mostrar resultados antes/después con etiqueta.
+
+### Uso
+
+Mostrar fotografías de resultados con una descripción al costado derecho (ej: "Resultado 1: Relajación de onda de un 20%").
+
+### JSON esperado
+
+```json
+{
+  "columnas_imagen": 2,
+  "items": [
+    {
+      "imagenes": ["/storage/imagenes/servicios-web/antes1.jpg", "/storage/imagenes/servicios-web/despues1.jpg"],
+      "texto": "Resultado 1: Relajación de onda de un 20%"
+    },
+    {
+      "imagenes": ["/storage/imagenes/servicios-web/antes2.jpg", "/storage/imagenes/servicios-web/despues2.jpg"],
+      "texto": "Resultado 2: Relajación de onda de un 40%"
+    }
+  ]
+}
+```
+
+### Campos
+
+| Campo            | Tipo    | Descripción                                                     |
+|------------------|---------|-----------------------------------------------------------------|
+| `columnas_imagen`| integer | Número de columnas de imagen por fila: `1`, `2` ó `3`          |
+| `items`          | array   | Lista de filas; cada fila tiene `imagenes[]` y `texto`          |
+| `items[].imagenes` | string[] | URLs de las imágenes de esa fila (mín. 1)                  |
+| `items[].texto`  | string  | Descripción o etiqueta de resultado de esa fila                 |
+
+### Validaciones
+
+* `items` obligatorio y no vacío
+* cada item debe tener `imagenes` como arreglo no vacío y `texto` como string
+* `columnas_imagen` opcional; si se omite asumir `2`
+* `texto` es texto plano (no HTML)
+
+### Layout recomendado
+
+```
+[  img  ] [  img  ] [ texto  ]
+[  img  ] [  img  ] [ texto  ]
+```
+
+Con `columnas_imagen: 2`, el grid total por fila es de 3 columnas (2 de imagen + 1 de texto).
+
+### Render
+
+* Recorrer `items`
+* Por cada item: mostrar `columnas_imagen` columnas de imagen + 1 columna de texto a la derecha
+* Usar CSS Grid o Flexbox; en mobile colapsar a columna única (imágenes arriba, texto abajo)
+* El texto puede centrarse verticalmente respecto a las imágenes
+
+---
+
 ## 6. Operaciones exactas por entidad
 
 ## 6.1 Operaciones sobre `servicio`
