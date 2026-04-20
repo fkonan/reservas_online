@@ -322,6 +322,7 @@ Cada sección incluye el campo `usa_acordeon: boolean`. Si es `true`, el fronten
 | `video`                    | `url`, `titulo`           | Iframe / tarjeta de video                        |
 | `galeria`                  | `imagenes[]`              | Carrusel o grid                                  |
 | `galeria_con_texto`        | `columnas_imagen`, `items[]{imagenes[], texto}` | Grid de imágenes con texto descriptivo al costado |
+| `texto_con_banderas`       | `texto`, `mostrar_banderas` | Texto centrado + banderas 🇰🇷 🇨🇴 (Corea del Sur · Colombia) |
 | `texto_libre`              | `html` o `texto`          | Render HTML sanitizado o párrafo                 |
 
 ### Regla de renderizado de secciones
@@ -445,7 +446,8 @@ export type TipoSeccion =
   | 'descripcion' | 'recomendaciones' | 'beneficios' | 'promocion'
   | 'garantia' | 'diagnostico' | 'tribu_vip' | 'consideraciones_tecnicas'
   | 'obsequios' | 'texto_libre' | 'faq' | 'cta_secundario'
-  | 'video' | 'galeria' | 'galeria_con_texto' | 'advertencias' | 'precios_referencia';
+  | 'video' | 'galeria' | 'galeria_con_texto' | 'texto_con_banderas'
+  | 'advertencias' | 'precios_referencia';
 ```
 
 ### Componente `seccion-renderer` (patrón recomendado)

@@ -16,6 +16,7 @@ export type TipoSeccion =
   | 'galeria_con_texto'
   | 'advertencias'
   | 'precios_referencia'
+  | 'texto_con_banderas'
   | 'imagen';
 
 export interface GaleriaConTextoItem {

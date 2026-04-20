@@ -825,6 +825,59 @@ Con `columnas_imagen: 2`, el grid total por fila es de 3 columnas (2 de imagen +
 
 ---
 
+## 5.18 `texto_con_banderas`
+
+Bloque de texto centrado con fuente reducida acompañado de las banderas de Corea del Sur y Colombia.
+
+### Uso
+
+Destaca el origen de los productos o formulaciones utilizados en el servicio (ej: alianza tecnológica Corea-Colombia). El texto va centrado y la visibilidad de las banderas es configurable.
+
+### JSON esperado
+
+```json
+{
+  "texto": "Se emplean activos de alto rendimiento de categoría premium, respaldados por formulaciones desarrolladas por la marca Zoled, que integran una fusión biotecnológica entre Corea y Colombia, optimizando la eficacia y calidad del producto final.",
+  "mostrar_banderas": true
+}
+```
+
+### Campos
+
+| Campo              | Tipo    | Descripción                                                            |
+|--------------------|---------|------------------------------------------------------------------------|
+| `texto`            | string  | Texto centrado a mostrar. Texto plano, sin HTML.                        |
+| `mostrar_banderas` | boolean | Si `true`, el frontend muestra las banderas 🇰🇷 🇨🇴 debajo del texto. |
+
+### Validaciones
+
+* `texto` obligatorio y no vacío
+* `mostrar_banderas` opcional; si se omite asumir `true`
+
+### Banderas
+
+Las banderas son **siempre** Corea del Sur (🇰🇷) y Colombia (🇨🇴), en ese orden. El backend no las configura; el frontend las hardcodea. El campo `mostrar_banderas` solo controla si se muestran o no.
+
+### Render
+
+* Contenedor centrado (`text-align: center`)
+* Fuente ligeramente reducida respecto al cuerpo del texto (sugerido `0.85rem` – `0.9rem`)
+* Máximo ancho sugerido: `480px`, centrado con `margin: auto`
+* Si `mostrar_banderas = true`: mostrar las dos banderas debajo del texto con separación mínima
+* Las banderas pueden renderizarse como emojis unicode o como imágenes SVG estáticas del proyecto
+
+```html
+<!-- Ejemplo de render -->
+<div class="texto-con-banderas">
+  <p>{{ contenido.texto }}</p>
+  <div class="banderas" *ngIf="contenido.mostrar_banderas">
+    🇰🇷 &nbsp; 🇨🇴
+  </div>
+</div>
+```
+
+---
+
 ## 6. Operaciones exactas por entidad
 
 ## 6.1 Operaciones sobre `servicio`
