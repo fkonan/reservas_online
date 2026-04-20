@@ -132,6 +132,12 @@ $color-border: rgba(227, 227, 227, 0.6);
   align-items: center;
   gap: 12px;
   min-height: 40px;
+
+  @media (max-width: 991px) {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 8px;
+  }
 }
 
 .servicio-titulo {
@@ -170,6 +176,10 @@ $color-border: rgba(227, 227, 227, 0.6);
   gap: 6px;
   align-items: center;
   margin-left: auto;
+
+  @media (max-width: 991px) {
+    margin-left: 0;
+  }
 }
 
 .atributo-wrapper {
