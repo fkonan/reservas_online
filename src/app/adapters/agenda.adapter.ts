@@ -24,6 +24,6 @@ export const AgendaAdapter = (response: any): Agenda[] => {
        servicio_id: c.servicio_id,
        sede_id: c.sede_id,
        estado: c.estado,
-       apartado: c.apartado,
-     }));
+       apartado: c.apartado,      tiene_recargo: c.tiene_recargo ?? false,
+      recargo: c.recargo ?? null,     }));
 };

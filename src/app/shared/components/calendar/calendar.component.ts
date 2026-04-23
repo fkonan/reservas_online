@@ -161,16 +161,10 @@ export class CalendarComponent implements OnInit {
 
   public selectDay(index: number): void {
 
-    if (this.selectedDay == this.visibleDays[index]?.number) {
-      this.selectedDay = undefined;
-    } else {
-      this.selectedDay = this.visibleDays[index]?.number;
-    }
+    this.selectedDay = this.visibleDays[index]?.number;
     this.selectedMonth = this.currentMonth + 1;
-    // this.currentDate = new Date(this.currentYear, this.currentMonth, this.days[index]?.number);
-    if (this.selectedDay == undefined) {
-      this.daySelected.emit(undefined);
-    } else {
+
+    if (this.selectedDay !== undefined) {
       const today = new Date();
       const dayNumber = today.getDate();
       if (

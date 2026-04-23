@@ -1,4 +1,6 @@
-<div class="row justify-content-center mt-3">
+<div class="promo-page">
+<app-header-promo />
+<div class="row justify-content-center mt-5">
   <div class="col-m-8 text-center">
     <h3 style="letter-spacing: 1px;"><b>DÍA QUE DESEA RESERVAR</b></h3>
     <app-calendar (daySelected)="onDaySelected($event)"></app-calendar>
@@ -11,16 +13,39 @@
     <h4 class="text-center" style="letter-spacing: 1px;"><b>HORARIOS DISPONIBLES</b></h4>
     <div class="d-flex flex-column  flex-wrap gap-2 justify-content-center radio-inputs">
       @for (item of agenda(); track item.id) {
-      <label>
-        <input name="hora" type="radio" class="radio-input" [value]="item.hora" [(ngModel)]="horaSeleccionada" />
+      <label [class.radio-tile-recargo]="item.tiene_recargo">
+        <input
+          name="hora"
+          type="radio"
+          class="radio-input"
+          [value]="item.hora"
+          [checked]="slotSeleccionado()?.hora === item.hora"
+          (change)="selectSlot(item)"
+        />
         <span class="radio-tile">
-          <span class="radio-icon">
+          <span class="radio-icon"></span>
+          <span class="radio-label">
+            {{item.hora}}
+            @if (item.tiene_recargo) {
+              <span class="recargo-badge">+${{ item.recargo | number:'1.0-0' }}</span>
+            }
           </span>
-          <span class="radio-label">{{item.hora}}</span>
         </span>
       </label>
       }
     </div>
+
+    @if (slotSeleccionado()?.tiene_recargo) {
+    <div class="recargo-alert mt-3">
+      <span class="recargo-alert__icon">🚨</span>
+      <p class="recargo-alert__text" style="margin-bottom: 0;">
+        Este horario tiene un <strong>recargo</strong> de
+        <strong><strong>+ ${{ slotSeleccionado()!.recargo | number:'1.0-0' }}</strong></strong>
+        que se suma al valor del servicio.
+      </p>
+    </div>
+    }
+
     <button mat-raised-button color="success" class="text-18 mt-3" (click)="onModalCliente()">Continuar</button>
   </div>
 </div>
@@ -35,3 +60,19 @@
 </div>
 }
 }
+
+   <!-- Botón volver -->
+  <div class="row justify-content-center mt-4 pb-4">
+    <div class="col-12 col-md-8 col-lg-6 text-center">
+      <a onclick="history.back()" class="btn-back">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M19 12H5M5 12l7-7M5 12l7 7"/>
+        </svg>
+        VOLVER
+      </a>
+    </div>
+  </div>
+
+
+  <app-seasonal-tree-bottom></app-seasonal-tree-bottom>
+</div>

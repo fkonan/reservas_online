@@ -6,8 +6,8 @@ export interface Agenda {
   servicio_id: string;
   sede_id: string;
   estado: string;
-  apartado: string;
-}
+  apartado: string;  tiene_recargo: boolean;
+  recargo: number | null;}
 
 export interface AgendaRequest {
   tipo_servicio: number | undefined;

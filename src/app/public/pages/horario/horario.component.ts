@@ -12,10 +12,12 @@ import { ClientesService } from '../../../shared/services/clientes.service';
 import Swal from 'sweetalert2';
 import { MatButtonModule } from '@angular/material/button';
 import { Sedes } from '../../../models/sedes.model';
-
+import { DecimalPipe } from '@angular/common';
+import { HeaderPromoComponent } from '../../../shared/components/header-promo/header-promo.component';
+import { SeasonalTreeBottomComponent } from '../../../shared/components/seasonal-tree-bottom/seasonal-tree-bottom.component';
 @Component({
   selector: 'app-horario',
-  imports: [RouterModule, FormsModule, MatButtonModule, CalendarComponent],
+  imports: [RouterModule, FormsModule, MatButtonModule, CalendarComponent, DecimalPipe, HeaderPromoComponent, SeasonalTreeBottomComponent],
   templateUrl: './horario.component.html',
   styleUrl: './horario.component.scss',
 })
@@ -32,6 +34,13 @@ export class HorarioComponent {
 
   servicioSeleccionado = signal<ServicioDetalle | null>(null);
   sede: Sedes | null = null;
+
+  slotSeleccionado = signal<Agenda | null>(null);
+  horaSeleccionada = computed(() => this.slotSeleccionado()?.hora ?? '');
+
+  selectSlot(item: Agenda): void {
+    this.slotSeleccionado.set(item);
+  }
 
   /**
    * Ordena las horas en formato "7:30am, 9:30am, 6:00pm" de manera ascendente
@@ -90,10 +99,10 @@ export class HorarioComponent {
   }
 
   selectedDate: Date | undefined = undefined;
-  horaSeleccionada = signal<string>('');
 
   onDaySelected(date: Date) {
-    this.selectedDate = date ?? new Date();
+    this.selectedDate = date;
+    this.slotSeleccionado.set(null);
     this.servicioService.servicioSeleccionado.set(this.servicioSeleccionado());
     this.servicioService.selectedDate.set(this.selectedDate);
   }

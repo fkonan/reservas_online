@@ -38,26 +38,33 @@ export class ServiciosService {
   selectedDate = signal<Date | undefined>(new Date());
 
   private agendaResource = rxResource({
-    params: () => ({
-      sede_id: this.sedeSeleccionada(),
-      servicio: this.servicioSeleccionado()?.tipo_servicio_id,
-      fecha: this.selectedDate(),
-    }),
+  params: () => {
+    const fecha = this.selectedDate();
+    const servicio = this.servicioSeleccionado();
+    const sede_id = this.sedeSeleccionada();
 
-    stream: ({ params }) => {
-      return this.http
-        .post<Agenda[]>(`${this.apiUrl}/agenda-web`, {
-          sede_id: params.sede_id ?? '',
-          tipo_servicio_id: params.servicio ?? '1234',
-          fecha: params.fecha ?? '',
-        })
-        .pipe(
-          map((agenda) => {
-            return AgendaAdapter(agenda);
-          }),
-        );
-    },
-  });
+    // No hacer la petición si no hay fecha o servicio seleccionado
+    if (!fecha || !servicio) return undefined;
+
+    return {
+      sede_id,
+      servicio: servicio.tipo_servicio_id,
+      servicio_id: servicio.id,
+      fecha,
+    };
+  },
+
+  stream: ({ params }) => {
+    return this.http
+      .post<Agenda[]>(`${this.apiUrl}/agenda-web`, {
+        sede_id: params.sede_id ?? '',
+        tipo_servicio_id: params.servicio ?? '1234',
+        servicio_id: params.servicio_id ?? '',
+        fecha: params.fecha,
+      })
+      .pipe(map((agenda) => AgendaAdapter(agenda)));
+  },
+});
 
   agenda = computed(() => this.agendaResource.value() ?? ([] as Agenda[]));
   errorAgenda = computed(() => this.agendaResource.error() as HttpErrorResponse);

@@ -6,17 +6,17 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { ValidarToken } from './shared/interceptors/validar-token.interceptor';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import localeEs from '@angular/common/locales/es';
+import localeEsCo from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 
-registerLocaleData(localeEs);
+registerLocaleData(localeEsCo);
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding(), withInMemoryScrolling({ scrollPositionRestoration: 'top' })),
     { provide: 'DEFAULT_CURRENCY_CODE', useValue: 'COP' },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: LOCALE_ID, useValue: 'es' }, // ✅ Idioma español
+    { provide: LOCALE_ID, useValue: 'es-CO' }, // ✅ Idioma español
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(withFetch(), withInterceptors([LoadingInterceptor, ValidarToken])),
   ],
