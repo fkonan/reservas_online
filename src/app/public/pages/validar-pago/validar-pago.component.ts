@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { ValidarPagoService } from '../../../shared/services/validar-pago.service';
+import { AvisoFinal } from '../../../models/servicio-detalle.model';
 
 @Component({
   selector: 'app-validar-pago',
@@ -15,8 +16,18 @@ export class ValidarPagoComponent implements OnInit {
   mensaje: string = 'Validando pago...';
   data: any = null;
   status: string = '';
+  avisoFinal = signal<AvisoFinal | null>(null);
 
   ngOnInit(): void {
+    const avisoRaw = localStorage.getItem('aviso_final');
+    if (avisoRaw) {
+      try {
+        this.avisoFinal.set(JSON.parse(avisoRaw));
+      } catch {
+        this.avisoFinal.set(null);
+      }
+    }
+
     this.route.queryParamMap.subscribe((params) => {
       const link = params.get('bold-order-id');
       if (link) {

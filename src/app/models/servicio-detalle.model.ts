@@ -24,6 +24,12 @@ export interface GaleriaConTextoItem {
   texto: string;
 }
 
+export interface AvisoFinal {
+  titulo?: string;
+  parrafos: string[];
+  texto_aceptacion?: string;
+}
+
 export interface AtributoServicio {
   id: number;
   nombre: string;
@@ -53,6 +59,7 @@ export interface ServicioWebConfig {
   mostrar_agenda: boolean;
   published: boolean;
   duracion: string | null;
+  aviso_final: AvisoFinal | null;
   secciones: SeccionWeb[];
 }
 

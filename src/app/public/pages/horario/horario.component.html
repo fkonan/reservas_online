@@ -76,3 +76,49 @@
 
   <app-seasonal-tree-bottom></app-seasonal-tree-bottom>
 </div>
+
+@if (mostrarAviso()) {
+<div class="modal-aviso-overlay">
+  <div class="modal-aviso__dialog">
+    <h5 class="modal-aviso__titulo">
+      {{ servicioSeleccionado()?.web?.aviso_final?.titulo || 'Antes de continuar, lee con atención' }}
+    </h5>
+
+    @if (debesMostrarAviso()) {
+    <ol class="modal-aviso__lista">
+      @for (parrafo of servicioSeleccionado()!.web.aviso_final!.parrafos; track $index) {
+        <li><p style="margin-bottom: 0px;text-align: justify">{{ parrafo }}</p></li>
+      }
+    </ol>
+    }
+
+    <div class="modal-aviso__politica">
+      <p>
+        Para su tranquilidad le informamos que <strong>S.O.S CENTRO CAPILAR</strong>, tratará sus datos de acuerdo
+        con la política de Tratamiento de datos personales que se encuentra disponible en
+        <a href="https://sos.fhernandez-dev.com/documentation/docs/pdf%20politica%20de%20privacidad%20y%20uso%20de%20datos%20personales.pdf" target="_blank" rel="noopener noreferrer">Aquí</a>.
+        Al continuar nos autoriza la recolección, almacenamiento y tratamiento de la información suministrada.
+      </p>
+    </div>
+
+    <div class="modal-aviso__check">
+      <input
+        type="checkbox"
+        id="chkAceptacion"
+        [checked]="aceptado()"
+        (change)="aceptado.set(!aceptado())"
+      />
+      <label for="chkAceptacion">
+        {{ servicioSeleccionado()?.web?.aviso_final?.texto_aceptacion || 'He leído y acepto las recomendaciones y la política de tratamiento de datos.' }}
+      </label>
+    </div>
+
+    <div class="modal-aviso__acciones">
+      <button type="button" class="modal-aviso__btn-cancelar" (click)="cancelarAviso()">Cancelar</button>
+      <button type="button" class="modal-aviso__btn-continuar" [disabled]="!aceptado()" (click)="confirmarAviso()">
+        Continuar
+      </button>
+    </div>
+  </div>
+</div>
+}

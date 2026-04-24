@@ -2,7 +2,7 @@ import { Component, ElementRef, inject, signal, Signal, ViewChild, computed } fr
 import { ServiciosService } from '../../../shared/services/servicios.service';
 import { AgendaService } from '../../../shared/services/agenda.service';
 import { Agenda } from '../../../models/agenda.model';
-import { ServicioDetalle } from '../../../models/servicio-detalle.model';
+import { AvisoFinal, ServicioDetalle } from '../../../models/servicio-detalle.model';
 import { Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarComponent } from '../../../shared/components/calendar/calendar.component';
@@ -37,6 +37,13 @@ export class HorarioComponent {
 
   slotSeleccionado = signal<Agenda | null>(null);
   horaSeleccionada = computed(() => this.slotSeleccionado()?.hora ?? '');
+
+  mostrarAviso = signal(false);
+  aceptado = signal(false);
+
+  debesMostrarAviso = computed(
+    () => (this.servicioSeleccionado()?.web?.aviso_final?.parrafos?.length ?? 0) > 0,
+  );
 
   selectSlot(item: Agenda): void {
     this.slotSeleccionado.set(item);
@@ -120,7 +127,14 @@ export class HorarioComponent {
       alert('Por favor seleccione una hora antes de continuar.');
       return;
     }
+    this.aceptado.set(false);
+    this.mostrarAviso.set(true);
+  }
 
+  confirmarAviso(): void {
+    const avisoFinal = this.servicioSeleccionado()?.web?.aviso_final ?? null;
+    localStorage.setItem('aviso_final', JSON.stringify(avisoFinal));
+    this.mostrarAviso.set(false);
     const datosCita = {
       servicio: this.servicioSeleccionado(),
       sede: this.sede?.id,
@@ -128,8 +142,12 @@ export class HorarioComponent {
       hora: this.horaSeleccionada(),
       valor_abono: this.valor_abono(),
     };
-    this.router.navigate(['/detalle-pago'], {
-      state: { datosCita },
-    });
+    this.router.navigate(['/detalle-pago'], { state: { datosCita } });
+  }
+
+  cancelarAviso(): void {
+    this.mostrarAviso.set(false);
+    this.aceptado.set(false);
+    this.slotSeleccionado.set(null);
   }
 }

@@ -1,0 +1,38 @@
+.aviso-post-pago {
+  background: #f9f6ee;
+  border: 1px solid #c0a145;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+
+.aviso-post-pago__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.aviso-post-pago__icono {
+  font-size: 1.2rem;
+}
+
+.aviso-post-pago__titulo {
+  font-weight: 700;
+  color: #5a4000;
+  margin: 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+}
+
+.aviso-post-pago__lista {
+  margin: 0;
+  padding-left: 20px;
+  color: #555;
+  font-size: 0.88rem;
+  line-height: 1.7;
+
+  li + li {
+    margin-top: 3px;
+  }
+}

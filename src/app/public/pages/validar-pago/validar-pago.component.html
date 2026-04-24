@@ -28,6 +28,25 @@
       <p><strong>Id de la transacción:</strong> {{ data.transaction_id }}</p>
     </div>
   </div>
+
+  @if ((avisoFinal()?.parrafos?.length ?? 0) > 0) {
+  <div class="row px-3 pb-2">
+    <div class="col-12">
+      <div class="aviso-post-pago">
+        <div class="aviso-post-pago__header">
+          <span class="aviso-post-pago__icono">📋</span>
+          <h6 class="aviso-post-pago__titulo">Recuerda estas recomendaciones para tu cita</h6>
+        </div>
+        <ul class="aviso-post-pago__lista">
+          @for (parrafo of avisoFinal()!.parrafos; track $index) {
+            <li>{{ parrafo }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+  }
+
   <div class="row text-center mb-3">
     <h4>Gracias por confiar en nosotros, te esperamos!!</h4>
   </div>
