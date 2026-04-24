@@ -7,10 +7,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AgendaService } from '../../../shared/services/agenda.service';
 import Swal from 'sweetalert2';
+import { HeaderPromoComponent } from '../../../shared/components/header-promo/header-promo.component';
+import { SeasonalTreeBottomComponent } from '../../../shared/components/seasonal-tree-bottom/seasonal-tree-bottom.component';
 
 @Component({
   selector: 'app-detalle-pago',
-  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, RouterModule, HeaderPromoComponent, SeasonalTreeBottomComponent],
   templateUrl: './detalle-pago.component.html',
   styleUrl: './detalle-pago.component.scss',
 })

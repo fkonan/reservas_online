@@ -1,3 +1,6 @@
+<div class="promo-page">
+<app-header-promo />
+
 <div class="container my-3">
   @if (datosCita(); as cita) {
   <h4 class="text-center mt-4">Detalle del Servicio que te vas a Realizar</h4>
@@ -72,8 +75,8 @@
         <input type="email" id="correo" class="form-control" formControlName="correo" required>
       </div>
     </div>
-    <hr>
-    <div class="row mt-3">
+    <!-- <hr> -->
+    <!-- <div class="row mt-3">
       <h5 class="text-center">Recomendaciones para el día de tu cita</h5>
       <div class="accordion mt-2" id="recomendacionesAccordion">
         <div class="accordion-item recomendaciones-item">
@@ -91,7 +94,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="text-center mt-3">
       @if (form.invalid && form.touched) {
@@ -117,4 +120,6 @@
     <a routerLink="/" class="btn btn-sos">Volver al inicio</a>
   </div>
   }
+</div>
+<app-seasonal-tree-bottom></app-seasonal-tree-bottom>
 </div>

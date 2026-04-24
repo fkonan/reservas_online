@@ -96,3 +96,13 @@ p, label {
   font-size: 14px;
   line-height: 1.6;
 }
+
+.promo-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  app-seasonal-tree-bottom {
+    margin-top: auto;
+  }
+}
