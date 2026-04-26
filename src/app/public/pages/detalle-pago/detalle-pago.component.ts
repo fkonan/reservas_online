@@ -97,11 +97,40 @@ export class DetallePagoComponent {
   /** Efecto que reacciona a la respuesta del servicio de clientes */
   private readonly clienteDataEffect = effect(() => {
     const data = this.clienteService.cliente();
+    const noAgendar = this.clienteService.noAgendar();
+    const errorServidor = this.clienteService.errorServidor();
     const cita = this.datosCita();
 
     if (!this.clienteService.documento()) return;
 
+    // CASO 5: error de servidor — mostrar mensaje genérico sin mostrar formulario
+    if (errorServidor) {
+      this.nombreMostrar = '';
+      this.clienteExistente.set(null);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error del servidor',
+        text: 'Ocurrió un error al consultar tus datos. Por favor intenta de nuevo.',
+        confirmButtonText: 'Entendido',
+      });
+      return;
+    }
+
+    // CASO 2: cliente bloqueado — detener flujo completamente
+    if (noAgendar) {
+      this.nombreMostrar = '';
+      this.clienteExistente.set(null);
+      Swal.fire({
+        icon: 'error',
+        title: 'No es posible agendar',
+        text: this.clienteService.mensajeBloqueo() || 'No es posible realizar una reserva en este momento, por favor comunícate con nosotros.',
+        confirmButtonText: 'Entendido',
+      });
+      return;
+    }
+
     if (data && data.length > 0) {
+      // CASO 1: cliente existente habilitado — precargar formulario
       const cliente = Array.isArray(data) ? data[0] : data;
       this.nombreMostrar = `Hola ${cliente.nombres} ${cliente.apellidos}`;
       this.clienteExistente.set(true);
@@ -115,6 +144,7 @@ export class DetallePagoComponent {
         valor_abono: cita?.valor_abono,
       });
     } else {
+      // CASO 3: cliente nuevo — formulario vacío
       this.nombreMostrar = '';
       this.clienteExistente.set(false);
       this.form.reset({

@@ -14,27 +14,45 @@ export class ClientesService {
   private http = inject(HttpClient);
 
   documento = signal<string | null>(null);
+  noAgendar = signal<boolean>(false);
+  mensajeBloqueo = signal<string>('');
+  errorServidor = signal<boolean>(false);
 
   private clienteResource = rxResource({
     params: () => this.documento(),
     stream: ({ params }) => {
+      this.noAgendar.set(false);
+      this.mensajeBloqueo.set('');
+      this.errorServidor.set(false);
       return this.http
-        .get<Clientes[]>(`${this.apiUrl}api/cliente/${params}`)
+        .get<any>(`${this.apiUrl}api/cliente/${params}`)
         .pipe(
-          map((cliente) => clientesAdapter(cliente)),
-          catchError((error) => {
-            console.log('Error al buscar cliente:', error);
-            // Retornar array vacío en caso de error (cliente no existe)
-            return of([]);
+          map((response) => {
+            if (response.noAgendar === true) {
+              this.noAgendar.set(true);
+              this.mensajeBloqueo.set(response.message ?? '');
+              return [] as Clientes[];
+            }
+            return clientesAdapter(response);
+          }),
+          catchError((error: HttpErrorResponse) => {
+            console.error('Error al buscar cliente:', error);
+            this.errorServidor.set(true);
+            return of(null);
           })
         );
     },
   });
 
-  cliente = computed(() => this.clienteResource.value() ?? ([] as Clientes[]));
+  cliente = computed(() => {
+    const val = this.clienteResource.value();
+    if (val === null || val === undefined) return [] as Clientes[];
+    return val;
+  });
+
   error = computed(() => this.clienteResource.error() as HttpErrorResponse);
 
   actualizarDocumento(documento: string) {
-    this.documento.set(documento); // Esto dispara la recarga de datos
+    this.documento.set(documento);
   }
 }

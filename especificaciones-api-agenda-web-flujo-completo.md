@@ -130,34 +130,136 @@ El endpoint `/api/payment/abandon/{link}` **no usa este header** — su autentic
 ### 3.6 `GET /api/cliente/{documento}`
 **Auth**: X-APP-TOKEN requerido
 
-**Response — cliente encontrado y habilitado:**
+**Parámetro de ruta**: `documento` — solo dígitos, entre 5 y 20 caracteres.
+
+---
+
+#### Posibles respuestas y cómo manejarlas en Angular
+
+**CASO 1 — Cliente encontrado y habilitado para agendar**
 ```json
+HTTP 200
 {
   "success": true,
   "message": "Cliente Encontrado",
-  "data": { "id": 10, "nombres": "María", "apellidos": "Pérez", ... }
+  "data": {
+    "id": 10,
+    "nombres": "María",
+    "apellidos": "Pérez",
+    "documento": "1234567890",
+    "telefono": "3001234567",
+    "correo": "maria@example.com",
+    "fecha_nacimiento": "1995-03-15",
+    "whatsapp": "3001234567",
+    "instagram": "@mariaperez",
+    "ciudad": "Bogotá",
+    "direccion": "Calle 123 #45-67"
+  }
 }
 ```
+✅ Continuar al formulario. Puedes **precargar los campos** con `data` para que el cliente no tenga que escribirlos de nuevo.
 
-**Response — cliente bloqueado (calificación 4 o 5):**
+---
+
+**CASO 2 — Cliente bloqueado (calificación mala o muy mala)**
 ```json
+HTTP 200
 {
   "success": false,
+  "noAgendar": true,
   "message": "No es posible realizar una reserva en este momento, por favor comunícate con nosotros.",
   "data": []
 }
 ```
-> Angular debe verificar `success === false` y mostrar el mensaje al usuario, bloqueando el avance del formulario.
+🚫 **Bloquear completamente el flujo.** Mostrar el `message`. La clave diferenciadora es `noAgendar === true`:
+```typescript
+if (res.noAgendar === true) {
+  this.mostrarError(res.message);
+  this.puedeAgendar = false;
+  return;
+}
+```
 
-**Response — cliente no encontrado:**
+---
+
+**CASO 3 — Cliente no encontrado (documento nuevo)**
 ```json
+HTTP 200
 {
   "success": false,
   "message": "No se encontró un cliente con estos datos.",
   "data": []
 }
 ```
-> Cliente nuevo: permitir continuar con el formulario (se crea al confirmar el pago).
+✅ Cliente **nuevo** — continuar con formulario vacío. Se crea automáticamente cuando el pago se confirma.
+
+Verificar: `success === false` **y** `noAgendar` ausente o `undefined`.
+
+---
+
+**CASO 4 — Documento con formato inválido**
+```json
+HTTP 422
+{
+  "success": false,
+  "message": "Ocurrio un error al validar los datos del cliente",
+  "errors": { "documento": ["El campo documento debe ser numérico.", "..."] }
+}
+```
+⚠️ Validar en Angular antes de llamar al endpoint: solo dígitos, mínimo 5 y máximo 20 caracteres.
+
+---
+
+**CASO 5 — Error interno del servidor**
+```json
+HTTP 500
+{
+  "success": false,
+  "message": "Ocurrió un error al procesar la solicitud."
+}
+```
+⚠️ Mostrar mensaje genérico al usuario y permitir reintentar.
+
+---
+
+#### Lógica de decisión completa en Angular
+
+```typescript
+getCliente(documento: string): void {
+  this.apiService.getClienteByDocumento(documento).subscribe({
+    next: (res) => {
+      if (res.noAgendar === true) {
+        // CASO 2: bloqueado — detener flujo completamente
+        this.mostrarError(res.message);
+        this.puedeAgendar = false;
+        return;
+      }
+      if (res.success === true) {
+        // CASO 1: cliente habilitado — precargar formulario
+        this.precargarFormulario(res.data);
+        this.puedeAgendar = true;
+        return;
+      }
+      // CASO 3: cliente nuevo — formulario vacío
+      this.puedeAgendar = true;
+    },
+    error: (err) => {
+      if (err.status === 422) {
+        // CASO 4: documento inválido
+        this.mostrarError('El documento ingresado no es válido.');
+      } else {
+        // CASO 5: error servidor
+        this.mostrarError('Ocurrió un error, por favor intenta de nuevo.');
+      }
+    }
+  });
+}
+```
+
+> **Resumen de flags a verificar** (en orden de prioridad):
+> 1. `noAgendar === true` → bloquear flujo
+> 2. `success === true` → cliente existente, precargar campos
+> 3. `success === false` sin `noAgendar` → cliente nuevo, continuar
 
 ---
 
