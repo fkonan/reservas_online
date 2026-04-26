@@ -21,31 +21,206 @@ p, label {
   color: rgba(64, 64, 64, 0.7411764706) !important;
 }
 
+// ============================================================
+// Card de reserva
+// ============================================================
+.reserva-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8faf3 100%);
+  border: 1px solid #dde8c0;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(102, 114, 57, 0.08);
+  overflow: hidden;
+  margin: 16px 0 24px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667239, #8fa04a, #667239);
+  }
+}
+
+.reserva-card__body {
+  padding: 20px 24px 16px;
+
+  @media (max-width: 480px) {
+    padding: 16px;
+  }
+}
+
+.reserva-card__titulo {
+  text-align: center;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  color: #4a5c20 !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px !important;
+}
+
+.reserva-card__divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #dde8c0, transparent);
+  margin-bottom: 16px;
+}
+
+.reserva-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: rgba(64, 64, 64, 0.75) !important;
+
+  span {
+    color: rgba(64, 64, 64, 0.75) !important;
+  }
+
+  em {
+    font-style: normal;
+    font-size: 11px;
+    color: #999 !important;
+  }
+}
+
+.reserva-item--highlight {
+  background: #f0f4e8;
+  border: 1px solid #c8d89a;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-weight: 600;
+
+  .reserva-item__icon,
+  span {
+    color: #4a5c20 !important;
+  }
+}
+
+.reserva-item__icon {
+  font-size: 18px !important;
+  color: #667239 !important;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+// ============================================================
+// Formulario de datos
+// ============================================================
+.datos-form {
+  background: #ffffff;
+  border: 1px solid #e8eed8;
+  border-radius: 16px;
+  padding: 28px 28px 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 16px;
+  position: relative;
+
+  @media (max-width: 576px) {
+    padding: 20px 16px 16px;
+    border-radius: 12px;
+  }
+}
+
+.datos-form__titulo {
+  text-align: center !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: #4a5c20 !important;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px !important;
+  position: relative;
+  padding-bottom: 12px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 3px;
+    background: #667239;
+    border-radius: 2px;
+  }
+}
+
+// Mejora de inputs dentro del formulario
+.datos-form {
+  .form-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: rgba(64, 64, 64, 0.75) !important;
+    margin-bottom: 4px;
+  }
+
+  .form-control {
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Raleway', sans-serif;
+    color: rgba(64, 64, 64, 0.85);
+    background: #fafafa;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    padding: 8px 12px;
+
+    &:focus {
+      border-color: #8fa04a;
+      box-shadow: 0 0 0 3px rgba(102, 114, 57, 0.12);
+      background: #ffffff;
+      outline: none;
+    }
+
+    &.is-invalid {
+      border-color: #dc3545;
+      background: #fff8f8;
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+      }
+    }
+  }
+}
+
 .btn-sos {
   border: 1px solid hsl(265, 10%, calc(93% - 11.3% * 1));
-  border-radius: 5px;
-  background-color: #667239;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667239, #7a8545);
   font-family: Raleway !important;
+  font-weight: 600;
+  letter-spacing: 0.5px;
   color: #ffffff;
   transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 28px;
+
+  .btn-icon {
+    font-size: 18px;
+    vertical-align: middle;
+  }
 
   &:disabled {
-    background-color: #d3d3d3 !important;
+    background: #d3d3d3 !important;
     color: #888888 !important;
     border-color: #cccccc !important;
     cursor: not-allowed !important;
     opacity: 0.6;
 
     &:hover {
-      background-color: #d3d3d3 !important;
+      background: #d3d3d3 !important;
       transform: none;
     }
   }
 
   &:hover:not(:disabled) {
-    background-color: #7a8545;
+    background: linear-gradient(135deg, #7a8545, #8fa04a);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 16px rgba(102, 114, 57, 0.3);
   }
 }
 
@@ -57,9 +232,39 @@ p, label {
   color: rgba(64, 64, 64, 0.7411764706) !important;
 }
 
+// Pill de bienvenida al cliente encontrado
+.bienvenida-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #f0f4e8, #e8f0d0);
+  border: 1px solid #b5c47e;
+  border-radius: 24px;
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #4a5c20 !important;
+  margin: 0;
+  box-shadow: 0 2px 6px rgba(102, 114, 57, 0.12);
+
+  .material-symbols-outlined {
+    color: #667239 !important;
+    font-size: 18px;
+  }
+}
+
+// Hint en labels de campo
+.campo-hint {
+  font-size: 11px;
+  font-weight: 400;
+  color: #999 !important;
+  margin-left: 4px;
+}
+
 @media (max-width: 480px) {
   h3, h4, h5 {
-    font-size: 14px;
+    font-size: 18px;
+    font-weight: bold;
   }
 }
 
@@ -106,3 +311,5 @@ p, label {
     margin-top: auto;
   }
 }
+
+

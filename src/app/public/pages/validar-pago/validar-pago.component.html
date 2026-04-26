@@ -1,80 +1,123 @@
-
-@if(status == 'PAID') {
-<div class="container border rounded mt-5">
-  <div class="row p-3">
-    <div class="col-md-12 text-center">
-      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" class="text-success mb-3"
-        viewBox="0 0 24 24"><!-- Icon from Material Design Icons by Pictogrammers - https://github.com/Templarian/MaterialDesign/blob/master/LICENSE -->
-        <path fill="currentColor"
-          d="m19.5 1l-1.09 2.41L16 4.5l2.41 1.09L19.5 8l1.1-2.41L23 4.5l-2.4-1.09zM12 2C6.5 2 2 6.5 2 12v10h20V12c0-1.47-.33-2.87-.9-4.13l-1.24 2.72c.08.46.14.91.14 1.41c0 4.43-3.57 8-8 8s-8-3.57-8-8v-.13a10 10 0 0 0 5.74-5.56A10 10 0 0 0 17.5 10a10 10 0 0 0 1.33-.09l-1.48-3.26L12.6 4.5l3.53-1.6C14.87 2.33 13.47 2 12 2m-3 9.75A1.25 1.25 0 0 0 7.75 13A1.25 1.25 0 0 0 9 14.25A1.25 1.25 0 0 0 10.25 13A1.25 1.25 0 0 0 9 11.75m6 0A1.25 1.25 0 0 0 13.75 13A1.25 1.25 0 0 0 15 14.25A1.25 1.25 0 0 0 16.25 13A1.25 1.25 0 0 0 15 11.75" />
-      </svg>
-      <h4>{{ mensaje }}</h4>
-    </div>
-    <hr>
-    <h4 class="text-center mt-3 mb-5">Datos registrados</h4>
-    <div class="col-md-4">
-      <p><strong>Documento:</strong> {{ data.documento }}</p>
-    </div>
-    <div class="col-md-4">
-      <p><strong>Cliente:</strong> {{ data.cliente }}</p>
-    </div>
-    <div class="col-md-4">
-      <p><strong>Fecha:</strong> {{ data.agenda.fecha }} <strong>Hora: </strong> {{ data.agenda.hora }}</p>
-    </div>
-    <div class="col-md-4">
-      <p><strong>Estado:</strong> {{ data.agenda.estado }}</p>
-    </div>
-    <div class="col-md-4">
-      <p><strong>Id de la transacción:</strong> {{ data.transaction_id }}</p>
-    </div>
-  </div>
-
-  @if ((avisoFinal()?.parrafos?.length ?? 0) > 0) {
-  <div class="row px-3 pb-2">
-    <div class="col-12">
-      <div class="aviso-post-pago">
-        <div class="aviso-post-pago__header">
-          <span class="aviso-post-pago__icono">📋</span>
-          <h6 class="aviso-post-pago__titulo">Recuerda estas recomendaciones para tu cita</h6>
-        </div>
-        <ul class="aviso-post-pago__lista">
-          @for (parrafo of avisoFinal()!.parrafos; track $index) {
-            <li>{{ parrafo }}</li>
-          }
-        </ul>
+<div class="promo-page">
+<app-header-promo />
+<!-- Estado: cargando / polling activo -->
+@if (isValidating()) {
+  <div class="vp-wrapper">
+    <div class="vp-card vp-card--loading">
+      <div class="vp-spinner">
+        <span class="vp-spinner__ring"></span>
       </div>
+      <h4 class="vp-title mt-3">Validando tu pago</h4>
+      <p class="vp-subtitle">Por favor espera, estamos confirmando tu transacción con la pasarela de pago...</p>
+      <p class="vp-hint">Puedes cerrar la pestaña de Bold una vez hayas completado el pago.</p>
     </div>
   </div>
-  }
-
-  <div class="row text-center mb-3">
-    <h4>Gracias por confiar en nosotros, te esperamos!!</h4>
-  </div>
-  <div class="row mb-3">
-    <div class="col-md-12 text-center">
-      <a href="/" class="btn btn-success">Volver</a>
-    </div>
-  </div>
-</div>
 }
-@else {
-<div class="container border rounded mt-5">
-  <div class="row p-3">
-    <div class="col-md-12 text-center">
-      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" class="text-danger"
-        viewBox="0 0 48 48"><!-- Icon from IconPark Solid by ByteDance - https://github.com/bytedance/IconPark/blob/master/LICENSE -->
-        <path fill="currentColor" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round"
-          stroke-linejoin="round" stroke-width="4"
-          d="m6 11l5-5l13 13L37 6l5 5l-13 13l13 13l-5 5l-13-13l-13 13l-5-5l13-13z" clip-rule="evenodd" />
-      </svg>
 
-      <h4 class="my-3">{{ mensaje }}</h4>
+<!-- Estado: PAID -->
+@if (!isValidating() && status() === 'PAID') {
+  <div class="vp-wrapper">
+    <div class="vp-card vp-card--success">
+      <div class="vp-icon-badge vp-icon-badge--success">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10s10-4.5 10-10S17.5 2 12 2m-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"/>
+        </svg>
+      </div>
+      <h4 class="vp-title mt-3">¡Pago exitoso!</h4>
+      <p class="vp-subtitle">{{ mensaje() }}</p>
+
+      <div class="vp-datos">
+        <h6 class="vp-datos__titulo">Datos de tu cita</h6>
+        <div class="vp-datos__grid">
+          <div class="vp-dato">
+            <span class="vp-dato__label">Documento</span>
+            <span class="vp-dato__valor">{{ data().documento }}</span>
+          </div>
+          <div class="vp-dato">
+            <span class="vp-dato__label">Cliente</span>
+            <span class="vp-dato__valor">{{ data().cliente }}</span>
+          </div>
+          <div class="vp-dato">
+            <span class="vp-dato__label">Fecha</span>
+            <span class="vp-dato__valor">{{ data().agenda.fecha }}</span>
+          </div>
+          <div class="vp-dato">
+            <span class="vp-dato__label">Hora</span>
+            <span class="vp-dato__valor">{{ data().agenda.hora }}</span>
+          </div>
+          <div class="vp-dato">
+            <span class="vp-dato__label">Estado</span>
+            <span class="vp-dato__valor vp-badge vp-badge--success">{{ data().agenda.estado }}</span>
+          </div>
+          <div class="vp-dato">
+            <span class="vp-dato__label">ID Transacción</span>
+            <span class="vp-dato__valor vp-mono">{{ data().transaction_id }}</span>
+          </div>
+        </div>
+      </div>
+
+      @if ((avisoFinal()?.parrafos?.length ?? 0) > 0) {
+        <div class="aviso-post-pago mt-3">
+          <div class="aviso-post-pago__header">
+            <span class="aviso-post-pago__icono">📋</span>
+            <h6 class="aviso-post-pago__titulo">Recuerda estas recomendaciones para tu cita</h6>
+          </div>
+          <ul class="aviso-post-pago__lista">
+            @for (parrafo of avisoFinal()!.parrafos; track $index) {
+              <li>{{ parrafo }}</li>
+            }
+          </ul>
+        </div>
+      }
+
+      <p class="vp-gracias mt-3">¡Gracias por confiar en nosotros, te esperamos!</p>
+      <a href="/" class="btn-vp btn-vp--primary mt-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"/>
+        </svg>
+        Volver al inicio
+      </a>
     </div>
   </div>
-  <div class="row mb-3">
-    <div class="col-md-12 text-center">
-      <a href="/" class="btn btn-success">Volver</a>
-    </div>
-  </div>
-</div>
 }
+
+<!-- Estado: error (REJECTED / CANCELLED / EXPIRED / TIMEOUT) -->
+@if (!isValidating() && status() !== 'PAID' && status() !== '') {
+  <div class="vp-wrapper">
+    <div class="vp-card vp-card--error">
+      <div class="vp-icon-badge vp-icon-badge--error">
+        @if (status() === 'CANCELLED') {
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10s10-4.47 10-10S17.53 2 12 2m5 13.59L15.59 17L12 13.41L8.41 17L7 15.59L10.59 12L7 8.41L8.41 7L12 10.59L15.59 7L17 8.41L13.41 12z"/>
+          </svg>
+        } @else if (status() === 'EXPIRED' || status() === 'TIMEOUT') {
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10s10-4.5 10-10S17.5 2 12 2m4.2 14.2L11 13V7h1.5v5.2l4.5 2.7z"/>
+          </svg>
+        } @else {
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m1 15h-2v-2h2zm0-4h-2V7h2z"/>
+          </svg>
+        }
+      </div>
+
+      <h4 class="vp-title mt-3">
+        @if (status() === 'REJECTED') { Pago rechazado }
+        @else if (status() === 'CANCELLED') { Pago cancelado }
+        @else if (status() === 'EXPIRED') { Link vencido }
+        @else { Tiempo agotado }
+      </h4>
+
+      <p class="vp-subtitle">{{ getMensajeEstado(status()) }}</p>
+
+      <a href="/" class="btn-vp btn-vp--secondary mt-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"/>
+        </svg>
+        Volver al inicio
+      </a>
+    </div>
+  </div>
+}
+<app-seasonal-tree-bottom></app-seasonal-tree-bottom>
+</div>

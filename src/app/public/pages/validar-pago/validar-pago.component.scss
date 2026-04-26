@@ -1,9 +1,203 @@
+// ============================================================
+// Layout base
+// ============================================================
+.vp-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  font-family: 'Raleway', 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  //background: #f8f9f4;
+}
+
+.vp-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 40px 32px;
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+
+  @media (max-width: 480px) {
+    padding: 28px 18px;
+    border-radius: 12px;
+  }
+}
+
+// ============================================================
+// Variantes de card
+// ============================================================
+.vp-card--loading {
+  border-top: 4px solid #667239;
+}
+
+.vp-card--success {
+  border-top: 4px solid #667239;
+}
+
+.vp-card--error {
+  border-top: 4px solid #c0392b;
+}
+
+// ============================================================
+// Spinner de carga
+// ============================================================
+.vp-spinner {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.vp-spinner__ring {
+  display: inline-block;
+  width: 56px;
+  height: 56px;
+  border: 5px solid #e8eedd;
+  border-top-color: #667239;
+  border-radius: 50%;
+  animation: vp-spin 0.9s linear infinite;
+}
+
+@keyframes vp-spin {
+  to { transform: rotate(360deg); }
+}
+
+// ============================================================
+// Iconos badge
+// ============================================================
+.vp-icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  margin-bottom: 4px;
+}
+
+.vp-icon-badge--success {
+  background-color: #edf4e0;
+  color: #667239;
+}
+
+.vp-icon-badge--error {
+  background-color: #fdecea;
+  color: #c0392b;
+}
+
+// ============================================================
+// Tipografía
+// ============================================================
+.vp-title {
+  font-family: 'Raleway', 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: rgba(64, 64, 64, 0.85);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.vp-subtitle {
+  font-size: 0.93rem;
+  color: rgba(64, 64, 64, 0.65);
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.vp-hint {
+  font-size: 0.82rem;
+  color: #999;
+  margin-top: 8px;
+}
+
+.vp-gracias {
+  font-weight: 600;
+  color: #667239;
+  font-size: 0.95rem;
+}
+
+// ============================================================
+// Datos de la cita
+// ============================================================
+.vp-datos {
+  background: #f8f9f4;
+  border: 1px solid #dde8c0;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.vp-datos__titulo {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: #4a5c20;
+  letter-spacing: 0.3px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.vp-datos__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vp-dato {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vp-dato__label {
+  font-size: 0.75rem;
+  color: #999;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.vp-dato__valor {
+  font-size: 0.9rem;
+  color: rgba(64, 64, 64, 0.85);
+  font-weight: 500;
+}
+
+.vp-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  width: fit-content;
+}
+
+.vp-badge--success {
+  background: #edf4e0;
+  color: #4a5c20;
+}
+
+.vp-mono {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+}
+
+// ============================================================
+// Aviso post-pago
+// ============================================================
 .aviso-post-pago {
   background: #f9f6ee;
   border: 1px solid #c0a145;
   border-radius: 10px;
   padding: 16px 20px;
-  margin-bottom: 16px;
+  text-align: left;
 }
 
 .aviso-post-pago__header {
@@ -21,7 +215,7 @@
   font-weight: 700;
   color: #5a4000;
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   letter-spacing: 0.3px;
 }
 
@@ -34,5 +228,57 @@
 
   li + li {
     margin-top: 3px;
+  }
+}
+
+// ============================================================
+// Botones
+// ============================================================
+.btn-vp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 0.93rem;
+  padding: 10px 24px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-vp--primary {
+  background-color: #667239;
+  color: #ffffff;
+
+  &:hover {
+    background-color: #7a8545;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(102, 114, 57, 0.3);
+    color: #ffffff;
+  }
+}
+
+.btn-vp--secondary {
+  background-color: #f0f0f0;
+  color: rgba(64, 64, 64, 0.8);
+  border: 1px solid #ddd;
+
+  &:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+    color: rgba(64, 64, 64, 0.9);
+  }
+}
+
+.promo-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  app-seasonal-tree-bottom {
+    margin-top: auto;
   }
 }

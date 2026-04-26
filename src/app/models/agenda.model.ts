@@ -18,9 +18,12 @@ export interface AgendaRequest {
   documento: string;
   nombres: string;
   apellidos: string;
-  telefono: string;
-  correo: string;
+  telefono?: string;
+  whatsapp?: string;
+  correo?: string;
   fecha_nacimiento?: string | Date | undefined;
+  ciudad?: string;
+  direccion?: string;
   valor_abono: number;
 }
 

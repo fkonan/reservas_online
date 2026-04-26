@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/env.dev';
 import { finalize, map, Observable } from 'rxjs';
 import { AgendaRequest, AgendaResponse } from '../../models/agenda.model';
@@ -17,9 +17,9 @@ export class AgendaService {
   transactionUrl = signal<string | null>(null);
   transactionId = signal<string | null>(null);
   transactionError = signal<string | null>(null);
+  currentPaymentLink = signal<string | null>(null);
 
   generatePaymentLink(agenda: AgendaRequest): Observable<AgendaResponse> {
-    // Mostrar toast de carga
     const loadingSnackBarRef = this.snackBar.open('Generando link de pago...', '', {
       duration: 0,
       panelClass: ['loading-snackbar'],
@@ -28,25 +28,24 @@ export class AgendaService {
     return this.http.post<AgendaResponse>(`${this.apiUrl}api/payment/generate-link`, agenda)
     .pipe(
       finalize(() => {
-        loadingSnackBarRef.dismiss(); // Cerrar el snackbar de carga
+        loadingSnackBarRef.dismiss();
       }),
       map((response) => {
         if (response.success) {
           this.transactionUrl.set(response.data.url);
           this.transactionId.set(response.data.transaction_id);
 
-          // Mostrar toast de éxito
-          this.snackBar.open('Link de pago generado con éxito, en un momento sera redireccionado.', 'Cerrar', {
+          // Extraer el LNK_XXX de la URL de Bold
+          const boldUrl = response.data.url;
+          const linkMatch = boldUrl.match(/LNK_[A-Za-z0-9_-]+/);
+          const link = linkMatch ? linkMatch[0] : response.data.transaction_id;
+          this.currentPaymentLink.set(link);
+
+          this.snackBar.open('Link de pago generado. Abriendo pasarela de pago...', 'Cerrar', {
             duration: 4000,
             panelClass: ['success-snackbar'],
           });
-
-          // Redirigir después de un breve retraso para permitir que el usuario vea el mensaje
-          setTimeout(() => {
-            window.location.href = response.data.url; // Redirige a la URL externa
-          }, 2000);
         } else {
-          // Mostrar toast de error
           this.snackBar.open(response.message || 'Error al generar el link de pago', 'Cerrar', {
             duration: 5000,
             panelClass: ['error-snackbar'],
@@ -62,5 +61,6 @@ export class AgendaService {
     this.transactionUrl.set(null);
     this.transactionId.set(null);
     this.transactionError.set(null);
+    this.currentPaymentLink.set(null);
   }
 }

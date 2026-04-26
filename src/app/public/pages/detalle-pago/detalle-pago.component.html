@@ -3,100 +3,174 @@
 
 <div class="container my-3">
   @if (datosCita(); as cita) {
-  <h4 class="text-center mt-4">Detalle del Servicio que te vas a Realizar</h4>
+  <h4 class="text-center mt-4">Detalle del Servicio</h4>
   <hr>
-  <div class="card my-3 shadow-sm rounded-4 bg-white border">
-    <div class="card-body" style="font-size: 13px;">
-      <h5 class="card-title text-center">Información de la Reserva</h5>
-      <hr>
+  <div class="reserva-card">
+    <div class="reserva-card__body">
+      <h5 class="reserva-card__titulo">Información de la Reserva</h5>
+      <div class="reserva-card__divider"></div>
       <div class="row">
         <div class="col-12 col-md-6 mb-0 mb-md-2">
-          <p class="d-flex color-sos">
-            <span class="material-symbols-outlined px-1">calendar_month</span>
-            {{cita.fecha | date:'EEEE d \'de\' MMMM \'de\' y' | titlecase}} a las {{cita.hora}}
+          <p class="reserva-item">
+            <span class="reserva-item__icon material-symbols-outlined">calendar_month</span>
+            <span>{{cita.fecha | date:'EEEE d \'de\' MMMM \'de\' y' | titlecase}} a las {{cita.hora}}</span>
           </p>
-          <p class="d-flex color-sos">
-          <span class="material-symbols-outlined px-1">paid</span>
-          $ {{cita.valor_abono | currency:' ':'symbol':'1.0-0'}} (abono requerido)</p>
+          <p class="reserva-item reserva-item--highlight">
+            <span class="reserva-item__icon material-symbols-outlined">paid</span>
+            <span>$ {{cita.valor_abono | currency:' ':'symbol':'1.0-0'}} <em>(abono requerido)</em></span>
+          </p>
         </div>
         <div class="col-12 col-md-6 mb-0 mb-md-2">
-          <p class="d-flex color-sos">
-            <span class="material-symbols-outlined px-1">face_3</span>
-            {{cita.servicio.web?.titulo_publico || cita.servicio.nombre_comercial}}
+          <p class="reserva-item">
+            <span class="reserva-item__icon material-symbols-outlined">face_3</span>
+            <span>{{cita.servicio.web?.titulo_publico || cita.servicio.nombre_comercial}}</span>
           </p>
-          <p class="d-flex color-sos">
-        <span class="material-symbols-outlined px-1">nest_clock_farsight_analog</span>
-            {{cita.servicio.web?.duracion || cita.servicio.duracion}}
+          <p class="reserva-item">
+            <span class="reserva-item__icon material-symbols-outlined">nest_clock_farsight_analog</span>
+            <span>{{cita.servicio.web?.duracion || cita.servicio.duracion}}</span>
           </p>
         </div>
       </div>
     </div>
   </div>
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form class="datos-form" [formGroup]="form" (ngSubmit)="onSubmit()">
 
-    <h4 class="text-center">Registre sus datos</h4>
-    <hr>
+    <h4 class="datos-form__titulo">Registre sus datos</h4>
+
+    <!-- Documento siempre visible -->
     <div class="row justify-content-center justify-content-md-start">
       <div class="col-12 col-md-5 mb-2">
-        <label for="documento" class="form-label">Documento</label>
-        <input type="text" id="documento" class="form-control" formControlName="documento" (change)="validarDocumento()"
+        <label for="documento" class="form-label">Documento <span class="text-danger">*</span></label>
+        <input type="text" id="documento" class="form-control"
+          formControlName="documento"
+          (change)="validarDocumento()"
+          [class.is-invalid]="form.get('documento')?.invalid && form.get('documento')?.touched"
           required>
+        @if (form.get('documento')?.invalid && form.get('documento')?.touched) {
+          <div class="invalid-feedback">El documento es requerido</div>
+        }
       </div>
-      @if(nombreMostrar.length>0){
+
+      @if (nombreMostrar.length > 0) {
         <div class="col-12 col-md-6 mb-2 d-flex align-self-end">
-          <p class="fw-bold border mt-4 p-2 border-warning rounded text-center">{{nombreMostrar}}</p>
+          <p class="bienvenida-pill">
+            <span class="material-symbols-outlined">waving_hand</span>
+            {{ nombreMostrar }}
+          </p>
         </div>
       }
     </div>
 
-    <div class="row" [class.d-none]="display">
-      <div class="col-12 col-md-6 mb-2">
-        <label for="nombres" class="form-label">Nombres</label>
-        <input type="text" id="nombres" class="form-control" formControlName="nombres" required>
-      </div>
-
-      <div class="col-12 col-md-6 mb-2">
-        <label for="apellidos" class="form-label">Apellidos</label>
-        <input type="text" id="apellidos" class="form-control" formControlName="apellidos" required>
-      </div>
-
-      <div class="col-12 col-md-6 mb-2">
-        <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
-        <input type="date" id="fecha_nacimiento" class="form-control" formControlName="fecha_nacimiento" required>
-      </div>
-      <div class="col-12 col-md-6 mb-2">
-        <label for="telefono" class="form-label">Teléfono</label>
-        <input type="tel" id="telefono" class="form-control" formControlName="telefono" required>
-      </div>
-
-      <div class="col-12 col-md-6 mb-2">
-        <label for="correo" class="form-label">Correo</label>
-        <input type="email" id="correo" class="form-control" formControlName="correo" required>
-      </div>
-    </div>
-    <!-- <hr> -->
-    <!-- <div class="row mt-3">
-      <h5 class="text-center">Recomendaciones para el día de tu cita</h5>
-      <div class="accordion mt-2" id="recomendacionesAccordion">
-        <div class="accordion-item recomendaciones-item">
-          <h2 class="accordion-header" id="headingRecomendaciones">
-            <button class="accordion-button accordion-button-custom p-2" type="button"
-              data-bs-toggle="collapse" data-bs-target="#collapseRecomendaciones" aria-expanded="false"
-              aria-controls="collapseRecomendaciones">
-              Revisar recomendaciones
-            </button>
-          </h2>
-          <div id="collapseRecomendaciones" class="accordion-collapse collapse" aria-labelledby="headingRecomendaciones"
-            data-bs-parent="#recomendacionesAccordion">
-            <div class="accordion-body accordion-body-custom border border-1 p-3 rounded shadow bg-body" style="text-align: justify;" [innerHTML]="recomendacionesHTML">
-            </div>
-          </div>
+    <!-- Cliente existente: solo nombres y apellidos -->
+    @if (clienteExistente() === true) {
+      <div class="row">
+        <div class="col-12 col-md-6 mb-2">
+          <label for="nombres" class="form-label">Nombres <span class="text-danger">*</span></label>
+          <input type="text" id="nombres" class="form-control" formControlName="nombres"
+            readonly
+            [class.is-invalid]="form.get('nombres')?.invalid && form.get('nombres')?.touched">
+          @if (form.get('nombres')?.invalid && form.get('nombres')?.touched) {
+            <div class="invalid-feedback">El nombre es requerido</div>
+          }
+        </div>
+        <div class="col-12 col-md-6 mb-2">
+          <label for="apellidos" class="form-label">Apellidos <span class="text-danger">*</span></label>
+          <input type="text" id="apellidos" class="form-control" formControlName="apellidos"
+            readonly
+            [class.is-invalid]="form.get('apellidos')?.invalid && form.get('apellidos')?.touched">
+          @if (form.get('apellidos')?.invalid && form.get('apellidos')?.touched) {
+            <div class="invalid-feedback">Los apellidos son requeridos</div>
+          }
         </div>
       </div>
-    </div> -->
+    }
 
-    <div class="text-center mt-3">
+    <!-- Cliente nuevo: todos los campos -->
+    @if (clienteExistente() === false) {
+      <div class="row">
+        <div class="col-12 col-md-6 mb-2">
+          <label for="nombres" class="form-label">Nombres <span class="text-danger">*</span></label>
+          <input type="text" id="nombres" class="form-control" formControlName="nombres"
+            [class.is-invalid]="form.get('nombres')?.invalid && form.get('nombres')?.touched">
+          @if (form.get('nombres')?.invalid && form.get('nombres')?.touched) {
+            <div class="invalid-feedback">El nombre es requerido</div>
+          }
+        </div>
+
+        <div class="col-12 col-md-6 mb-2">
+          <label for="apellidos" class="form-label">Apellidos <span class="text-danger">*</span></label>
+          <input type="text" id="apellidos" class="form-control" formControlName="apellidos"
+            [class.is-invalid]="form.get('apellidos')?.invalid && form.get('apellidos')?.touched">
+          @if (form.get('apellidos')?.invalid && form.get('apellidos')?.touched) {
+            <div class="invalid-feedback">Los apellidos son requeridos</div>
+          }
+        </div>
+
+        <div class="col-12 col-md-6 mb-2">
+          <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento <span class="text-danger">*</span></label>
+          <input type="date" id="fecha_nacimiento" class="form-control"
+          [max]="today" formControlName="fecha_nacimiento"
+            [class.is-invalid]="form.get('fecha_nacimiento')?.invalid && form.get('fecha_nacimiento')?.touched">
+          @if (form.get('fecha_nacimiento')?.invalid && form.get('fecha_nacimiento')?.touched) {
+            <div class="invalid-feedback">La fecha de nacimiento es requerida</div>
+          }
+        </div>
+
+        <div class="col-12 col-md-6 mb-2">
+          <label for="telefono" class="form-label">Teléfono <span class="text-danger">*</span></label>
+          <input type="tel" id="telefono" class="form-control" formControlName="telefono"
+            [class.is-invalid]="form.get('telefono')?.invalid && form.get('telefono')?.touched">
+          @if (form.get('telefono')?.invalid && form.get('telefono')?.touched) {
+            <div class="invalid-feedback">El teléfono es requerido</div>
+          }
+        </div>
+
+        <div class="col-12 col-md-6 mb-2">
+          <label for="whatsapp" class="form-label">
+            WhatsApp <span class="text-danger">*</span>
+            <span class="campo-hint">(se completa con el teléfono)</span>
+          </label>
+          <input type="tel" id="whatsapp" class="form-control" formControlName="whatsapp"
+            [class.is-invalid]="form.get('whatsapp')?.invalid && form.get('whatsapp')?.touched">
+          @if (form.get('whatsapp')?.invalid && form.get('whatsapp')?.touched) {
+            <div class="invalid-feedback">El WhatsApp es requerido</div>
+          }
+        </div>
+
+        <div class="col-12 col-md-6 mb-2">
+          <label for="correo" class="form-label">Correo <span class="text-danger">*</span></label>
+          <input type="email" id="correo" class="form-control" formControlName="correo"
+            [class.is-invalid]="form.get('correo')?.invalid && form.get('correo')?.touched">
+          @if (form.get('correo')?.errors?.['required'] && form.get('correo')?.touched) {
+            <div class="invalid-feedback">El correo es requerido</div>
+          }
+          @if (form.get('correo')?.errors?.['email'] && form.get('correo')?.touched) {
+            <div class="invalid-feedback">Ingresa un correo válido</div>
+          }
+        </div>
+
+        <div class="col-12 col-md-6 mb-2">
+          <label for="ciudad" class="form-label">Ciudad <span class="text-danger">*</span></label>
+          <input type="text" id="ciudad" class="form-control" formControlName="ciudad"
+            [class.is-invalid]="form.get('ciudad')?.invalid && form.get('ciudad')?.touched">
+          @if (form.get('ciudad')?.invalid && form.get('ciudad')?.touched) {
+            <div class="invalid-feedback">La ciudad es requerida</div>
+          }
+        </div>
+
+        <div class="col-12 col-md-6 mb-2">
+          <label for="direccion" class="form-label">Dirección <span class="text-danger">*</span></label>
+          <input type="text" id="direccion" class="form-control" formControlName="direccion"
+            [class.is-invalid]="form.get('direccion')?.invalid && form.get('direccion')?.touched">
+          @if (form.get('direccion')?.invalid && form.get('direccion')?.touched) {
+            <div class="invalid-feedback">La dirección es requerida</div>
+          }
+        </div>
+      </div>
+    }
+
+    <div class="text-center mt-3 mb-3">
       @if (form.invalid && form.touched) {
         <p class="text-danger mb-2 small">
           <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">error</span>
@@ -104,12 +178,10 @@
         </p>
       }
 
-      <button class="btn-sos text-18" type="submit" [disabled]="true">
+      <button class="btn-sos text-18 px-4 py-2" type="submit" [disabled]="form.invalid">
+        <span class="material-symbols-outlined btn-icon">payment</span>
         Ir a pagar
       </button>
-      <!-- <button class="btn-sos text-18" type="submit" [disabled]="form.invalid">
-        Ir a pagar
-      </button> -->
     </div>
   </form>
   }
