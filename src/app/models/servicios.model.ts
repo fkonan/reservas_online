@@ -1,6 +1,7 @@
 export interface TipoServicio {
   id: number;
   tipo_servicio: string;
+  valor_abono?: number;
 }
 
 export interface CategoriaServicio {

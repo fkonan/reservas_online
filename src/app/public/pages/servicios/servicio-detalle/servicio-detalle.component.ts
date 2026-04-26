@@ -121,8 +121,11 @@ export class ServicioDetalleComponent {
   navegarHorario(): void {
     const s = this.servicio();
     if (!s) return;
+    const valorAbono =
+      this.serviciosEnCategoria().find((srv) => srv.id === s.id)
+        ?.tipo_servicio_id?.valor_abono ?? 0;
     this.router.navigate(['/horario'], {
-      state: { servicio: s, sede: this.sede() },
+      state: { servicio: s, sede: this.sede(), valor_abono: valorAbono },
     });
   }
 

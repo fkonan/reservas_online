@@ -36,6 +36,7 @@ export class ServiciosService {
 
   servicioSeleccionado = signal<ServicioDetalle | null>(null);
   selectedDate = signal<Date | undefined>(new Date());
+  valorAbono = signal<number>(0);
 
   private agendaResource = rxResource({
   params: () => {
@@ -56,13 +57,25 @@ export class ServiciosService {
 
   stream: ({ params }) => {
     return this.http
-      .post<Agenda[]>(`${this.apiUrl}/agenda-web`, {
+      .post<any>(`${this.apiUrl}/agenda-web`, {
         sede_id: params.sede_id ?? '',
         tipo_servicio_id: params.servicio ?? '1234',
         servicio_id: params.servicio_id ?? '',
         fecha: params.fecha,
       })
-      .pipe(map((agenda) => AgendaAdapter(agenda)));
+      .pipe(
+        map((response) => {
+          const slots: any[] = Array.isArray(response.data)
+            ? response.data
+            : (Object.values(response.data) as any[]).flat();
+          const valorAbono = slots[0]?.valor_abono;
+          if (valorAbono) {
+            this.valorAbono.set(valorAbono);
+            localStorage.setItem('valorAbono', String(valorAbono));
+          }
+          return AgendaAdapter(response);
+        }),
+      );
   },
 });
 

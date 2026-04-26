@@ -14,6 +14,9 @@ export class AppComponent {
   title = 'reservas_online';
 
   constructor() {
+    localStorage.removeItem('servicio');
+    localStorage.removeItem('valorAbono');
+
     const router = inject(Router);
     const destroyRef = inject(DestroyRef);
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal, Signal, ViewChild, computed } from '@angular/core';
+import { Component, ElementRef, effect, inject, signal, Signal, ViewChild, computed } from '@angular/core';
 import { ServiciosService } from '../../../shared/services/servicios.service';
 import { AgendaService } from '../../../shared/services/agenda.service';
 import { Agenda } from '../../../models/agenda.model';
@@ -87,7 +87,18 @@ export class HorarioComponent {
     this.sede = navigation?.extras.state?.['sede'] || null;
     const servicioSeleccionado =
       navigation?.extras.state?.['servicio'] || localStorage.getItem('servicio');
-    const valorAbono = 50000;
+
+
+    const servicioObj =
+      typeof servicioSeleccionado === 'string'
+        ? JSON.parse(servicioSeleccionado)
+        : servicioSeleccionado;
+
+    const valorAbono: number =
+      navigation?.extras.state?.['valor_abono'] ??
+      servicioObj?.tipo_servicio_id?.valor_abono ??
+      (Number(localStorage.getItem('valorAbono')) || 0);
+
 
     if (servicioSeleccionado) {
       this.servicioSeleccionado.set(
@@ -100,8 +111,8 @@ export class HorarioComponent {
     }
 
     if (valorAbono) {
-      this.valor_abono.set(typeof valorAbono === 'string' ? JSON.parse(valorAbono) : valorAbono);
-      localStorage.setItem('valorAbono', JSON.stringify(valorAbono));
+      this.valor_abono.set(valorAbono);
+      localStorage.setItem('valorAbono', String(valorAbono));
     }
   }
 
@@ -115,6 +126,11 @@ export class HorarioComponent {
   }
 
   valor_abono = signal<number>(0);
+
+  private readonly valorAbonoEffect = effect(() => {
+    const v = this.servicioService.valorAbono();
+    if (v > 0) this.valor_abono.set(v);
+  });
   documento = signal<string>('');
   nombres = signal<string>('');
   apellidos = signal<string>('');

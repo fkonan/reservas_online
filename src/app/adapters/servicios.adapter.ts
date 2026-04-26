@@ -25,7 +25,7 @@ export const ServiciosAdapter = (response: any): CategoriaServicio[] => {
       obsequio: servicio.obsequio,
       imagen: servicio.imagen,
       sede_id: servicio.sede_id,
-      tipo_servicio_id: servicio.tipo_servicio_id,
+      tipo_servicio_id: servicio.tipo_servicio ?? servicio.tipo_servicio_id,
     })),
   }));
 };

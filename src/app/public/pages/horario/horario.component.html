@@ -46,7 +46,7 @@
     </div>
     }
 
-    <button mat-raised-button color="success" class="text-18 mt-3" (click)="onModalCliente()">Continuar</button>
+    <button mat-raised-button color="success" class="text-18 mt-3" [disabled]="valor_abono() === 0" (click)="onModalCliente()">Continuar</button>
   </div>
 </div>
 }
