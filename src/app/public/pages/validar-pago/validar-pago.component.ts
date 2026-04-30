@@ -33,6 +33,7 @@ export class ValidarPagoComponent implements OnInit {
   readonly pollingTerminado = signal(false);
   readonly avisoFinal = signal<AvisoFinal | null>(null);
   readonly mensajeError = signal('');
+  readonly servicioReservado = signal<string>('');
 
   private currentLink: string | null = null;
   private intervalId: ReturnType<typeof setInterval> | null = null;
@@ -47,6 +48,8 @@ export class ValidarPagoComponent implements OnInit {
         this.avisoFinal.set(null);
       }
     }
+
+    this.servicioReservado.set(localStorage.getItem('servicio_reservado') ?? '');
 
     this.route.queryParamMap.subscribe((params) => {
       const link = params.get('bold-order-id');

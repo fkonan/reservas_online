@@ -220,6 +220,9 @@ export class DetallePagoComponent {
           const boldUrl = response.data.url;
           const link = this.agendaService.currentPaymentLink();
 
+          const nombreServicio = cita.servicio.web?.titulo_publico || cita.servicio.nombre_comercial || '';
+          localStorage.setItem('servicio_reservado', nombreServicio);
+
           // Abrir Bold en nueva pestaña
           window.open(boldUrl, '_blank');
 

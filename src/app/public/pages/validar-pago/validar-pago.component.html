@@ -37,6 +37,12 @@
             <span class="vp-dato__label">Cliente</span>
             <span class="vp-dato__valor">{{ data().cliente }}</span>
           </div>
+          @if (servicioReservado()) {
+            <div class="vp-dato">
+              <span class="vp-dato__label">Servicio</span>
+              <span class="vp-dato__valor">{{ servicioReservado() }}</span>
+            </div>
+          }
           <div class="vp-dato">
             <span class="vp-dato__label">Fecha</span>
             <span class="vp-dato__valor">{{ data().agenda.fecha }}</span>
