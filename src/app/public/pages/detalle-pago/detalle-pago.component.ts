@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ClientesService } from '../../../shared/services/clientes.service';
@@ -30,7 +32,7 @@ export class DetallePagoComponent {
   /** null = sin buscar | true = cliente existe | false = cliente nuevo */
   protected readonly clienteExistente = signal<boolean | null>(null);
   protected readonly datosCita = signal<any>(null);
-  protected readonly cargandoCliente = signal(false);
+  protected readonly buscandoCliente = computed(() => !!this.clienteService.documento() && this.clienteService.isLoading());
   nombreMostrar = '';
   recomendacionesHTML: SafeHtml = '';
 
@@ -65,6 +67,35 @@ export class DetallePagoComponent {
     this.form.get('telefono')!.valueChanges.subscribe((val) => {
       this.form.get('whatsapp')!.setValue(val, { emitEvent: false });
     });
+
+    // Búsqueda reactiva por documento
+    const docControl = this.form.get('documento')!;
+
+    // Reset inmediato cuando el valor es muy corto (sin debounce)
+    docControl.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe((val: string) => {
+        if (!val || val.length < 5) {
+          this.nombreMostrar = '';
+          this.clienteExistente.set(null);
+          this.clienteService.documento.set(null);
+        }
+      });
+
+    // Búsqueda con debounce cuando hay suficientes dígitos
+    docControl.valueChanges
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        takeUntilDestroyed()
+      )
+      .subscribe((val: string) => {
+        if (val && val.length >= 5) {
+          this.nombreMostrar = '';
+          this.clienteExistente.set(null);
+          this.clienteService.actualizarDocumento(val);
+        }
+      });
   }
 
   /** Actualiza validators según si el cliente existe o es nuevo */
@@ -152,18 +183,6 @@ export class DetallePagoComponent {
       });
     }
   });
-
-  validarDocumento() {
-    this.nombreMostrar = '';
-    this.clienteExistente.set(null);
-    const documento = this.form.get('documento')?.value;
-
-    if (!documento || documento.length < 8) {
-      return;
-    }
-
-    this.clienteService.actualizarDocumento(documento);
-  }
 
   onSubmit() {
     if (this.form.invalid) {

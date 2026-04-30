@@ -251,6 +251,18 @@ p, label {
     color: #667239 !important;
     font-size: 18px;
   }
+
+  &--nuevo {
+    background: linear-gradient(135deg, #eaf3fb, #d6eaf8);
+    border-color: #90bedd;
+    color: #1a5276 !important;
+    font-size: 13px;
+    box-shadow: 0 2px 6px rgba(26, 82, 118, 0.1);
+
+    .material-symbols-outlined {
+      color: #2980b9 !important;
+    }
+  }
 }
 
 // Hint en labels de campo
@@ -259,6 +271,22 @@ p, label {
   font-weight: 400;
   color: #999 !important;
   margin-left: 4px;
+}
+
+// Indicador de búsqueda de cliente
+.searching-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #6c757d;
+
+  .spinner-border-sm {
+    width: 14px;
+    height: 14px;
+    border-width: 2px;
+  }
 }
 
 @media (max-width: 480px) {

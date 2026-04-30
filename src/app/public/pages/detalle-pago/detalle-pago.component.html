@@ -44,9 +44,16 @@
         <label for="documento" class="form-label">Documento <span class="text-danger">*</span></label>
         <input type="text" id="documento" class="form-control"
           formControlName="documento"
-          (change)="validarDocumento()"
+          inputmode="numeric"
+          pattern="[0-9]*"
           [class.is-invalid]="form.get('documento')?.invalid && form.get('documento')?.touched"
           required>
+        @if (buscandoCliente()) {
+          <div class="searching-hint">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Buscando...
+          </div>
+        }
         @if (form.get('documento')?.invalid && form.get('documento')?.touched) {
           <div class="invalid-feedback">El documento es requerido</div>
         }
@@ -57,6 +64,14 @@
           <p class="bienvenida-pill">
             <span class="material-symbols-outlined">waving_hand</span>
             {{ nombreMostrar }}
+          </p>
+        </div>
+      }
+      @if (clienteExistente() === false) {
+        <div class="col-12 col-md-6 mb-2 d-flex align-self-end">
+          <p class="bienvenida-pill bienvenida-pill--nuevo">
+            <span class="material-symbols-outlined">person_add</span>
+            ¡Hola! Como es tu primera visita, necesitamos algunos datos para tu reserva
           </p>
         </div>
       }

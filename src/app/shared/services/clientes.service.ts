@@ -21,6 +21,7 @@ export class ClientesService {
   private clienteResource = rxResource({
     params: () => this.documento(),
     stream: ({ params }) => {
+      if (!params) return of(null);
       this.noAgendar.set(false);
       this.mensajeBloqueo.set('');
       this.errorServidor.set(false);
@@ -51,6 +52,7 @@ export class ClientesService {
   });
 
   error = computed(() => this.clienteResource.error() as HttpErrorResponse);
+  readonly isLoading = computed(() => this.clienteResource.isLoading());
 
   actualizarDocumento(documento: string) {
     this.documento.set(documento);
