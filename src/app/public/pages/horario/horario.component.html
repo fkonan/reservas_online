@@ -13,13 +13,16 @@
     <h4 class="text-center" style="letter-spacing: 1px;"><b>HORARIOS DISPONIBLES</b></h4>
     <div class="d-flex flex-column  flex-wrap gap-2 justify-content-center radio-inputs">
       @for (item of agenda(); track item.id) {
-      <label [class.radio-tile-recargo]="item.tiene_recargo">
+      <label
+        [class.radio-tile-recargo]="item.tiene_recargo"
+        [class.radio-tile-past]="isPastSlot(item)">
         <input
           name="hora"
           type="radio"
           class="radio-input"
           [value]="item.hora"
           [checked]="slotSeleccionado()?.hora === item.hora"
+          [disabled]="isPastSlot(item)"
           (change)="selectSlot(item)"
         />
         <span class="radio-tile">

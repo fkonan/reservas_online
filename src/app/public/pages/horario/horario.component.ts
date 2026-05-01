@@ -82,6 +82,27 @@ export class HorarioComponent {
     return hours * 60 + minutes;
   }
 
+  private readonly BUFFER_MINUTES = 60;
+
+  isPastSlot(item: Agenda): boolean {
+    if (!this.selectedDate) return false;
+
+    const now = new Date();
+    const isToday =
+      this.selectedDate.getFullYear() === now.getFullYear() &&
+      this.selectedDate.getMonth() === now.getMonth() &&
+      this.selectedDate.getDate() === now.getDate();
+
+
+    if (!isToday) return false;
+
+    const slotMinutes = this.convertToMinutes(item.hora);
+
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+    return slotMinutes < currentMinutes - this.BUFFER_MINUTES;
+  }
+
   constructor(private router: Router, private dialog: MatDialog) {
     const navigation = this.router.getCurrentNavigation();
     this.sede = navigation?.extras.state?.['sede'] || null;

@@ -236,6 +236,20 @@
   color: #e07b00;
 }
 
+/* =============================================
+   Slot deshabilitado por hora pasada (con buffer)
+   ============================================= */
+
+label.radio-tile-past {
+  opacity: 0.4;
+  cursor: not-allowed;
+  filter: grayscale(1);
+
+  .radio-tile {
+    pointer-events: none;
+  }
+}
+
 /* Hacer que el botón de cierre sea más visible en snackbars oscuros */
 .mat-simple-snackbar-action {
   color: white;
