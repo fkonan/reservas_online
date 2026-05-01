@@ -193,6 +193,14 @@ export class DetallePagoComponent {
     const cita = this.datosCita();
     if (!cita) return;
 
+    // Apertura síncrona de la pestaña: requisito de Safari/iOS para preservar el user gesture.
+    const popup = window.open('about:blank', '_blank');
+    if (popup && !popup.closed) {
+      popup.document.open();
+      popup.document.write(this.loadingHtml());
+      popup.document.close();
+    }
+
     const v = this.form.value;
     const datosPago = {
       tipo_servicio: cita.servicio.tipo_servicio_id,
@@ -216,23 +224,29 @@ export class DetallePagoComponent {
 
     this.agendaService.generatePaymentLink(datosPago).subscribe({
       next: (response) => {
-        if (response.success) {
-          const boldUrl = response.data.url;
-          const link = this.agendaService.currentPaymentLink();
+        if (!response.success) {
+          if (popup && !popup.closed) popup.close();
+          return;
+        }
 
-          const nombreServicio = cita.servicio.web?.titulo_publico || cita.servicio.nombre_comercial || '';
-          localStorage.setItem('servicio_reservado', nombreServicio);
+        const boldUrl = response.data.url;
+        const link = this.agendaService.currentPaymentLink();
+        const nombreServicio = cita.servicio.web?.titulo_publico || cita.servicio.nombre_comercial || '';
+        localStorage.setItem('servicio_reservado', nombreServicio);
 
-          // Abrir Bold en nueva pestaña
-          window.open(boldUrl, '_blank');
+        const popupAbierto = popup && !popup.closed;
 
-          // Angular navega a validar-pago con el link para hacer polling
+        if (popupAbierto) {
+          popup!.location.href = boldUrl;
           this.router.navigate(['/validar-pago'], {
             queryParams: { 'bold-order-id': link ?? response.data.transaction_id },
           });
+        } else {
+          window.location.href = boldUrl;
         }
       },
       error: (err) => {
+        if (popup && !popup.closed) popup.close();
         Swal.fire({
           icon: 'error',
           title: 'Error',
@@ -248,5 +262,121 @@ export class DetallePagoComponent {
 
   get mostrarFormulario(): boolean {
     return this.clienteExistente() !== null;
+  }
+
+  private loadingHtml(): string {
+    return `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparando tu pago…</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+    background: linear-gradient(135deg, #f8faf3 0%, #e8f0d0 100%);
+    color: #4a5c20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+  }
+  .card {
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #dde8c0;
+    border-radius: 20px;
+    padding: 48px 32px;
+    box-shadow: 0 20px 50px -20px rgba(102, 114, 57, 0.25), 0 4px 12px rgba(102, 114, 57, 0.08);
+    animation: fadeIn .5s ease-out both;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .spinner {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 28px;
+    position: relative;
+  }
+  .spinner::before, .spinner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 4px solid transparent;
+  }
+  .spinner::before {
+    border-top-color: #667239;
+    border-right-color: #8fa04a;
+    animation: spin 1s linear infinite;
+  }
+  .spinner::after {
+    inset: 10px;
+    border-top-color: #b5c47e;
+    border-left-color: #dde8c0;
+    animation: spin 1.4s linear infinite reverse;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: #4a5c20;
+    letter-spacing: -0.01em;
+  }
+  p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #667239;
+    margin: 0 0 24px;
+  }
+  .dots {
+    display: inline-flex;
+    gap: 6px;
+    justify-content: center;
+  }
+  .dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #8fa04a;
+    animation: bounce 1.2s ease-in-out infinite;
+  }
+  .dots span:nth-child(2) { animation-delay: .15s; }
+  .dots span:nth-child(3) { animation-delay: .3s; }
+  @keyframes bounce {
+    0%, 80%, 100% { transform: scale(.6); opacity: .4; }
+    40%           { transform: scale(1);  opacity: 1; }
+  }
+  .footer {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f4e8;
+    font-size: 12px;
+    color: #8fa04a;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+  <main class="card" role="status" aria-live="polite">
+    <div class="spinner" aria-hidden="true"></div>
+    <h1>Preparando tu pago</h1>
+    <p>Estamos generando tu link seguro de pago. No cierres esta pestaña.</p>
+    <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="footer">Conexión segura</div>
+  </main>
+</body>
+</html>`;
   }
 }
