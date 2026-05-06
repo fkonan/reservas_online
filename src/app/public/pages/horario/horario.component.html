@@ -15,14 +15,14 @@
       @for (item of agenda(); track item.id) {
       <label
         [class.radio-tile-recargo]="item.tiene_recargo"
-        [class.radio-tile-past]="isPastSlot(item)">
+        [class.radio-tile-past]="isPastSlot(item) || isRestrictedSlot(item)">
         <input
           name="hora"
           type="radio"
           class="radio-input"
           [value]="item.hora"
           [checked]="slotSeleccionado()?.hora === item.hora"
-          [disabled]="isPastSlot(item)"
+          [disabled]="isPastSlot(item) || isRestrictedSlot(item)"
           (change)="selectSlot(item)"
         />
         <span class="radio-tile">

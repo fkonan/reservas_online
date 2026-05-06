@@ -83,6 +83,10 @@ export class HorarioComponent {
   }
 
   private readonly BUFFER_MINUTES = 60;
+  private readonly ADN_CAPILAR_ID = 7;
+  // 0=Dom, 3=Mié, 4=Jue, 5=Vie, 6=Sáb
+  private readonly ADN_CAPILAR_DIAS_RESTRINGIDOS = [0, 3, 4, 5, 6];
+  private readonly ADN_CAPILAR_HORA_RESTRINGIDA_MINUTOS = 18 * 60; // 6:00pm = 1080 min
 
   isPastSlot(item: Agenda): boolean {
     if (!this.selectedDate) return false;
@@ -101,6 +105,17 @@ export class HorarioComponent {
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
     return slotMinutes < currentMinutes - this.BUFFER_MINUTES;
+  }
+
+  isRestrictedSlot(item: Agenda): boolean {
+    const servicio = this.servicioSeleccionado();
+    if (!servicio || servicio.id !== this.ADN_CAPILAR_ID) return false;
+    if (!this.selectedDate) return false;
+
+    const diaSemana = this.selectedDate.getDay();
+    if (!this.ADN_CAPILAR_DIAS_RESTRINGIDOS.includes(diaSemana)) return false;
+
+    return this.convertToMinutes(item.hora) === this.ADN_CAPILAR_HORA_RESTRINGIDA_MINUTOS;
   }
 
   constructor(private router: Router, private dialog: MatDialog) {
