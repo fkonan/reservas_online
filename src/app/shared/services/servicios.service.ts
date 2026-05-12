@@ -9,6 +9,8 @@ import { AgendaAdapter } from '../../adapters/agenda.adapter';
 import { CategoriasAdapter } from '../../adapters/categorias.adapter';
 import { ServicioDetalle } from '../../models/servicio-detalle.model';
 
+export const DEFAULT_SEDE_ID = 3;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +18,7 @@ export class ServiciosService {
   private apiUrl = `${environment.baseUrl}api`;
   private http = inject(HttpClient);
 
-  sedeSeleccionada = signal<number | undefined>(undefined);
+  sedeSeleccionada = signal<number>(DEFAULT_SEDE_ID);
 
   categorias = computed(() => this.categoriaSedeRecourse.value() ?? ([] as CategoriaServicio[]));
 

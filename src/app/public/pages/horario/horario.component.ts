@@ -1,5 +1,5 @@
 import { Component, ElementRef, effect, inject, signal, Signal, ViewChild, computed } from '@angular/core';
-import { ServiciosService } from '../../../shared/services/servicios.service';
+import { DEFAULT_SEDE_ID, ServiciosService } from '../../../shared/services/servicios.service';
 import { AgendaService } from '../../../shared/services/agenda.service';
 import { Agenda } from '../../../models/agenda.model';
 import { AvisoFinal, ServicioDetalle } from '../../../models/servicio-detalle.model';
@@ -143,7 +143,7 @@ export class HorarioComponent {
           : servicioSeleccionado,
       );
       localStorage.setItem('servicio', JSON.stringify(servicioSeleccionado));
-      this.servicioService.sedeSeleccionada.set(this.sede?.id);
+      this.servicioService.sedeSeleccionada.set(this.sede?.id ?? DEFAULT_SEDE_ID);
     }
 
     if (valorAbono) {
