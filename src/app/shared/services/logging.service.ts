@@ -28,18 +28,30 @@ export class LoggingService {
   private readonly sessionId = this.getOrCreateSessionId();
 
   log(partial: Pick<LogEntry, 'type' | 'message'> & Partial<LogEntry>): void {
-    const entry: LogEntry = {
-      id: crypto.randomUUID(),
-      ts: new Date().toISOString(),
-      ts_local: new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' }),
-      session: this.sessionId,
-      url: window.location.href,
-      userAgent: navigator.userAgent,
-      ...partial,
-    };
+    try {
+      const entry: LogEntry = {
+        id: this.generateId(),
+        ts: new Date().toISOString(),
+        ts_local: new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' }),
+        session: this.sessionId,
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        ...partial,
+      };
 
-    this.saveToStorage(entry);
-    this.postInBackground(entry);
+      this.saveToStorage(entry);
+      this.postInBackground(entry);
+    } catch {
+      // Logging nunca debe romper el flujo de la app
+    }
+  }
+
+  private generateId(): string {
+    try {
+      return crypto.randomUUID();
+    } catch {
+      return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`;
+    }
   }
 
   exportLogs(): void {

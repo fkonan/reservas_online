@@ -184,6 +184,11 @@ export class DetallePagoComponent {
     }
   });
 
+  private isInAppBrowser(): boolean {
+    const ua = navigator.userAgent;
+    return /FBAN|FBAV|Instagram|WhatsApp|Line\/|MicroMessenger/i.test(ua);
+  }
+
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -192,6 +197,16 @@ export class DetallePagoComponent {
 
     const cita = this.datosCita();
     if (!cita) return;
+
+    if (this.isInAppBrowser()) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Abre en tu navegador',
+        text: 'Para garantizar el proceso de pago, por favor abre este enlace directamente en Safari o Chrome.',
+        confirmButtonText: 'Entendido',
+      });
+      return;
+    }
 
     // Apertura síncrona de la pestaña: requisito de Safari/iOS para preservar el user gesture.
     const popup = window.open('about:blank', '_blank');
@@ -247,10 +262,13 @@ export class DetallePagoComponent {
       },
       error: (err) => {
         if (popup && !popup.closed) popup.close();
+        const isNetworkError = !err.status || err.status === 0;
         Swal.fire({
           icon: 'error',
-          title: 'Error',
-          text: err.error?.message || 'Error al generar el link de pago',
+          title: 'Error al procesar el pago',
+          text: isNetworkError
+            ? 'No se pudo conectar con el servidor. Verifica tu conexión a internet e intenta de nuevo. Si el problema persiste, abre la aplicación directamente en Safari.'
+            : (err.error?.message || 'Error al generar el link de pago'),
         });
       },
     });

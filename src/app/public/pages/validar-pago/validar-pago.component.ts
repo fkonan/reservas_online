@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { ValidarPagoService } from '../../../shared/services/validar-pago.service';
 import { AvisoFinal } from '../../../models/servicio-detalle.model';
@@ -96,8 +97,17 @@ export class ValidarPagoComponent implements OnInit {
         }
         // Si es ACTIVE o PROCESSING seguimos esperando
       },
-      error: () => {
-        // No interrumpir el polling por errores transitorios de red
+      error: (err: HttpErrorResponse) => {
+        const isPermanent =
+          (err.status >= 400 && err.status < 500 && err.status !== 408 && err.status !== 429);
+        if (isPermanent) {
+          this.limpiarInterval();
+          this.pollingTerminado.set(true);
+          this.isValidating.set(false);
+          this.status.set('ERROR');
+          this.mensaje.set('No fue posible verificar tu pago. Por favor contáctanos.');
+        }
+        // status 0, 5xx, 408, 429 → error transitorio, continuar polling
       },
     });
   }
@@ -133,6 +143,8 @@ export class ValidarPagoComponent implements OnInit {
       case 'EXPIRED':
         return 'El link de pago venció. Por favor genera una nueva reserva.';
       case 'TIMEOUT':
+        return this.mensaje();
+      case 'ERROR':
         return this.mensaje();
       default:
         return 'Ocurrió un problema con tu pago. Por favor contáctanos.';

@@ -111,6 +111,7 @@
         @if (status() === 'REJECTED') { Pago rechazado }
         @else if (status() === 'CANCELLED') { Pago cancelado }
         @else if (status() === 'EXPIRED') { Link vencido }
+        @else if (status() === 'ERROR') { Error de validación }
         @else { Tiempo agotado }
       </h4>
 
