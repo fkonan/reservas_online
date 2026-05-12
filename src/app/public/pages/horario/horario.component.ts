@@ -189,7 +189,7 @@ export class HorarioComponent {
     this.mostrarAviso.set(false);
     const datosCita = {
       servicio: this.servicioSeleccionado(),
-      sede: this.sede?.id,
+      sede: this.sede?.id ?? DEFAULT_SEDE_ID,
       fecha: this.selectedDate,
       hora: this.horaSeleccionada(),
       valor_abono: this.valor_abono(),
