@@ -9,6 +9,7 @@ export interface Promocion {
   servicio_id: number;
   tipo_promocion: 'descuento' | 'precio_especial' | 'combo';
   titulo: string;
+  titulo_publico: string | null;
   subtitulo: string | null;
   precio_promocion: number | null;
   porcentaje_descuento: number | null;

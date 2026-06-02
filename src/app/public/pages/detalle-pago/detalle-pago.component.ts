@@ -253,6 +253,7 @@ export class DetallePagoComponent {
 
         if (popupAbierto) {
           popup!.location.href = boldUrl;
+          popup!.focus();
           this.router.navigate(['/validar-pago'], {
             queryParams: { 'bold-order-id': link ?? response.data.transaction_id },
           });

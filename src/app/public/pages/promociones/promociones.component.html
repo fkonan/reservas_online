@@ -59,9 +59,15 @@
             <!-- / servicio -->
 
 
-            <div class="d-flex justify-content-between gap-2 mt-2">
+            <div class="d-flex flex-column flex-md-row-reverse gap-2 mt-2">
+
+              <!-- Imagen -->
+              @if (promo.imagen_url) {
+                <img [src]="promo.imagen_url" [alt]="promo.titulo" class="promo-img" loading="lazy">
+              }
+
               <div class="flex-grow-1">
-                    <p class="" style="letter-spacing: 1px;font-size:18px;font-family: Raleway!important; font-weight: 700; margin-bottom: 0.25rem; color: #1b3e20;">{{ promo.servicio | uppercase }}</p>
+                    <p class="" style="letter-spacing: 1px;font-size:18px;font-family: Raleway!important; font-weight: 700; margin-bottom: 0.25rem; color: #1b3e20;">{{ promo.titulo_publico | uppercase }}</p>
             <!-- Título / servicio -->
               <p class="subtitle mt-2" style="letter-spacing: 1px;font-size:11px; margin-bottom: 0.5rem; color: #5a5755; font-weight: bolder;">{{ promo.titulo | uppercase }}</p>
 
@@ -112,11 +118,6 @@
                 <p class="promo-vigencia mt-1">Válido hasta: {{ promo.fecha_fin }}</p>
 
               </div>
-
-              <!-- Imagen -->
-              @if (promo.imagen_url) {
-                <img [src]="promo.imagen_url" [alt]="promo.titulo" class="promo-img" loading="lazy">
-              }
 
             </div>
           </div>

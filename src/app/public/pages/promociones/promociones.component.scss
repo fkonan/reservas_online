@@ -104,18 +104,18 @@
 }
 
 .promo-img {
-  width: 155px;
+  width: 100%;
+  aspect-ratio: 2 / 4;
   object-fit: cover;
-  object-position: center;
+  object-position: top;
   flex-shrink: 0;
-  align-self: stretch;
-
-  @media (min-width: 576px) {
-    width: 180px;
-  }
 
   @media (min-width: 768px) {
     width: 200px;
+    aspect-ratio: unset;
+    height: auto;
+    align-self: stretch;
+    object-position: center;
   }
 }
 
